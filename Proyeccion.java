@@ -49,7 +49,7 @@ public class Proyeccion {
 
     @Override
     public String toString() {
-        return "Proyeccion: " + codigoProyeccion + " | Proyecta " + pelicula.getTitulo()
+        return "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()
                 + " de "
                 + horaInicio + " a " + horaFin;
     }

@@ -8,13 +8,17 @@ public class Sala {
     private ArrayList<Proyeccion> proyecciones;
 
     public Sala(int capacidad, ArrayList<Proyeccion> proyecciones) {
+        setId();
         this.capacidad = capacidad;
         this.proyecciones = proyecciones;
+        cantidadSalas++;
     }
 
     public Sala(int capacidad) {
+        setId();
         this.capacidad = capacidad;
         this.proyecciones = new ArrayList<>();
+        cantidadSalas++;
     }
 
     public void agregarProyeccion(Proyeccion nuevaProyeccion) {
@@ -47,8 +51,13 @@ public class Sala {
 
     @Override
     public String toString() {
-        return "Sala: " + id + " | Tiene capacidad de " + capacidad + " personas, y tiene las siguientes proyecciones\n"
-                + proyecciones;
+        String salaMostrar = "Sala: " + id + " | Tiene capacidad de " + capacidad
+                + " personas, proyecta:\n";
+
+        for (Proyeccion proyeccion : proyecciones) {
+            salaMostrar += " " + proyeccion + "\n";
+        }
+        return salaMostrar;
     }
 
 }
