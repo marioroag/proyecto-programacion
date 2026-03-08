@@ -20,6 +20,25 @@ public class Cine {
         cantidadCines++;
     }
 
+    // [ Metodos ]
+    /**
+     * Busca una sala dentro del cine usando su id
+     * 
+     * @param idSala ID a buscar
+     * @return Sala encontrada, null si no se encontró
+     */
+    public Sala buscarSala(String idSala) {
+        Sala salaBuscar = null;
+
+        for (Sala sala : salas) {
+            if (idSala.equals(sala.getId())) {
+                salaBuscar = sala;
+            }
+        }
+
+        return salaBuscar;
+    }
+
     // [ Getters y Setters ]
     public void agregarSala(Sala nuevaSala) {
         this.salas.add(nuevaSala);
