@@ -1,6 +1,7 @@
 import java.time.LocalTime;
 
 public class Proyeccion {
+    // [ Atributos ]
     private static int cantidadProyecciones = 1;
 
     private String codigoProyeccion;
@@ -8,6 +9,7 @@ public class Proyeccion {
     private LocalTime horaInicio;
     private LocalTime horaFin;
 
+    // [ Constructores ]
     public Proyeccion(Pelicula pelicula, String horaInicio, String horaFin) {
         setCodigoProyeccion();
         this.pelicula = pelicula;
@@ -17,6 +19,7 @@ public class Proyeccion {
         cantidadProyecciones++;
     }
 
+    // [ Getters y Setters ]
     public String getCodigoProyeccion() {
         return codigoProyeccion;
     }
@@ -49,6 +52,7 @@ public class Proyeccion {
         this.horaFin = horaFin;
     }
 
+    // [ toString ]
     @Override
     public String toString() {
         return "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()

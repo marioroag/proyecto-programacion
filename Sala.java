@@ -2,12 +2,14 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Sala {
+    // [ Atributos ]
     private static int cantidadSalas = 1;
 
     private String id; // 1, 2, 3
     private int capacidad;
     private ArrayList<Proyeccion> proyecciones;
 
+    // [ Constructores ]
     public Sala(int capacidad, ArrayList<Proyeccion> proyecciones) {
         setId();
         this.capacidad = capacidad;
@@ -22,6 +24,7 @@ public class Sala {
         cantidadSalas++;
     }
 
+    // [ Métodos ]
     /**
      * Agrega una nueva proyeccion a la sala
      * 
@@ -31,10 +34,12 @@ public class Sala {
         this.proyecciones.add(nuevaProyeccion);
     }
 
-    // Es muy importante que en todo momento podamos saber si una sala está
-    // disponible o no. Por eso, solicitamos que el sistema pueda comprobar
-    // automáticamente, en función de la hora actual, si una sala está ocupada por
-    // alguna proyección en curso.
+    /**
+     * Devuelve un booleano que indica si la sala esta ocupada (true) o no (false)
+     * en el momento de ejecución del método usando LocalTime
+     * 
+     * @return booleano
+     */
     public boolean estaOcupada() {
         boolean salaOcupada = false;
         LocalTime horaActual = LocalTime.now();
@@ -49,6 +54,7 @@ public class Sala {
         return salaOcupada;
     }
 
+    // [ Getters y Setters ]
     public String getId() {
         return id;
     }
@@ -73,6 +79,7 @@ public class Sala {
         this.proyecciones = proyecciones;
     }
 
+    // [ toString ]
     @Override
     public String toString() {
         String salaMostrar = "Sala: " + id + " | Tiene capacidad de " + capacidad
@@ -81,6 +88,7 @@ public class Sala {
         for (Proyeccion proyeccion : proyecciones) {
             salaMostrar += " " + proyeccion + "\n";
         }
+
         return salaMostrar;
     }
 

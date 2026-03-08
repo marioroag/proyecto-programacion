@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Cine {
+    // [ Atributos ]
     private static int cantidadCines = 1;
     private String codigo; // C-1
     private String nombre;
@@ -8,6 +9,7 @@ public class Cine {
     private String pais; // ES, FR, US
     private ArrayList<Sala> salas;
 
+    // [ Constructores ]
     public Cine(String nombre, String ciudad, String pais) {
         setCodigo();
         this.nombre = nombre;
@@ -18,6 +20,7 @@ public class Cine {
         cantidadCines++;
     }
 
+    // [ Getters y Setters ]
     public void agregarSala(Sala nuevaSala) {
         this.salas.add(nuevaSala);
     }
@@ -62,6 +65,7 @@ public class Cine {
         this.salas = salas;
     }
 
+    // [ toString ]
     @Override
     public String toString() {
         String cineMostrar = "[ " + nombre + " " + codigo + " ]\n" + pais + ", " + ciudad + "\n[ Salas ]";
