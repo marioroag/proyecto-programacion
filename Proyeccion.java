@@ -1,16 +1,18 @@
+import java.time.LocalTime;
+
 public class Proyeccion {
     private static int cantidadProyecciones = 1;
 
     private String codigoProyeccion;
     private Pelicula pelicula;
-    private String horaInicio;
-    private String horaFin;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
 
     public Proyeccion(Pelicula pelicula, String horaInicio, String horaFin) {
         setCodigoProyeccion();
         this.pelicula = pelicula;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
+        this.horaInicio = LocalTime.parse(horaInicio);
+        this.horaFin = LocalTime.parse(horaFin);
 
         cantidadProyecciones++;
     }
@@ -31,19 +33,19 @@ public class Proyeccion {
         this.pelicula = pelicula;
     }
 
-    public String getHoraInicio() {
+    public LocalTime getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(String horaInicio) {
+    public void setHoraInicio(LocalTime horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public String getHoraFin() {
+    public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(String horaFin) {
+    public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
     }
 

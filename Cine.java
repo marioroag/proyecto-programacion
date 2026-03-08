@@ -64,10 +64,10 @@ public class Cine {
 
     @Override
     public String toString() {
-        String cineMostrar = "[ " + nombre + " " + codigo + " ]\n" + pais + ", " + ciudad + "\n[ Salas ]\n";
+        String cineMostrar = "[ " + nombre + " " + codigo + " ]\n" + pais + ", " + ciudad + "\n[ Salas ]";
 
         for (Sala sala : salas) {
-            cineMostrar += sala + "\n";
+            cineMostrar += "\n" + sala;
         }
 
         return cineMostrar;

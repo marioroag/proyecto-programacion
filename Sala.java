@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Sala {
@@ -21,8 +22,31 @@ public class Sala {
         cantidadSalas++;
     }
 
+    /**
+     * Agrega una nueva proyeccion a la sala
+     * 
+     * @param nuevaProyeccion Proyeccion a añadir
+     */
     public void agregarProyeccion(Proyeccion nuevaProyeccion) {
         this.proyecciones.add(nuevaProyeccion);
+    }
+
+    // Es muy importante que en todo momento podamos saber si una sala está
+    // disponible o no. Por eso, solicitamos que el sistema pueda comprobar
+    // automáticamente, en función de la hora actual, si una sala está ocupada por
+    // alguna proyección en curso.
+    public boolean estaOcupada() {
+        boolean salaOcupada = false;
+        LocalTime horaActual = LocalTime.now();
+
+        for (Proyeccion proyeccion : proyecciones) {
+            if (horaActual.isAfter(proyeccion.getHoraInicio()) &&
+                    horaActual.isBefore(proyeccion.getHoraFin())) {
+                salaOcupada = true;
+            }
+        }
+
+        return salaOcupada;
     }
 
     public String getId() {
