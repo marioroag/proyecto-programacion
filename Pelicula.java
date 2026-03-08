@@ -2,10 +2,10 @@ public class Pelicula {
     // [ Atributos ]
     private static int cantidadPeliculas = 1;
 
-    private String codigo; // 1, 2, 3
+    private String codigo;
     private String titulo;
-    private int duracion; // minutos
-    private String clasificacionEdad; // +12, +16
+    private int duracion;
+    private String clasificacionEdad;
     private String genero; // todo: ArrayList de generos validos
 
     // [ Constructores ]

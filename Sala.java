@@ -5,7 +5,7 @@ public class Sala {
     // [ Atributos ]
     private static int cantidadSalas = 1;
 
-    private String id; // 1, 2, 3
+    private String id;
     private int capacidad;
     private ArrayList<Proyeccion> proyecciones;
 
@@ -25,10 +25,6 @@ public class Sala {
     }
 
     // [ Métodos ]
-    // Es fundamental que el sistema impida que una misma sala
-    // tenga dos proyecciones simultáneas o que se solapen en el tiempo
-    // Por tanto, necesitamos que el sistema nos avise claramente cuando intentemos
-    // realizar una programación incorrecta, informándonos del motivo.
     /**
      * Agrega una nueva proyeccion a la sala comprobando si no se solapa con alguna
      * ya existente
@@ -55,6 +51,10 @@ public class Sala {
         }
 
         return codigoError;
+    }
+
+    public void cancelarProyeccion(String codigoProyeccion) {
+        
     }
 
     /**

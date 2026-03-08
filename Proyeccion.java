@@ -49,16 +49,16 @@ public class Proyeccion {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = LocalTime.parse(horaInicio);
     }
 
     public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(LocalTime horaFin) {
-        this.horaFin = horaFin;
+    public void setHoraFin(String horaFin) {
+        this.horaFin = LocalTime.parse(horaFin);
     }
 
     // [ toString ]

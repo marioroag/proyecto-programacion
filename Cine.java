@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class Cine {
     // [ Atributos ]
     private static int cantidadCines = 1;
-    private String codigo; // C-1
+    private String codigo;
     private String nombre;
     private String ciudad;
-    private String pais; // ES, FR, US
+    private String pais;
     private ArrayList<Sala> salas;
 
     // [ Constructores ]
