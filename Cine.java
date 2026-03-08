@@ -21,6 +21,10 @@ public class Cine {
     }
 
     // [ Metodos ]
+    public void agregarSala(Sala nuevaSala) {
+        this.salas.add(nuevaSala);
+    }
+
     /**
      * Busca una sala dentro del cine usando su id
      * 
@@ -40,9 +44,6 @@ public class Cine {
     }
 
     // [ Getters y Setters ]
-    public void agregarSala(Sala nuevaSala) {
-        this.salas.add(nuevaSala);
-    }
 
     public String getCodigo() {
         return codigo;

@@ -25,13 +25,36 @@ public class Sala {
     }
 
     // [ Métodos ]
+    // Es fundamental que el sistema impida que una misma sala
+    // tenga dos proyecciones simultáneas o que se solapen en el tiempo
+    // Por tanto, necesitamos que el sistema nos avise claramente cuando intentemos
+    // realizar una programación incorrecta, informándonos del motivo.
     /**
-     * Agrega una nueva proyeccion a la sala
+     * Agrega una nueva proyeccion a la sala comprobando si no se solapa con alguna
+     * ya existente
      * 
      * @param nuevaProyeccion Proyeccion a añadir
+     * @return Número de error para posteriormente imprimir un mensaje customizado
+     *         en el programa
      */
-    public void agregarProyeccion(Proyeccion nuevaProyeccion) {
-        this.proyecciones.add(nuevaProyeccion);
+    public int agregarProyeccion(Proyeccion nuevaProyeccion) {
+        int codigoError = 0;
+        boolean conflicto = false;
+
+        for (Proyeccion proyeccion : proyecciones) {
+            if (nuevaProyeccion.getHoraInicio().isBefore(proyeccion.getHoraFin()) &&
+                    nuevaProyeccion.getHoraFin().isAfter(proyeccion.getHoraInicio())) {
+                conflicto = true;
+            }
+        }
+
+        if (conflicto) {
+            codigoError = 1;
+        } else {
+            proyecciones.add(nuevaProyeccion);
+        }
+
+        return codigoError;
     }
 
     /**
