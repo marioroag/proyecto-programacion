@@ -1,11 +1,14 @@
 public class Pelicula {
+    private static int cantidadPeliculas = 1;
+
     private String codigo; // 1, 2, 3
     private String titulo;
     private int duracion; // minutos
     private String clasificacionEdad; // +12, +16
-    private String genero;
+    private String genero; // todo: ArrayList de generos validos
 
     public Pelicula(String titulo, int duracion, String clasificacionEdad, String genero) {
+        setCodigo();
         this.titulo = titulo;
         this.duracion = duracion;
         this.clasificacionEdad = clasificacionEdad;
@@ -16,8 +19,8 @@ public class Pelicula {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodigo() {
+        this.codigo = "PEL-" + cantidadPeliculas;
     }
 
     public String getTitulo() {
@@ -54,7 +57,7 @@ public class Pelicula {
 
     @Override
     public String toString() {
-        return codigo + " | " + titulo + ", dura " + duracion + "m y está clasificada para personas "
+        return "Pelicula: " + codigo + " | " + titulo + ", dura " + duracion + "m y está clasificada para personas "
                 + clasificacionEdad + " | Generos: " + genero;
     }
 
