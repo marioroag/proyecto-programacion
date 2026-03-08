@@ -53,8 +53,33 @@ public class Sala {
         return codigoError;
     }
 
+    /**
+     * Recibe el codigo de una proyeccion, la busca en la sala usando
+     * buscarProyeccion() y la elimina de la lista de proyecciones
+     * 
+     * @param codigoProyeccion Codigo de la proyeccion a buscar
+     */
     public void cancelarProyeccion(String codigoProyeccion) {
-        
+        Proyeccion proyeccionEliminar = buscarProyeccion(codigoProyeccion);
+        proyecciones.remove(proyeccionEliminar);
+    }
+
+    /**
+     * Busca una proyeccion dentro de la sala usando su codigo
+     * 
+     * @param codigoProyeccion
+     * @return
+     */
+    public Proyeccion buscarProyeccion(String codigoProyeccion) {
+        Proyeccion proyeccionBuscar = null;
+
+        for (Proyeccion proyeccion : proyecciones) {
+            if (codigoProyeccion.equals(proyeccion.getCodigoProyeccion())) {
+                proyeccionBuscar = proyeccion;
+            }
+        }
+
+        return proyeccionBuscar;
     }
 
     /**

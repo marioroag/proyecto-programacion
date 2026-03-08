@@ -21,12 +21,17 @@ public class Cine {
     }
 
     // [ Metodos ]
+    /**
+     * Agrega una nueva sala al cine
+     * 
+     * @param nuevaSala Sala
+     */
     public void agregarSala(Sala nuevaSala) {
         this.salas.add(nuevaSala);
     }
 
     /**
-     * Busca una sala dentro del cine usando su id
+     * Busca una sala dentro del cine usando su ID
      * 
      * @param idSala ID a buscar
      * @return Sala encontrada, null si no se encontró

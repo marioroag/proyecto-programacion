@@ -62,7 +62,7 @@ public class Main {
                     System.out.println("Pelicula añadida correctamente.");
                 }
             } else if (opcionMenu == 5) { // Cancelar proyeccion
-
+                sala1.cancelarProyeccion("PRO-2");
             }
 
         } while (opcionMenu != 0);
