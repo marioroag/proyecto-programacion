@@ -13,6 +13,15 @@ public class Proyeccion {
     public Proyeccion(Pelicula pelicula, String horaInicio, String horaFin) {
         setCodigoProyeccion();
         this.pelicula = pelicula;
+
+        // Arregla el formato H:MM a HH:MM para que las funciones de LocalTime funcionen
+        if (horaInicio.length() == 4) {
+            horaInicio = "0" + horaInicio;
+        }
+        if (horaFin.length() == 4) {
+            horaFin = "0" + horaFin;
+        }
+
         this.horaInicio = LocalTime.parse(horaInicio);
         this.horaFin = LocalTime.parse(horaFin);
 
