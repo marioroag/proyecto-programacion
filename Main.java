@@ -17,33 +17,36 @@ public class Main {
         Sala sala1 = new Sala(100);
         sala1.agregarProyeccion(proyeccion1);
         sala1.agregarProyeccion(proyeccion2);
-        sala1.agregarProyeccion(proyeccion3);
         // System.out.println(sala1);
+
+        Sala sala2 = new Sala(100);
+        sala2.agregarProyeccion(proyeccion1);
+        sala2.agregarProyeccion(proyeccion3);
 
         Cine cineStem = new Cine("Cine STEM", "Granada", "España");
         cineStem.agregarSala(sala1);
+        cineStem.agregarSala(sala2);
         System.out.println(cineStem);
 
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<String> opcionesMenu = new ArrayList<>(
-                Arrays.asList("Salir", "Cambiar datos del cine", "Ver salas de cine",
-                        "Comprobar disponibildidad de sala", "Programar pelicula", "Cancelar proyeccion"));
+                Arrays.asList("Salir", "Informacion del cine", "Ver salas de cine",
+                        "Comprobar disponibilidad de sala", "Programar pelicula", "Cancelar proyeccion"));
 
         int opcionMenu;
 
         do {
             opcionMenu = leerOpcionMenu(scanner, opcionesMenu);
-
             if (opcionMenu == 0) { // Salir
-                imprimirMensaje("Saliendo del programa...");
-            } else if (opcionMenu == 1) { // Cambiar datos del cine
                 cineStem.setCiudad("Granada");
                 cineStem.setPais("Japon");
                 cineStem.setNombre("STEMOS");
-            } else if (opcionMenu == 2) { // Mostrar salas
+            } else if (opcionMenu == 1) { // Informacion del cine
                 System.out.println(cineStem);
-            } else if (opcionMenu == 3) { // Comprobar disponibildidad de sala
+            } else if (opcionMenu == 2) { // Mostrar salas
+                System.out.println(cineStem.mostrarSalas());
+            } else if (opcionMenu == 3) { // Comprobar disponibilidad de la sala
                 System.out.println(sala1.estaOcupada());
             } else if (opcionMenu == 4) { // Programar pelicula
                 System.out.println("No se agrega por solapacion con 10:30, 11:40");
@@ -64,11 +67,14 @@ public class Main {
             } else if (opcionMenu == 5) { // Cancelar proyeccion
                 sala1.cancelarProyeccion("PRO-2");
             }
-
         } while (opcionMenu != 0);
 
         scanner.close();
     }
+
+    // =================
+    // = [ FUNCIONES ] =
+    // =================
 
     static void imprimirPrompt(String mensaje) {
         System.out.print(mensaje);
@@ -86,6 +92,19 @@ public class Main {
         return opcionValor >= 0 && opcionValor <= max;
     }
 
+    public static String leerTexto(Scanner scanner, String mensaje) {
+        String texto;
+        do {
+            imprimirPrompt(mensaje);
+            texto = scanner.nextLine().trim();
+            if (texto.isEmpty()) {
+                imprimirMensaje("No puede estar vacío");
+            }
+        } while (texto.isEmpty());
+
+        return texto;
+    }
+
     public static int leerInt(Scanner scanner, String mensaje) {
         int num = -1;
         boolean intValido = false;
@@ -101,6 +120,18 @@ public class Main {
                 scanner.nextLine(); // limpiar buffer
             }
         } while (!intValido);
+
+        return num;
+    }
+
+    public static int leerIntPositivo(Scanner scanner, String mensaje) {
+        int num;
+        do {
+            num = leerInt(scanner, mensaje);
+            if (num <= 0) {
+                imprimirMensaje("Debe ser mayor que 0");
+            }
+        } while (num <= 0);
 
         return num;
     }

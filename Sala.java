@@ -130,10 +130,17 @@ public class Sala {
     // [ toString ]
     @Override
     public String toString() {
-        String salaMostrar = "Sala: " + id + " | Tiene capacidad de " + capacidad
-                + " personas, proyecta:\n";
+        String ocupada = "LIBRE";
+
+        if (estaOcupada()) {
+            ocupada = "OCUPADA";
+        }
+
+        String salaMostrar = ocupada + ": " + id + " | Tiene capacidad de " + capacidad
+                + " personas:\n";
 
         for (Proyeccion proyeccion : proyecciones) {
+
             salaMostrar += " " + proyeccion + "\n";
         }
 

@@ -48,6 +48,21 @@ public class Cine {
         return salaBuscar;
     }
 
+    /**
+     * Muestra todas las salas del cine
+     * 
+     * @return String
+     */
+    public String mostrarSalas() {
+        String mensajeSalas = "";
+
+        for (Sala sala : salas) {
+            mensajeSalas += sala;
+        }
+
+        return mensajeSalas;
+    }
+
     // [ Getters y Setters ]
 
     public String getCodigo() {
