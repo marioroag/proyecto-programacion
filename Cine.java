@@ -8,6 +8,7 @@ public class Cine {
     private String ciudad;
     private String pais;
     private ArrayList<Sala> salas;
+    // TODO: añadir arraylist de peliculas que tiene el cine
 
     // [ Constructores ]
     public Cine(String nombre, String ciudad, String pais) {
@@ -21,6 +22,16 @@ public class Cine {
     }
 
     // [ Metodos ]
+    public String mostrarCineCompleto() {
+        String cineMostrar = "[ " + nombre + " " + codigo + " ]\n" + pais + ", " + ciudad + "\n[ Salas ]";
+
+        for (Sala sala : salas) {
+            cineMostrar += "\n" + sala;
+        }
+
+        return cineMostrar;
+    }
+
     /**
      * Agrega una nueva sala al cine
      * 
@@ -108,11 +119,8 @@ public class Cine {
     // [ toString ]
     @Override
     public String toString() {
-        String cineMostrar = "[ " + nombre + " " + codigo + " ]\n" + pais + ", " + ciudad + "\n[ Salas ]";
-
-        for (Sala sala : salas) {
-            cineMostrar += "\n" + sala;
-        }
+        String cineMostrar = "[ " + nombre + ", " + codigo + " ]\n" + pais + ", " + ciudad + ", " + salas.size()
+                + " salas.";
 
         return cineMostrar;
     }

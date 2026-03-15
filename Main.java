@@ -30,23 +30,28 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Menú Principal
-        // 1. Gestionar Cines
-        // 2. Gestionar Salas
-        // 3. Gestionar Películas
-        // 4. Gestionar Clientes
-        // 5. Salir
+        int opcionMenu, opcionCines;
+
         ArrayList<String> opcionesMenu = new ArrayList<>(
                 Arrays.asList("Gestionar Cines", "Gestionar Salas", "Gestionar Películas",
                         "Gestionar Clientes", "Salir"));
+        ArrayList<String> opcionesCines = new ArrayList<>(
+                Arrays.asList("Ver detalles del cine", "Volver al menú principal"));
 
-        int opcionMenu;
 
         do {
-            opcionMenu = leerOpcionMenu(scanner, opcionesMenu);
-            if (opcionMenu == 0) { // Gestionar Cines
-            } else if (opcionMenu == 1) { // Gestionar Salas
-            } else if (opcionMenu == 2) { // Gestionar Películas
+            opcionMenu = leerOpcionMenu(scanner, opcionesMenu, "GESTIÓN CINE");
+            if (opcionMenu == 1) { // Gestionar Cines
+                opcionCines = leerOpcionMenu(scanner, opcionesCines, cineStem.getNombre());
+                if (opcionCines == 1) { // Ver detalles cine
+                    System.out.println(cineStem);
+                } else if (opcionCines == 2) { // Volver al menú principal
+                    System.out.println("Volviendo al menú principal..");
+                }
+
+            } else if (opcionMenu == 2) { // Gestionar Salas
+
+            } else if (opcionMenu == 3) { // Gestionar Películas
                 System.out.println("No se agrega por solapacion con 10:30, 11:40");
                 Proyeccion proyeccion4 = new Proyeccion(pelicula3, "9:00", "11:00");
                 if (sala1.agregarProyeccion(proyeccion4) == 1) {
@@ -135,17 +140,17 @@ public class Main {
         return num;
     }
 
-    public static void mostrarMenu(ArrayList<String> opciones) {
-        imprimirMensaje("\n--- MENÚ ---");
+    public static void mostrarMenu(ArrayList<String> opciones, String cabecera) {
+        imprimirMensaje("\n--- " + cabecera + " ---");
         for (int i = 0; i < opciones.size(); i++) {
             imprimirMensaje((i + 1) + ". " + opciones.get(i));
         }
     }
 
-    public static int leerOpcionMenu(Scanner scanner, ArrayList<String> menu) {
+    public static int leerOpcionMenu(Scanner scanner, ArrayList<String> menu, String cabecera) {
         int opcion;
         do {
-            mostrarMenu(menu);
+            mostrarMenu(menu, cabecera);
             opcion = leerInt(scanner, "Opción: ");
             if (!validarOpcion(opcion, menu.size())) {
                 imprimirMensaje("Opción fuera de rango");
