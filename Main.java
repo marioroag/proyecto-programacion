@@ -11,7 +11,7 @@ public class Main {
 
         Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", "15:40");
         Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30", "18:40");
-        Proyeccion proyeccion3 = new Proyeccion(pelicula3, "10:30", "11:40");
+        Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", "11:40");
         // System.out.println(proyeccion1);
 
         Sala sala1 = new Sala(100);
@@ -30,25 +30,23 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        // Menú Principal
+        // 1. Gestionar Cines
+        // 2. Gestionar Salas
+        // 3. Gestionar Películas
+        // 4. Gestionar Clientes
+        // 5. Salir
         ArrayList<String> opcionesMenu = new ArrayList<>(
-                Arrays.asList("Salir", "Informacion del cine", "Ver salas de cine",
-                        "Comprobar disponibilidad de sala", "Programar pelicula", "Cancelar proyeccion"));
+                Arrays.asList("Gestionar Cines", "Gestionar Salas", "Gestionar Películas",
+                        "Gestionar Clientes", "Salir"));
 
         int opcionMenu;
 
         do {
             opcionMenu = leerOpcionMenu(scanner, opcionesMenu);
-            if (opcionMenu == 0) { // Salir
-                cineStem.setCiudad("Granada");
-                cineStem.setPais("Japon");
-                cineStem.setNombre("STEMOS");
-            } else if (opcionMenu == 1) { // Informacion del cine
-                System.out.println(cineStem);
-            } else if (opcionMenu == 2) { // Mostrar salas
-                System.out.println(cineStem.mostrarSalas());
-            } else if (opcionMenu == 3) { // Comprobar disponibilidad de la sala
-                System.out.println(sala1.estaOcupada());
-            } else if (opcionMenu == 4) { // Programar pelicula
+            if (opcionMenu == 0) { // Gestionar Cines
+            } else if (opcionMenu == 1) { // Gestionar Salas
+            } else if (opcionMenu == 2) { // Gestionar Películas
                 System.out.println("No se agrega por solapacion con 10:30, 11:40");
                 Proyeccion proyeccion4 = new Proyeccion(pelicula3, "9:00", "11:00");
                 if (sala1.agregarProyeccion(proyeccion4) == 1) {
@@ -64,10 +62,11 @@ public class Main {
                 } else {
                     System.out.println("Pelicula añadida correctamente.");
                 }
-            } else if (opcionMenu == 5) { // Cancelar proyeccion
+            } else if (opcionMenu == 4) { // Gestionar Clientes
+            } else if (opcionMenu == 5) { // Salir
                 sala1.cancelarProyeccion("PRO-2");
             }
-        } while (opcionMenu != 0);
+        } while (opcionMenu != opcionesMenu.size());
 
         scanner.close();
     }
@@ -89,7 +88,7 @@ public class Main {
     }
 
     public static boolean validarOpcion(int opcionValor, int max) {
-        return opcionValor >= 0 && opcionValor <= max;
+        return opcionValor >= 1 && opcionValor <= max;
     }
 
     public static String leerTexto(Scanner scanner, String mensaje) {
@@ -139,7 +138,7 @@ public class Main {
     public static void mostrarMenu(ArrayList<String> opciones) {
         imprimirMensaje("\n--- MENÚ ---");
         for (int i = 0; i < opciones.size(); i++) {
-            imprimirMensaje(i + ". " + opciones.get(i));
+            imprimirMensaje((i + 1) + ". " + opciones.get(i));
         }
     }
 
@@ -148,10 +147,10 @@ public class Main {
         do {
             mostrarMenu(menu);
             opcion = leerInt(scanner, "Opción: ");
-            if (!validarOpcion(opcion, menu.size() - 1)) {
+            if (!validarOpcion(opcion, menu.size())) {
                 imprimirMensaje("Opción fuera de rango");
             }
-        } while (!validarOpcion(opcion, menu.size() - 1));
+        } while (!validarOpcion(opcion, menu.size()));
 
         return opcion;
     }
