@@ -106,8 +106,10 @@ public class Main {
 
                                     salaAniadirPro.agregarProyeccion(proyeccionAniadir);
 
+                                } else {
+                                    System.out.println(
+                                            "No se ha encontrado una pelicula con ese ID, vuelva a intentarlo.");
                                 }
-
                             } else {
                                 System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
                             }
@@ -117,6 +119,26 @@ public class Main {
                         }
 
                     } else if (opcionMenuSalas == 4) { // Cancelar proyección
+
+                        String idSalaAniadirPro = leerTexto(scanner,
+                                "ID de la sala en la que cancelar una proyección: ");
+                        Sala salaAniadirPro = cineStem.buscarSala(idSalaAniadirPro);
+
+                        // Se encontro una sala?
+                        if (salaAniadirPro != null) {
+                            System.out.println("[ VISTA SALA ACTUAL ]\n" + salaAniadirPro);
+                            String idProyeccion = leerTexto(scanner, "ID de la proyeccion a cancelar: ");
+
+                            if (salaAniadirPro.buscarProyeccion(idProyeccion) != null) {
+                                salaAniadirPro.cancelarProyeccion(idProyeccion);
+                            } else {
+                                System.out.println(
+                                        "No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.");
+                            }
+
+                        } else {
+                            System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
+                        }
                     } else if (opcionMenuSalas == 5) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
                     }
