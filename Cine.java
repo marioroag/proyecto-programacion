@@ -39,15 +39,15 @@ public class Cine {
     }
 
     /**
-     * Muestra los datos del cine con los datos de sus salas y sus proyecciones
+     * Muestra las peliculas del cine
      * 
      * @return
      */
     public String mostarPeliculas() {
-        String peliculasMostrar = "[ Peliculas ]";
+        String peliculasMostrar = "[ Peliculas Disponibles ]";
 
         for (Pelicula pelicula : peliculas) {
-            peliculasMostrar += "\n" + pelicula;
+            peliculasMostrar += "\n" + pelicula.getCodigo() + " | " + pelicula.getTitulo();
         }
 
         return peliculasMostrar;

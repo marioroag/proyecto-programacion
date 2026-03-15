@@ -179,9 +179,11 @@ public class Main {
                 opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "GESTIÓN CINE");
 
                 if (opcionMenuPeliculas == 1) { // Listar películas
-                    System.out.println(cineStem.mostarPeliculas());
-
+                    if (cineStem.getPeliculas().size() > 0) {
+                        System.out.println(cineStem.mostarPeliculas());
+                    }
                 } else if (opcionMenuPeliculas == 2) { // Ver detalles de una pelicula
+
                 } else if (opcionMenuPeliculas == 2) { // Ver proyecciones de una película
                 } else if (opcionMenuPeliculas == 2) { // Volver al menú principal
                     System.out.println("Volviendo al menú principal..");
@@ -206,7 +208,7 @@ public class Main {
                 // }
             } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
             } else if (opcionMenuPrincipal == 5) { // Salir
-                sala1.cancelarProyeccion("PRO-2");
+                System.out.println("Saliendo del programa..");
             }
         } while (opcionMenuPrincipal != opcionesMenu.size());
 
