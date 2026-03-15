@@ -9,8 +9,8 @@ public class Main {
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
         // System.out.println(pelicula1);
 
-        Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", "15:40");
-        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30", "18:40");
+        Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", "16:40");
+        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:40", "18:40");
         Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", "11:40");
         // System.out.println(proyeccion1);
 
@@ -30,28 +30,59 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        int opcionMenu, opcionCines;
+        int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas;
 
         ArrayList<String> opcionesMenu = new ArrayList<>(
-                Arrays.asList("Gestionar Cines", "Gestionar Salas", "Gestionar Películas",
+                Arrays.asList("Gestionar Cine", "Gestionar Salas", "Gestionar Películas",
                         "Gestionar Clientes", "Salir"));
+
         ArrayList<String> opcionesCines = new ArrayList<>(
                 Arrays.asList("Ver detalles del cine", "Volver al menú principal"));
 
+        ArrayList<String> opcionesSalas = new ArrayList<>(
+                Arrays.asList("Listar salas de un cine", "Consultar disponibilidad de una sala",
+                        "Programar película en una sala", "Cancelar proyección", "Volver al menú principal"));
 
         do {
-            opcionMenu = leerOpcionMenu(scanner, opcionesMenu, "GESTIÓN CINE");
-            if (opcionMenu == 1) { // Gestionar Cines
-                opcionCines = leerOpcionMenu(scanner, opcionesCines, cineStem.getNombre());
-                if (opcionCines == 1) { // Ver detalles cine
+            opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, cineStem.getNombre());
+
+            if (opcionMenuPrincipal == 1) { // Gestionar Cine
+                opcionMenuCine = leerOpcionMenu(scanner, opcionesCines, "GESTIÓN CINE");
+
+                if (opcionMenuCine == 1) { // Ver detalles cine
                     System.out.println(cineStem);
-                } else if (opcionCines == 2) { // Volver al menú principal
+                } else if (opcionMenuCine == 2) { // Volver al menú principal
                     System.out.println("Volviendo al menú principal..");
                 }
 
-            } else if (opcionMenu == 2) { // Gestionar Salas
+            } else if (opcionMenuPrincipal == 2) { // Gestionar Salas
+                do {
+                    opcionMenuSalas = leerOpcionMenu(scanner, opcionesSalas, "GESTIÓN SALAS");
 
-            } else if (opcionMenu == 3) { // Gestionar Películas
+                    if (opcionMenuSalas == 1) { // Listar salas de un cine
+                        System.out.println(cineStem.mostrarSalas());
+
+                    } else if (opcionMenuSalas == 2) { // Consultar disponibilidad de una sala
+                        String idSala = leerTexto(scanner, "ID de la sala a consultar: ");
+                        Sala salaComprobar = cineStem.buscarSala(idSala);
+
+                        if (salaComprobar != null) {
+                            if (salaComprobar.estaOcupada()) {
+                                System.out.println("La sala " + idSala + " está ocupada.");
+                            } else {
+                                System.out.println("La sala " + idSala + " está libre.");
+                            }
+                        }
+
+                    } else if (opcionMenuSalas == 3) { // Programar película en una sala
+                    } else if (opcionMenuSalas == 4) { // Cancelar proyección
+                    } else if (opcionMenuSalas == 5) { // Volver al menú principal
+                        System.out.println("Volviendo al menú principal..");
+                    }
+
+                } while (opcionMenuSalas != opcionesMenu.size());
+
+            } else if (opcionMenuPrincipal == 3) { // Gestionar Películas
                 System.out.println("No se agrega por solapacion con 10:30, 11:40");
                 Proyeccion proyeccion4 = new Proyeccion(pelicula3, "9:00", "11:00");
                 if (sala1.agregarProyeccion(proyeccion4) == 1) {
@@ -67,11 +98,11 @@ public class Main {
                 } else {
                     System.out.println("Pelicula añadida correctamente.");
                 }
-            } else if (opcionMenu == 4) { // Gestionar Clientes
-            } else if (opcionMenu == 5) { // Salir
+            } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
+            } else if (opcionMenuPrincipal == 5) { // Salir
                 sala1.cancelarProyeccion("PRO-2");
             }
-        } while (opcionMenu != opcionesMenu.size());
+        } while (opcionMenuPrincipal != opcionesMenu.size());
 
         scanner.close();
     }
