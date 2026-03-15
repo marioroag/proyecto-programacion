@@ -39,6 +39,21 @@ public class Cine {
     }
 
     /**
+     * Muestra los datos del cine con los datos de sus salas y sus proyecciones
+     * 
+     * @return
+     */
+    public String mostarPeliculas() {
+        String peliculasMostrar = "[ Peliculas ]";
+
+        for (Pelicula pelicula : peliculas) {
+            peliculasMostrar += "\n" + pelicula;
+        }
+
+        return peliculasMostrar;
+    }
+
+    /**
      * Agrega una nueva sala al cine
      * 
      * @param nuevaSala Sala
