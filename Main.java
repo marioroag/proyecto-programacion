@@ -80,11 +80,8 @@ public class Main {
                         Sala salaComprobar = cineStem.buscarSala(idSalaComprobar);
 
                         if (salaComprobar != null) {
-                            if (salaComprobar.estaOcupada()) {
-                                System.out.println("La sala " + idSalaComprobar + " está ocupada.");
-                            } else {
-                                System.out.println("La sala " + idSalaComprobar + " está libre.");
-                            }
+                            System.out.println("La sala " + idSalaComprobar + " está "
+                                    + salaComprobar.mostrarDisponibilidad("libre", "ocupada") + ".");
                         } else {
                             System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
                         }
@@ -218,6 +215,7 @@ public class Main {
         } while (opcionMenuPrincipal != opcionesMenu.size());
 
         scanner.close();
+
     }
 
     // =================

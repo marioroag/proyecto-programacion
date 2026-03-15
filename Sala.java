@@ -99,6 +99,16 @@ public class Sala {
         return salaOcupada;
     }
 
+    public String mostrarDisponibilidad(String libre, String ocupada) {
+        String disponibilidad = libre;
+
+        if (estaOcupada()) {
+            disponibilidad = ocupada;
+        }
+
+        return disponibilidad;
+    }
+
     // [ Getters y Setters ]
     public String getId() {
         return id;
@@ -127,15 +137,9 @@ public class Sala {
     // [ toString ]
     @Override
     public String toString() {
-        // TODO: Cambiar el if a mostrarDisponibilidad(String libre, String ocupada)
-        // para hacerlo reutilizable
-        String ocupada = "LIBRE";
 
-        if (estaOcupada()) {
-            ocupada = "OCUPADA";
-        }
-
-        String salaMostrar = ocupada + ": " + id + " | Tiene capacidad de " + capacidad
+        String salaMostrar = mostrarDisponibilidad("LIBRE", "OCUPADA") + ": " + id + " | Tiene capacidad de "
+                + capacidad
                 + " personas:\n";
 
         for (Proyeccion proyeccion : proyecciones) {
