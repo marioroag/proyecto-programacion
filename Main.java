@@ -28,7 +28,7 @@ public class Main {
         Cine cineStem = new Cine("Cine STEM", "Granada", "España");
         cineStem.agregarSala(sala1);
         cineStem.agregarSala(sala2);
-        System.out.println(cineStem);
+        System.out.println(cineStem.mostrarCineCompleto());
 
         cineStem.agregarPelicula(pelicula1);
         cineStem.agregarPelicula(pelicula2);
@@ -177,7 +177,7 @@ public class Main {
 
             } else if (opcionMenuPrincipal == 3) { // Gestionar Películas
                 do {
-                    opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "GESTIÓN CINE");
+                    opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "GESTIÓN PELICULAS");
 
                     if (opcionMenuPeliculas == 1) { // Listar películas
                         if (cineStem.getPeliculas().size() > 0) {
@@ -196,12 +196,20 @@ public class Main {
                         }
 
                     } else if (opcionMenuPeliculas == 3) { // Ver proyecciones de una película
+                        String idPelicula = leerTexto(scanner, "ID de la pelicula a buscar: ");
+                        Pelicula peliculaBuscar = cineStem.buscarPelicula(idPelicula);
+
+                        if (peliculaBuscar != null) {
+                            System.out.println(cineStem.mostrarProyeccionesPelicula(peliculaBuscar));
+                        } else {
+                            System.out.println("No se encontro una película con ese ID.");
+                        }
 
                     } else if (opcionMenuPeliculas == 4) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
                     }
 
-                } while (opcionMenuPrincipal != opcionesPeliculas.size());
+                } while (opcionMenuPeliculas != opcionesPeliculas.size());
 
             } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
             } else if (opcionMenuPrincipal == 5) { // Salir

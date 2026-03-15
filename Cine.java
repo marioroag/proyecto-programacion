@@ -54,6 +54,37 @@ public class Cine {
     }
 
     /**
+     * Encuentra las proyecciones de una pelicula recorriendo cada sala y cada
+     * proyeccion buscando la pelicula que recibe
+     * 
+     * @param pelicula
+     * @return
+     */
+    public String mostrarProyeccionesPelicula(Pelicula pelicula) {
+        String resultado = "";
+        boolean encontrada = false;
+
+        for (Sala sala : salas) {
+            for (Proyeccion proyeccion : sala.getProyecciones()) {
+
+                if (proyeccion.getPelicula().equals(pelicula)) {
+                    resultado += "Sala: " + sala.getId() + " | "
+                            + proyeccion.getHoraInicio() + " - "
+                            + proyeccion.getHoraFin() + "\n";
+
+                    encontrada = true;
+                }
+            }
+        }
+
+        if (!encontrada) {
+            resultado = "No hay proyecciones programadas para esta película.";
+        }
+
+        return resultado;
+    }
+
+    /**
      * Agrega una nueva sala al cine
      * 
      * @param nuevaSala Sala
