@@ -33,24 +33,21 @@ public class Sala {
      * @return Número de error para posteriormente imprimir un mensaje customizado
      *         en el programa
      */
-    public int agregarProyeccion(Proyeccion nuevaProyeccion) {
-        int codigoError = 0;
-        boolean conflicto = false;
+    public boolean agregarProyeccion(Proyeccion nuevaProyeccion) {
+        boolean exito = false;
 
         for (Proyeccion proyeccion : proyecciones) {
             if (nuevaProyeccion.getHoraInicio().isBefore(proyeccion.getHoraFin()) &&
                     nuevaProyeccion.getHoraFin().isAfter(proyeccion.getHoraInicio())) {
-                conflicto = true;
+                exito = true;
             }
         }
 
-        if (conflicto) {
-            codigoError = 1;
-        } else {
+        if (exito) {
             proyecciones.add(nuevaProyeccion);
         }
 
-        return codigoError;
+        return exito;
     }
 
     /**
@@ -130,7 +127,8 @@ public class Sala {
     // [ toString ]
     @Override
     public String toString() {
-        // TODO: Cambiar el if a mostrarDisponibilidad(String libre, String ocupada) para hacerlo reutilizable
+        // TODO: Cambiar el if a mostrarDisponibilidad(String libre, String ocupada)
+        // para hacerlo reutilizable
         String ocupada = "LIBRE";
 
         if (estaOcupada()) {

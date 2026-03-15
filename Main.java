@@ -104,10 +104,18 @@ public class Main {
                                     String proHoraFin = leerTexto(scanner,
                                             "Hora de fin de la proyeccion (Formato: HH:MM): ");
 
+                                    // Formato valido para LocalTime?
                                     try {
                                         Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio,
                                                 proHoraFin);
-                                        salaAniadirPro.agregarProyeccion(proyeccionAniadir);
+
+                                        // Se solapa con alguna existente?
+                                        if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
+                                            System.out.println("Proyeccion programada con exito!");
+                                        } else {
+                                            System.out.println(
+                                                    "El horario se solapa con una proyeccion ya programada, vuelva a intentarlo.");
+                                        }
 
                                     } catch (DateTimeParseException e) {
                                         System.out.println("Hora introducida incorrecta. Usa formato HH:MM");
@@ -165,18 +173,18 @@ public class Main {
             } else if (opcionMenuPrincipal == 3) { // Gestionar Películas
                 System.out.println("No se agrega por solapacion con 10:30, 11:40");
                 Proyeccion proyeccion4 = new Proyeccion(pelicula3, "9:00", "11:00");
-                if (sala1.agregarProyeccion(proyeccion4) == 1) {
-                    System.out.println("La pelicula a programar se solapa con otra película existente.");
-                } else {
+                if (sala1.agregarProyeccion(proyeccion4)) {
                     System.out.println("Pelicula añadida correctamente.");
+                } else {
+                    System.out.println("La pelicula a programar se solapa con otra película existente.");
                 }
 
                 System.out.println("Se cambia la hora para que no solapen");
                 proyeccion4.setHoraFin("10:00");
-                if (sala1.agregarProyeccion(proyeccion4) == 1) {
-                    System.out.println("La pelicula a programar se solapa con otra película existente.");
-                } else {
+                if (sala1.agregarProyeccion(proyeccion4)) {
                     System.out.println("Pelicula añadida correctamente.");
+                } else {
+                    System.out.println("La pelicula a programar se solapa con otra película existente.");
                 }
             } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
             } else if (opcionMenuPrincipal == 5) { // Salir
