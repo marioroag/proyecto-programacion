@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -81,6 +82,9 @@ public class Main {
                         }
 
                     } else if (opcionMenuSalas == 3) { // Programar proyeccion en una sala
+                        // TODO: Comprobar y terminar condicion no añadir cuando: El horario se solapa
+                        // con otra proyección ya programada en la misma sala.
+
                         // El cine tiene peliculas que programar?
                         if (cineStem.getPeliculas().size() > 0) {
                             String idSalaAniadirPro = leerTexto(scanner,
@@ -119,7 +123,6 @@ public class Main {
                         }
 
                     } else if (opcionMenuSalas == 4) { // Cancelar proyección
-
                         String idSalaAniadirPro = leerTexto(scanner,
                                 "ID de la sala en la que cancelar una proyección: ");
                         Sala salaAniadirPro = cineStem.buscarSala(idSalaAniadirPro);
@@ -128,9 +131,15 @@ public class Main {
                         if (salaAniadirPro != null) {
                             System.out.println("[ VISTA SALA ACTUAL ]\n" + salaAniadirPro);
                             String idProyeccion = leerTexto(scanner, "ID de la proyeccion a cancelar: ");
+                            Proyeccion proyeccionCanelar = salaAniadirPro.buscarProyeccion(idProyeccion);
 
                             if (salaAniadirPro.buscarProyeccion(idProyeccion) != null) {
-                                salaAniadirPro.cancelarProyeccion(idProyeccion);
+                                if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
+                                    salaAniadirPro.cancelarProyeccion(idProyeccion);
+                                    System.out.println("Proyección cancelada con exito!");
+                                } else {
+                                    System.out.println("No es posible cancelar una proyeccion ya finalizada");
+                                }
                             } else {
                                 System.out.println(
                                         "No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.");
