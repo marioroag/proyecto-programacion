@@ -176,36 +176,33 @@ public class Main {
                 } while (opcionMenuSalas != opcionesSalas.size());
 
             } else if (opcionMenuPrincipal == 3) { // Gestionar Películas
-                opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "GESTIÓN CINE");
+                do {
+                    opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "GESTIÓN CINE");
 
-                if (opcionMenuPeliculas == 1) { // Listar películas
-                    if (cineStem.getPeliculas().size() > 0) {
-                        System.out.println(cineStem.mostarPeliculas());
+                    if (opcionMenuPeliculas == 1) { // Listar películas
+                        if (cineStem.getPeliculas().size() > 0) {
+                            System.out.println(cineStem.mostarPeliculas());
+                        } else {
+                            System.out.println("No hay peliculas que mostrar todavía.");
+                        }
+
+                    } else if (opcionMenuPeliculas == 2) { // Ver detalles de una pelicula
+                        Pelicula peliculaMostrar = cineStem.buscarPelicula(leerTexto(scanner, "ID de la pelicula: "));
+
+                        if (peliculaMostrar != null) {
+                            System.out.println(peliculaMostrar);
+                        } else {
+                            System.out.println("No se encontro una pelicula con ese ID, vuelva a intentarlo.");
+                        }
+
+                    } else if (opcionMenuPeliculas == 3) { // Ver proyecciones de una película
+
+                    } else if (opcionMenuPeliculas == 4) { // Volver al menú principal
+                        System.out.println("Volviendo al menú principal..");
                     }
-                } else if (opcionMenuPeliculas == 2) { // Ver detalles de una pelicula
 
-                } else if (opcionMenuPeliculas == 2) { // Ver proyecciones de una película
-                } else if (opcionMenuPeliculas == 2) { // Volver al menú principal
-                    System.out.println("Volviendo al menú principal..");
-                }
+                } while (opcionMenuPrincipal != opcionesPeliculas.size());
 
-                // System.out.println("No se agrega por solapacion con 10:30, 11:40");
-                // Proyeccion proyeccion4 = new Proyeccion(pelicula3, "9:00", "11:00");
-                // if (sala1.agregarProyeccion(proyeccion4)) {
-                // System.out.println("Pelicula añadida correctamente.");
-                // } else {
-                // System.out.println("La pelicula a programar se solapa con otra película
-                // existente.");
-                // }
-
-                // System.out.println("Se cambia la hora para que no solapen");
-                // proyeccion4.setHoraFin("10:00");
-                // if (sala1.agregarProyeccion(proyeccion4)) {
-                // System.out.println("Pelicula añadida correctamente.");
-                // } else {
-                // System.out.println("La pelicula a programar se solapa con otra película
-                // existente.");
-                // }
             } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
             } else if (opcionMenuPrincipal == 5) { // Salir
                 System.out.println("Saliendo del programa..");
