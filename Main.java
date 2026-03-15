@@ -26,6 +26,9 @@ public class Main {
         Cine cineStem = new Cine("Cine STEM", "Granada", "España");
         cineStem.agregarSala(sala1);
         cineStem.agregarSala(sala2);
+        cineStem.agregarPelicula(pelicula1);
+        cineStem.agregarPelicula(pelicula2);
+        cineStem.agregarPelicula(pelicula3);
         System.out.println(cineStem);
 
         Scanner scanner = new Scanner(System.in);
@@ -42,6 +45,11 @@ public class Main {
         ArrayList<String> opcionesSalas = new ArrayList<>(
                 Arrays.asList("Listar salas de un cine", "Consultar disponibilidad de una sala",
                         "Programar película en una sala", "Cancelar proyección", "Volver al menú principal"));
+
+        String idPeliculaAniadir = leerTexto(scanner, "ID de la pelicula a proyectar: ");
+        Pelicula peliculaAniadir = cineStem.buscarPelicula(idPeliculaAniadir);
+
+        System.out.println(peliculaAniadir);
 
         do {
             opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, cineStem.getNombre());
@@ -63,24 +71,41 @@ public class Main {
                         System.out.println(cineStem.mostrarSalas());
 
                     } else if (opcionMenuSalas == 2) { // Consultar disponibilidad de una sala
-                        String idSala = leerTexto(scanner, "ID de la sala a consultar: ");
-                        Sala salaComprobar = cineStem.buscarSala(idSala);
+                        String idSalaComprobar = leerTexto(scanner, "ID de la sala a consultar: ");
+                        Sala salaComprobar = cineStem.buscarSala(idSalaComprobar);
 
                         if (salaComprobar != null) {
                             if (salaComprobar.estaOcupada()) {
-                                System.out.println("La sala " + idSala + " está ocupada.");
+                                System.out.println("La sala " + idSalaComprobar + " está ocupada.");
                             } else {
-                                System.out.println("La sala " + idSala + " está libre.");
+                                System.out.println("La sala " + idSalaComprobar + " está libre.");
                             }
+                        } else {
+                            System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
                         }
 
-                    } else if (opcionMenuSalas == 3) { // Programar película en una sala
+                    } else if (opcionMenuSalas == 3) { // Programar proyeccion en una sala
+                        String idSalaAniadirPro = leerTexto(scanner, "ID de la sala en la que añadir una proyección: ");
+                        Sala salaAniadirPro = cineStem.buscarSala(idSalaAniadirPro);
+
+                        // String idPeliculaAniadir = leerTexto(scanner, "ID de la pelicula a proyectar:
+                        // ");
+                        // Pelicula peliculaAniadir = cineStem.buscarPelicula(idPeliculaAniadir);
+
+                        System.out.println(peliculaAniadir);
+
+                        if (salaAniadirPro != null) {
+
+                        } else {
+                            System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
+                        }
+
                     } else if (opcionMenuSalas == 4) { // Cancelar proyección
                     } else if (opcionMenuSalas == 5) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
                     }
 
-                } while (opcionMenuSalas != opcionesMenu.size());
+                } while (opcionMenuSalas != opcionesSalas.size());
 
             } else if (opcionMenuPrincipal == 3) { // Gestionar Películas
                 System.out.println("No se agrega por solapacion con 10:30, 11:40");

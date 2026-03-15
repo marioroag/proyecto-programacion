@@ -9,6 +9,7 @@ public class Cine {
     private String pais;
     private ArrayList<Sala> salas;
     // TODO: añadir arraylist de peliculas que tiene el cine
+    private ArrayList<Pelicula> peliculas;
 
     // [ Constructores ]
     public Cine(String nombre, String ciudad, String pais) {
@@ -17,11 +18,17 @@ public class Cine {
         this.ciudad = ciudad;
         this.pais = pais;
         this.salas = new ArrayList<>();
+        this.peliculas = new ArrayList<>();
 
         cantidadCines++;
     }
 
     // [ Metodos ]
+    /**
+     * Muestra los datos del cine con los datos de sus salas y sus proyecciones
+     * 
+     * @return
+     */
     public String mostrarCineCompleto() {
         String cineMostrar = "[ " + nombre + " " + codigo + " ]\n" + pais + ", " + ciudad + "\n[ Salas ]";
 
@@ -30,6 +37,33 @@ public class Cine {
         }
 
         return cineMostrar;
+    }
+
+    /**
+     * Agrega una nueva sala al cine
+     * 
+     * @param nuevaSala Sala
+     */
+    public void agregarPelicula(Pelicula nuevaPelicula) {
+        this.peliculas.add(nuevaPelicula);
+    }
+
+    /**
+     * Busca una pelicula dentro de la sala usando su codigo
+     * 
+     * @param codigoProyeccion
+     * @return
+     */
+    public Pelicula buscarPelicula(String codigoPelicula) {
+        Pelicula peliculaBuscar = null;
+
+        for (Pelicula pelicula : peliculas) {
+            if (codigoPelicula.equals(pelicula.getCodigo())) {
+                peliculaBuscar = pelicula;
+            }
+        }
+
+        return peliculaBuscar;
     }
 
     /**

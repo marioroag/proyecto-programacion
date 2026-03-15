@@ -130,6 +130,7 @@ public class Sala {
     // [ toString ]
     @Override
     public String toString() {
+        // TODO: Cambiar el if a mostrarDisponibilidad(String libre, String ocupada) para hacerlo reutilizable
         String ocupada = "LIBRE";
 
         if (estaOcupada()) {
