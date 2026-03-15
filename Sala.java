@@ -34,12 +34,12 @@ public class Sala {
      *         en el programa
      */
     public boolean agregarProyeccion(Proyeccion nuevaProyeccion) {
-        boolean exito = false;
+        boolean exito = true;
 
         for (Proyeccion proyeccion : proyecciones) {
             if (nuevaProyeccion.getHoraInicio().isBefore(proyeccion.getHoraFin()) &&
                     nuevaProyeccion.getHoraFin().isAfter(proyeccion.getHoraInicio())) {
-                exito = true;
+                exito = false;
             }
         }
 
