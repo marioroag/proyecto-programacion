@@ -25,6 +25,11 @@ public class Proyeccion {
         this.horaInicio = LocalTime.parse(horaInicio);
         this.horaFin = LocalTime.parse(horaFin);
 
+        // La pelicula no puede acabar antes de empezar
+        if (!this.horaFin.isAfter(this.horaInicio)) {
+            throw new IllegalArgumentException("La hora de fin debe ser posterior a la de inicio.");
+        }
+
         cantidadProyecciones++;
     }
 

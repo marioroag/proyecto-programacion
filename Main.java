@@ -1,4 +1,5 @@
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Main {
         // System.out.println(pelicula1);
 
         Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", "16:40");
-        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:40", "18:40");
+        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30", "18:40");
         Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", "11:40");
         // System.out.println(proyeccion1);
 
@@ -98,17 +99,24 @@ public class Main {
 
                                 // Se encontro una pelicula?
                                 if (peliculaAniadir != null) {
-
-                                    // TODO: Control de errores para cuando el formato sea equivocado
                                     String proHoraInicio = leerTexto(scanner,
-                                            "Hora de inicio de la proyeccion (Formato: hh:mm): ");
+                                            "Hora de inicio de la proyeccion (Formato: HH:MM): ");
                                     String proHoraFin = leerTexto(scanner,
-                                            "Hora de inicio de la proyeccion (Formato: hh:mm): ");
+                                            "Hora de fin de la proyeccion (Formato: HH:MM): ");
 
-                                    Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio,
-                                            proHoraFin);
+                                    try {
+                                        Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio,
+                                                proHoraFin);
+                                        salaAniadirPro.agregarProyeccion(proyeccionAniadir);
 
-                                    salaAniadirPro.agregarProyeccion(proyeccionAniadir);
+                                    } catch (DateTimeParseException e) {
+                                        System.out.println("Hora introducida incorrecta. Usa formato HH:MM");
+
+                                    } catch (IllegalArgumentException e) {
+
+                                        System.out.println("La hora de fin debe ser posterior a la de inicio.");
+
+                                    }
 
                                 } else {
                                     System.out.println(
