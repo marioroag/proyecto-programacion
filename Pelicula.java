@@ -15,6 +15,8 @@ public class Pelicula {
         this.duracion = duracion;
         this.clasificacionEdad = clasificacionEdad;
         this.genero = genero;
+
+        cantidadPeliculas++;
     }
 
     // [ Getters y Setters ]
