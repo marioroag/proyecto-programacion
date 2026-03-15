@@ -8,7 +8,6 @@ public class Cine {
     private String ciudad;
     private String pais;
     private ArrayList<Sala> salas;
-    // TODO: añadir arraylist de peliculas que tiene el cine
     private ArrayList<Pelicula> peliculas;
 
     // [ Constructores ]
@@ -148,6 +147,14 @@ public class Cine {
 
     public void setSalas(ArrayList<Sala> salas) {
         this.salas = salas;
+    }
+
+    public ArrayList<Pelicula> getPeliculas() {
+        return peliculas;
+    }
+
+    public void setPeliculas(ArrayList<Pelicula> peliculas) {
+        this.peliculas = peliculas;
     }
 
     // [ toString ]
