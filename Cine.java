@@ -107,7 +107,7 @@ public class Cine {
         Pelicula peliculaBuscar = null;
 
         for (Pelicula pelicula : peliculas) {
-            if (codigoPelicula.equals(pelicula.getCodigo())) {
+            if (codigoPelicula.equalsIgnoreCase(pelicula.getCodigo())) {
                 peliculaBuscar = pelicula;
             }
         }
@@ -134,7 +134,7 @@ public class Cine {
         Sala salaBuscar = null;
 
         for (Sala sala : salas) {
-            if (idSala.equals(sala.getId())) {
+            if (idSala.equalsIgnoreCase(sala.getId())) {
                 salaBuscar = sala;
             }
         }

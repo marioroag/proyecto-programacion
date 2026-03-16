@@ -71,7 +71,7 @@ public class Sala {
         Proyeccion proyeccionBuscar = null;
 
         for (Proyeccion proyeccion : proyecciones) {
-            if (codigoProyeccion.equals(proyeccion.getCodigoProyeccion())) {
+            if (codigoProyeccion.equalsIgnoreCase(proyeccion.getCodigoProyeccion())) {
                 proyeccionBuscar = proyeccion;
             }
         }
