@@ -154,7 +154,6 @@ public class Cine {
     }
 
     // [ Getters y Setters ]
-
     public String getCodigo() {
         return codigo;
     }
@@ -168,7 +167,11 @@ public class Cine {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (!nombre.isBlank() && nombre != null) {
+            this.nombre = nombre;
+        } else {
+            this.nombre = "invalid";
+        }
     }
 
     public String getCiudad() {
@@ -176,7 +179,11 @@ public class Cine {
     }
 
     public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+        if (!ciudad.isBlank() && ciudad != null) {
+            this.ciudad = ciudad;
+        } else {
+            this.ciudad = "invalid";
+        }
     }
 
     public String getPais() {
@@ -184,7 +191,11 @@ public class Cine {
     }
 
     public void setPais(String pais) {
-        this.pais = pais;
+        if (!pais.isBlank() && pais != null) {
+            this.pais = pais;
+        } else {
+            this.pais = "invalid";
+        }
     }
 
     public ArrayList<Sala> getSalas() {
