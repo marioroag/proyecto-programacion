@@ -26,8 +26,7 @@ public class Main {
         sala1.agregarProyeccion(proyeccion2);
         // System.out.println(sala1);
 
-        Sala sala2 = new Sala(100);
-        sala2.agregarProyeccion(proyeccion1);
+        Sala sala2 = new Sala(150);
         sala2.agregarProyeccion(proyeccion3);
 
         Cine cineStem = new Cine("Cine STEM", "Granada", "España");
@@ -134,6 +133,7 @@ public class Main {
                     opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "[ GESTIÓN CLIENTES ]");
 
                     if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
+                        System.out.println("Introduzca los datos del cliente");
                         Cliente nuevoCliente = new Cliente(
                                 leerTexto(scanner, "Nombre: "),
                                 leerTexto(scanner, "Dni: "),

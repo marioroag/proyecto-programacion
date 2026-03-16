@@ -59,16 +59,17 @@ public class Cine {
     }
 
     /**
+     * Busca una proyeccion en todas las salas del cine y la devuelve
      * 
      * @param codigoPelicula
-     * @return
+     * @return Proyeccion encontrada
      */
     public Proyeccion buscarProyeccion(String codigoProyeccion) {
         Proyeccion proyeccionEncontrada = null;
 
         for (Sala sala : salas) {
             for (Proyeccion proyeccion : sala.getProyecciones()) {
-                if (proyeccion.getCodigoProyeccion().equals(codigoProyeccion)) {
+                if (proyeccion.getCodigoProyeccion().equalsIgnoreCase(codigoProyeccion)) {
                     proyeccionEncontrada = proyeccion;
                 }
             }

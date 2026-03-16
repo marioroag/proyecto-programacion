@@ -41,7 +41,7 @@ public class Sala {
             errores.set(0, true); // Proyeccion no registrada en la sala
         } else if (proyeccion.getClientes().contains(cliente)) {
             errores.set(1, true); // Cliente ya registrado
-        } else if (capacidad <= proyeccion.getClientes().size()) {
+        } else if (!hayEspacioDisponible(proyeccion)) {
             errores.set(2, true); // No hay asientos libres
         } else if (proyeccion.getHoraFin().isBefore(LocalTime.now())) {
             errores.set(3, true); // Ya ha terminado la proyeccion
@@ -50,6 +50,17 @@ public class Sala {
         }
 
         return errores;
+    }
+
+    /**
+     * Devuelve true o false dependiendo de si hay espacio para la proyeccion
+     * recibida
+     * 
+     * @param proyeccion
+     * @return Boolean
+     */
+    public boolean hayEspacioDisponible(Proyeccion proyeccion) {
+        return proyeccion.getClientes().size() < capacidad;
     }
 
     /**
