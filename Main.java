@@ -141,18 +141,42 @@ public class Main {
                         Cliente clienteAniadir = cineStem
                                 .buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
 
-                        System.out.println(clienteAniadir);
                         if (clienteAniadir != null) {
                             registrarClienteEnPro(scanner, cineStem, clienteAniadir);
 
                         } else {
                             imprimirError("No se a encontrado un cliente con ese DNI, vuelva a intentarlo.");
                         }
+
                     } else if (opcionMenuClientes == 2) { // Cancelar asistencia
+                        Cliente clienteCancelar = cineStem
+                                .buscarClientePorDni(
+                                        leerTexto(scanner, "DNI del cliente a cancelar de la proyeccion: "));
+
+                        // Se encontró el cliente?
+                        if (clienteCancelar != null) {
+                            Proyeccion deProyeccion = cineStem.buscarProyeccion(
+                                    leerTexto(scanner, "Codigo de la proyección de la cual cancelarlo: "));
+
+                            // Se encontró la proyección?
+                            if (deProyeccion != null) {
+                                deProyeccion.cancelarAsistencia(clienteCancelar);
+
+                            } else {
+                                imprimirError("No se encontró una proyección con el ese código.");
+                            }
+                        } else {
+                            imprimirError("No se encontró un cliente con el ese DNI.");
+                        }
 
                     } else if (opcionMenuClientes == 3) { // Ver lista de clientes en una proyección
 
                     } else if (opcionMenuClientes == 4) { // Ver número total de asistentes
+                        Proyeccion proyeccionVerAsistentes = cineStem.buscarProyeccion(
+                                leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
+
+                        imprimirMensaje("La proyeccion  " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene: "
+                                + proyeccionVerAsistentes.getClientes().size() + " asistentes.");
 
                     } else if (opcionMenuClientes == 5) { // Registrar un cliente nuevo
                         registrarNuevoCliente(scanner, cineStem);

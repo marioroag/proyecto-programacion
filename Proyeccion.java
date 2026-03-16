@@ -35,6 +35,15 @@ public class Proyeccion {
         this.clientes.add(cliente);
     }
 
+    /**
+     * Elimina un cliente de una proyeccion
+     * 
+     * @param cliente Cliente
+     */
+    public void cancelarAsistencia(Cliente cliente) {
+        this.clientes.remove(cliente);
+    }
+
     // region [ Getters y Setters ]
     public String getCodigoProyeccion() {
         return codigoProyeccion;
