@@ -12,14 +12,14 @@ public class Sala {
     // [ Constructores ]
     public Sala(int capacidad, ArrayList<Proyeccion> proyecciones) {
         setId();
-        this.capacidad = capacidad;
+        setCapacidad(capacidad);
         this.proyecciones = proyecciones;
         cantidadSalas++;
     }
 
     public Sala(int capacidad) {
         setId();
-        this.capacidad = capacidad;
+        setCapacidad(capacidad);
         this.proyecciones = new ArrayList<>();
         cantidadSalas++;
     }
@@ -123,7 +123,11 @@ public class Sala {
     }
 
     public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+        if (capacidad > 0) {
+            this.capacidad = capacidad;
+        } else {
+            this.capacidad = -1;
+        }
     }
 
     public ArrayList<Proyeccion> getProyecciones() {
