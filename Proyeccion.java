@@ -28,16 +28,8 @@ public class Proyeccion {
      * 
      * @param cliente Cliente
      */
-    public boolean registrarCliente(Cliente cliente) {
-        boolean exito = false;
-
-        // No ha terminado la proyeccion
-        if (horaFin.isBefore(LocalTime.now())) {
-            this.clientes.add(cliente);
-            exito = true;
-        }
-
-        return exito;
+    public void registrarCliente(Cliente cliente) {
+        this.clientes.add(cliente);
     }
 
     // region [ Getters y Setters ]

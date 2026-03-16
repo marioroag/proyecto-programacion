@@ -59,6 +59,25 @@ public class Cine {
     }
 
     /**
+     * 
+     * @param codigoPelicula
+     * @return
+     */
+    public Proyeccion buscarProyeccion(String codigoProyeccion) {
+        Proyeccion proyeccionEncontrada = null;
+
+        for (Sala sala : salas) {
+            for (Proyeccion proyeccion : sala.getProyecciones()) {
+                if (proyeccion.getCodigoProyeccion().equals(codigoProyeccion)) {
+                    proyeccionEncontrada = proyeccion;
+                }
+            }
+        }
+
+        return proyeccionEncontrada;
+    }
+
+    /**
      * Encuentra las proyecciones de una pelicula recorriendo cada sala y cada
      * proyeccion buscando la pelicula que recibe
      * 

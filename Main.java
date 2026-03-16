@@ -39,13 +39,9 @@ public class Main {
         cineStem.agregarPelicula(pelicula3);
 
         Cliente cliente1 = new Cliente("Mario", "1235567N", 21, "Premium", 1);
-        ArrayList<Boolean> resultado = sala1.registrarClientePro(cliente1, proyeccion3);
-        ArrayList<Boolean> resultado2 = sala1.registrarClientePro(cliente1, proyeccion3);
-        if (resultado2.get(1)) {
-            System.out.println("NO");
-        }
+        Cliente cliente2 = new Cliente("Lola", "5463367N", 19, "Normal", 2);
+        Cliente cliente3 = new Cliente("Mento", "4343655N", 15, "Normal", 3);
 
-        System.out.println(proyeccion3);
         // System.out.println(cliente1);
 
         // endregion
@@ -138,7 +134,28 @@ public class Main {
                     opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "[ GESTIÓN CLIENTES ]");
 
                     if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
+                        Cliente nuevoCliente = new Cliente(
+                                leerTexto(scanner, "Nombre: "),
+                                leerTexto(scanner, "Dni: "),
+                                leerIntPositivo(scanner, "Edad: "),
+                                leerTexto(scanner, "Tipo de entrada: "),
+                                leerIntPositivo(scanner, "Número de entrada: "));
 
+                        Proyeccion proyeccionRegistrar = cineStem.buscarProyeccion(
+                                leerTexto(scanner, "Codigo de la proyección en la que registrar al cliente: "));
+
+                        ArrayList<Boolean> arrayErrores = sala1.registrarClientePro(nuevoCliente, proyeccionRegistrar);
+                        if (arrayErrores.get(0)) {
+                            System.out.println("Proyeccion no registrada en ninguna sala.");
+                        } else if (arrayErrores.get(1)) {
+                            System.out.println("Cliente ya registrado en la proyeccion.");
+                        } else if (arrayErrores.get(2)) {
+                            System.out.println("No hay asientos libres en la sala.");
+                        } else if (arrayErrores.get(3)) {
+                            System.out.println("Ya ha terminado la proyeccion.");
+                        } else {
+                            System.out.println("Cliente registrado a la proyeccion con exito!");
+                        }
                     } else if (opcionMenuClientes == 2) { // Cancelar asistencia
 
                     } else if (opcionMenuClientes == 3) { // Ver lista de clientes en una proyección
