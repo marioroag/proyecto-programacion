@@ -249,10 +249,6 @@ public class Main {
                     } catch (DateTimeParseException e) {
                         feedback = "Hora introducida incorrecta. Usa formato HH:MM";
 
-                    } catch (IllegalArgumentException e) {
-
-                        feedback = "La hora de fin debe ser posterior a la de inicio.";
-
                     }
 
                 } else {
@@ -305,7 +301,7 @@ public class Main {
         return feedback;
     }
     // endregion
-    
+
     // region [ Basicas ]
     public static void imprimirPrompt(String mensaje) {
         System.out.print(mensaje);
