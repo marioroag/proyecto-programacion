@@ -46,7 +46,7 @@ public class Main {
         // region [ Declaraciones ]
         Scanner scanner = new Scanner(System.in);
 
-        int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas;
+        int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
 
         ArrayList<String> opcionesMenu = new ArrayList<>(
                 Arrays.asList("Gestionar Cine", "Gestionar Salas", "Gestionar Películas",
@@ -62,15 +62,20 @@ public class Main {
         ArrayList<String> opcionesPeliculas = new ArrayList<>(
                 Arrays.asList("Listar películas", "Ver detalles de una pelicula",
                         "Ver proyecciones de una película", "Volver al menú principal"));
+
+        ArrayList<String> opcionesClientes = new ArrayList<>(
+                Arrays.asList("Registrar cliente en una proyección", "Cancelar asistencia",
+                        "Ver lista de clientes en una proyección", "Ver número total de asistentes",
+                        "Registrar un cliente nuevo", "Volver al menú principal"));
         // endregion
 
         // region [ Menú ]
         do {
-            opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, cineStem.getNombre());
+            opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, "[ " + cineStem.getNombre() + " ]");
 
             if (opcionMenuPrincipal == 1) { // Gestionar Cine
                 do {
-                    opcionMenuCine = leerOpcionMenu(scanner, opcionesCines, "GESTIÓN CINE");
+                    opcionMenuCine = leerOpcionMenu(scanner, opcionesCines, "[ GESTIÓN CINE ]");
 
                     if (opcionMenuCine == 1) { // Ver detalles cine
                         System.out.println(cineStem);
@@ -82,7 +87,7 @@ public class Main {
 
             } else if (opcionMenuPrincipal == 2) { // Gestionar Salas
                 do {
-                    opcionMenuSalas = leerOpcionMenu(scanner, opcionesSalas, "GESTIÓN SALAS");
+                    opcionMenuSalas = leerOpcionMenu(scanner, opcionesSalas, "[ GESTIÓN SALAS ]");
 
                     if (opcionMenuSalas == 1) { // Listar salas de un cine
                         System.out.println("[ SALAS ]\n" + cineStem.mostrarSalas());
@@ -94,7 +99,7 @@ public class Main {
                         System.out.println(programarProyeccion(scanner, cineStem));
 
                     } else if (opcionMenuSalas == 4) { // Cancelar proyección
-                        cancelarProyeccion(scanner, cineStem);
+                        System.out.println(cancelarProyeccion(scanner, cineStem));
 
                     } else if (opcionMenuSalas == 5) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
@@ -104,13 +109,13 @@ public class Main {
 
             } else if (opcionMenuPrincipal == 3) { // Gestionar Películas
                 do {
-                    opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "GESTIÓN PELICULAS");
+                    opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "[ GESTIÓN PELICULAS ]");
 
                     if (opcionMenuPeliculas == 1) { // Listar películas
                         System.out.println(cineStem.mostarPeliculas());
 
                     } else if (opcionMenuPeliculas == 2) { // Ver detalles de una pelicula
-                        verDetallesPelicula(scanner, cineStem);
+                        System.out.println(verDetallesPelicula(scanner, cineStem));
 
                     } else if (opcionMenuPeliculas == 3) { // Ver proyecciones de una película
                         System.out.println(verProyeccionesPelicula(scanner, cineStem));
@@ -122,6 +127,25 @@ public class Main {
                 } while (opcionMenuPeliculas != opcionesPeliculas.size());
 
             } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
+                do {
+                    opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "[ GESTIÓN CLIENTES ]");
+
+                    if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
+
+                    } else if (opcionMenuClientes == 2) { // Cancelar asistencia
+
+                    } else if (opcionMenuClientes == 3) { // Ver lista de clientes en una proyección
+
+                    } else if (opcionMenuClientes == 4) { // Ver número total de asistentes
+
+                    } else if (opcionMenuClientes == 5) { // Registrar un cliente nuevo
+
+                    } else if (opcionMenuClientes == 6) { // Volver al menú principal
+                        System.out.println("Volviendo al menú principal..");
+
+                    }
+
+                } while (opcionMenuClientes != opcionesClientes.size());
 
             } else if (opcionMenuPrincipal == 5) { // Salir
                 System.out.println("Saliendo del programa..");
@@ -325,7 +349,7 @@ public class Main {
             imprimirPrompt(mensaje);
             texto = scanner.nextLine().trim();
             if (texto.isEmpty()) {
-                imprimirMensaje("No puede estar vacío");
+                imprimirError("No puede estar vacío");
             }
         } while (texto.isEmpty());
 
@@ -343,7 +367,7 @@ public class Main {
                 scanner.nextLine(); // limpiar buffer
                 intValido = true;
             } else {
-                imprimirMensaje("Introduce un número entero válido");
+                imprimirError("Introduce un número entero válido");
                 scanner.nextLine(); // limpiar buffer
             }
         } while (!intValido);
@@ -356,7 +380,7 @@ public class Main {
         do {
             num = leerInt(scanner, mensaje);
             if (num <= 0) {
-                imprimirMensaje("Debe ser mayor que 0");
+                imprimirError("Debe ser mayor que 0");
             }
         } while (num <= 0);
 
@@ -372,11 +396,11 @@ public class Main {
 
     public static int leerOpcionMenu(Scanner scanner, ArrayList<String> menu, String cabecera) {
         int opcion;
+        mostrarMenu(menu, cabecera);
         do {
-            mostrarMenu(menu, cabecera);
-            opcion = leerInt(scanner, "Opción: ");
+            opcion = leerInt(scanner, ">> Opción: ");
             if (!validarOpcion(opcion, menu.size())) {
-                imprimirMensaje("Opción fuera de rango");
+                imprimirError("Opción fuera de rango");
             }
         } while (!validarOpcion(opcion, menu.size()));
 
