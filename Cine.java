@@ -26,7 +26,7 @@ public class Cine {
     /**
      * Muestra los datos del cine con los datos de sus salas y sus proyecciones
      * 
-     * @return
+     * @return String con todos los datos del Cine
      */
     public String mostrarCineCompleto() {
         String cineMostrar = "[ " + nombre + " " + codigo + " ]\n" + pais + ", " + ciudad + "\n[ Salas ]";
@@ -41,7 +41,7 @@ public class Cine {
     /**
      * Muestra las peliculas del cine
      * 
-     * @return
+     * @return String de peliculas
      */
     public String mostarPeliculas() {
         String peliculasMostrar = "[ Peliculas Disponibles ]";
@@ -57,8 +57,8 @@ public class Cine {
      * Encuentra las proyecciones de una pelicula recorriendo cada sala y cada
      * proyeccion buscando la pelicula que recibe
      * 
-     * @param pelicula
-     * @return
+     * @param pelicula Pelicula a buscar
+     * @return Las proyecciones actuales de la pelicula
      */
     public String mostrarProyeccionesPelicula(Pelicula pelicula) {
         String resultado = "";
@@ -87,7 +87,7 @@ public class Cine {
     /**
      * Agrega una nueva sala al cine
      * 
-     * @param nuevaSala Sala
+     * @param nuevaSala Sala a añadir
      */
     public void agregarPelicula(Pelicula nuevaPelicula) {
         this.peliculas.add(nuevaPelicula);
@@ -96,8 +96,8 @@ public class Cine {
     /**
      * Busca una pelicula dentro de la sala usando su codigo
      * 
-     * @param codigoProyeccion
-     * @return
+     * @param codigoProyeccion Codigo de la pelicula a buscar
+     * @return Pelicula encontrada
      */
     public Pelicula buscarPelicula(String codigoPelicula) {
         Pelicula peliculaBuscar = null;
@@ -114,7 +114,7 @@ public class Cine {
     /**
      * Agrega una nueva sala al cine
      * 
-     * @param nuevaSala Sala
+     * @param nuevaSala Sala a añadir
      */
     public void agregarSala(Sala nuevaSala) {
         this.salas.add(nuevaSala);
@@ -141,7 +141,7 @@ public class Cine {
     /**
      * Muestra todas las salas del cine
      * 
-     * @return String
+     * @return String con todas las salas del cine
      */
     public String mostrarSalas() {
         String mensajeSalas = "";

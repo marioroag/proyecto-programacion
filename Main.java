@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // region Testing
         // [ Creacion de objetos para testing ]
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
         Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
@@ -34,9 +35,12 @@ public class Main {
         cineStem.agregarPelicula(pelicula2);
         cineStem.agregarPelicula(pelicula3);
 
+        // endregion
+
         // [ Declaraciones ]
         Scanner scanner = new Scanner(System.in);
 
+        // region Opciones menus
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas;
 
         ArrayList<String> opcionesMenu = new ArrayList<>(
@@ -53,6 +57,7 @@ public class Main {
         ArrayList<String> opcionesPeliculas = new ArrayList<>(
                 Arrays.asList("Listar películas", "Ver detalles de una pelicula",
                         "Ver proyecciones de una película", "Volver al menú principal"));
+        // endregion
 
         // [ Menú ]
         do {

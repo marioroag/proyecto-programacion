@@ -64,8 +64,8 @@ public class Sala {
     /**
      * Busca una proyeccion dentro de la sala usando su codigo
      * 
-     * @param codigoProyeccion
-     * @return
+     * @param codigoProyeccion Codigo de la proyeccion a buscar
+     * @return Proyeccion encontrada
      */
     public Proyeccion buscarProyeccion(String codigoProyeccion) {
         Proyeccion proyeccionBuscar = null;
@@ -83,7 +83,7 @@ public class Sala {
      * Devuelve un booleano que indica si la sala esta ocupada (true) o no (false)
      * en el momento de ejecución del método usando LocalTime
      * 
-     * @return booleano
+     * @return Booleano
      */
     public boolean estaOcupada() {
         boolean salaOcupada = false;
@@ -99,6 +99,13 @@ public class Sala {
         return salaOcupada;
     }
 
+    /**
+     * Permite customizar la visibilidad de la disponibilidad de una sala
+     * 
+     * @param libre   Como se mostrara si esta libre
+     * @param ocupada Como se mostrara si esta ocupada
+     * @return String
+     */
     public String mostrarDisponibilidad(String libre, String ocupada) {
         String disponibilidad = libre;
 
