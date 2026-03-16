@@ -14,19 +14,20 @@ public class Main {
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
         Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
-        // System.out.println(pelicula1);
 
-        Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30");
-        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30");
-        Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30");
+        // System.out.println(pelicula1);
+        Sala sala1 = new Sala(100);
+        Sala sala2 = new Sala(150);
+
+        Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", sala1);
+        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30", sala1);
+        Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", sala2);
         // System.out.println(proyeccion1);
 
-        Sala sala1 = new Sala(100);
         sala1.agregarProyeccion(proyeccion1);
         sala1.agregarProyeccion(proyeccion2);
         // System.out.println(sala1);
 
-        Sala sala2 = new Sala(150);
         sala2.agregarProyeccion(proyeccion3);
 
         Cine cineStem = new Cine("Cine STEM", "Granada", "España");
@@ -40,6 +41,10 @@ public class Main {
         Cliente cliente1 = new Cliente("Mario", "1235567N", 21, "Premium", 1);
         Cliente cliente2 = new Cliente("Lola", "5463367N", 19, "Normal", 2);
         Cliente cliente3 = new Cliente("Mento", "4343655N", 15, "Normal", 3);
+
+        cineStem.registrarCliente(cliente1);
+        cineStem.registrarCliente(cliente2);
+        cineStem.registrarCliente(cliente3);
 
         // System.out.println(cliente1);
 
@@ -133,7 +138,16 @@ public class Main {
                     opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "[ GESTIÓN CLIENTES ]");
 
                     if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
-                        registrarClienteEnPro(scanner, cineStem);
+                        Cliente clienteAniadir = cineStem
+                                .buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
+
+                        System.out.println(clienteAniadir);
+                        if (clienteAniadir != null) {
+                            registrarClienteEnPro(scanner, cineStem, clienteAniadir);
+
+                        } else {
+                            imprimirError("No se a encontrado un cliente con ese DNI, vuelva a intentarlo.");
+                        }
                     } else if (opcionMenuClientes == 2) { // Cancelar asistencia
 
                     } else if (opcionMenuClientes == 3) { // Ver lista de clientes en una proyección
@@ -141,6 +155,7 @@ public class Main {
                     } else if (opcionMenuClientes == 4) { // Ver número total de asistentes
 
                     } else if (opcionMenuClientes == 5) { // Registrar un cliente nuevo
+                        registrarNuevoCliente(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 6) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
@@ -164,30 +179,46 @@ public class Main {
     // ===================
 
     // region [ Cine ]
-    public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
+
+    public static void registrarNuevoCliente(Scanner scanner, Cine cine) {
         imprimirMensaje("Introduzca los datos del cliente");
-        Cliente nuevoCliente = new Cliente(
+        Cliente clienteRegistrar = new Cliente(
                 leerTexto(scanner, "Nombre: "),
                 leerTexto(scanner, "DNI: "),
                 leerIntPositivo(scanner, "Edad: "),
                 leerTexto(scanner, "Tipo de entrada: "),
                 leerIntPositivo(scanner, "Número de entrada: "));
 
+        cine.registrarCliente(clienteRegistrar);
+    }
+
+    public static void registrarClienteEnPro(Scanner scanner, Cine cine, Cliente clienteRegistrar) {
+        // Busca proyeccion
         Proyeccion proyeccionRegistrar = cine.buscarProyeccion(
                 leerTexto(scanner, "Codigo de la proyección en la que registrar al cliente: "));
 
-        // TODO: Terminar
-        ArrayList<Boolean> arrayErrores = sala1.registrarClientePro(nuevoCliente, proyeccionRegistrar);
-        if (arrayErrores.get(0)) {
-            imprimirError("Proyeccion no registrada en ninguna sala.");
-        } else if (arrayErrores.get(1)) {
-            imprimirError("Cliente ya registrado en la proyeccion.");
-        } else if (arrayErrores.get(2)) {
-            imprimirError("No hay asientos libres en la sala.");
-        } else if (arrayErrores.get(3)) {
-            imprimirError("Ya ha terminado la proyeccion.");
+        // Se encontro una proyección?
+        if (proyeccionRegistrar != null) {
+            Sala salaAniadir = proyeccionRegistrar.getSala();
+
+            ArrayList<Boolean> arrayErrores = salaAniadir.registrarClientePro(clienteRegistrar,
+                    proyeccionRegistrar);
+
+            // Control de errores
+            if (arrayErrores.get(0)) {
+                imprimirError("Proyeccion no registrada en ninguna sala.");
+            } else if (arrayErrores.get(1)) {
+                imprimirError("Cliente ya registrado en la proyeccion.");
+            } else if (arrayErrores.get(2)) {
+                imprimirError("No hay asientos libres en la sala.");
+            } else if (arrayErrores.get(3)) {
+                imprimirError("Ya ha terminado la proyeccion.");
+            } else {
+                imprimirMensaje("Cliente registrado a la proyeccion con exito!");
+            }
+
         } else {
-            imprimirMensaje("Cliente registrado a la proyeccion con exito!");
+            imprimirError("No se ha encontrado esa proyeccion, vuelva a intentarlo.");
         }
     }
 
@@ -276,7 +307,7 @@ public class Main {
 
                     // Formato valido para LocalTime?
                     try {
-                        Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio);
+                        Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio, salaAniadirPro);
 
                         // Se solapa con alguna existente?
                         if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {

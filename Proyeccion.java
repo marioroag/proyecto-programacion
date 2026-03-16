@@ -11,13 +11,16 @@ public class Proyeccion {
     private LocalTime horaFin;
     private ArrayList<Cliente> clientes;
 
+    private Sala sala;
+
     // [ Constructores ]
-    public Proyeccion(Pelicula pelicula, String horaInicio) {
+    public Proyeccion(Pelicula pelicula, String horaInicio, Sala sala) {
         this.pelicula = pelicula;
         setCodigoProyeccion();
         setHoraInicio(horaInicio);
         setHoraFin(horaInicio);
         this.clientes = new ArrayList<>();
+        this.sala = sala;
 
         cantidadProyecciones++;
     }
@@ -76,6 +79,14 @@ public class Proyeccion {
 
     public void setClientes(ArrayList<Cliente> clientes) {
         this.clientes = clientes;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
     // endregion
 

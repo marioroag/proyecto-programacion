@@ -10,6 +10,7 @@ public class Cine {
     private String pais;
     private ArrayList<Sala> salas;
     private ArrayList<Pelicula> peliculas;
+    private ArrayList<Cliente> clientes;
 
     // [ Constructores ]
     public Cine(String nombre, String ciudad, String pais) {
@@ -19,11 +20,52 @@ public class Cine {
         setPais(pais);
         this.salas = new ArrayList<>();
         this.peliculas = new ArrayList<>();
+        this.clientes = new ArrayList<>();
 
         cantidadCines++;
     }
 
     // [ Metodos ]
+
+    /**
+     * Busca un cliente
+     * 
+     * @param dniCliente
+     * @return
+     */
+    public Cliente buscarClientePorDni(String dniCliente) {
+        Cliente clienteEncontrado = null;
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getDni().equals(dniCliente)) {
+                clienteEncontrado = cliente;
+            }
+        }
+
+        return clienteEncontrado;
+    }
+
+    /**
+     * Registra a un cliente si no esta duplicado
+     * 
+     * @param nuevoCliente
+     */
+    public boolean registrarCliente(Cliente nuevoCliente) {
+        boolean duplicado = false;
+
+        for (Cliente cliente : clientes) {
+            if (cliente == nuevoCliente) {
+                duplicado = true;
+            }
+        }
+
+        if (!duplicado) {
+            this.clientes.add(nuevoCliente);
+        }
+
+        return duplicado;
+    }
+
     /**
      * Muestra los datos del cine con los datos de sus salas y sus proyecciones
      * 
