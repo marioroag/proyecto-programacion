@@ -138,36 +138,10 @@ public class Main {
                     opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "[ GESTIÓN CLIENTES ]");
 
                     if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
-                        Cliente clienteAniadir = cineStem
-                                .buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
-
-                        if (clienteAniadir != null) {
-                            registrarClienteEnPro(scanner, cineStem, clienteAniadir);
-
-                        } else {
-                            imprimirError("No se a encontrado un cliente con ese DNI, vuelva a intentarlo.");
-                        }
+                        registrarClienteEnPro(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 2) { // Cancelar asistencia
-                        Cliente clienteCancelar = cineStem
-                                .buscarClientePorDni(
-                                        leerTexto(scanner, "DNI del cliente a cancelar de la proyeccion: "));
-
-                        // Se encontró el cliente?
-                        if (clienteCancelar != null) {
-                            Proyeccion deProyeccion = cineStem.buscarProyeccion(
-                                    leerTexto(scanner, "Codigo de la proyección de la cual cancelarlo: "));
-
-                            // Se encontró la proyección?
-                            if (deProyeccion != null) {
-                                deProyeccion.cancelarAsistencia(clienteCancelar);
-
-                            } else {
-                                imprimirError("No se encontró una proyección con el ese código.");
-                            }
-                        } else {
-                            imprimirError("No se encontró un cliente con el ese DNI.");
-                        }
+                        cancelarClienteDePro(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 3) { // Ver lista de clientes en una proyección
 
@@ -203,7 +177,40 @@ public class Main {
     // ===================
 
     // region [ Cine ]
+    /**
+     * Busca y elimina a un cliente de una proyeccion
+     * 
+     * @param scanner
+     * @param cine
+     */
+    public void cancelarClienteDePro(Scanner scanner, Cine cine) {
+        Cliente clienteCancelar = cine
+                .buscarClientePorDni(
+                        leerTexto(scanner, "DNI del cliente a cancelar de la proyeccion: "));
 
+        // Se encontró el cliente?
+        if (clienteCancelar != null) {
+            Proyeccion deProyeccion = cine.buscarProyeccion(
+                    leerTexto(scanner, "Codigo de la proyección de la cual cancelarlo: "));
+
+            // Se encontró la proyección?
+            if (deProyeccion != null) {
+                deProyeccion.cancelarAsistencia(clienteCancelar);
+
+            } else {
+                imprimirError("No se encontró una proyección con el ese código.");
+            }
+        } else {
+            imprimirError("No se encontró un cliente con el ese DNI.");
+        }
+    }
+
+    /**
+     * Registra un nuevo cliente y lo añade al cine
+     * 
+     * @param scanner
+     * @param cine
+     */
     public static void registrarNuevoCliente(Scanner scanner, Cine cine) {
         imprimirMensaje("Introduzca los datos del cliente");
         Cliente clienteRegistrar = new Cliente(
@@ -216,33 +223,49 @@ public class Main {
         cine.registrarCliente(clienteRegistrar);
     }
 
-    public static void registrarClienteEnPro(Scanner scanner, Cine cine, Cliente clienteRegistrar) {
-        // Busca proyeccion
-        Proyeccion proyeccionRegistrar = cine.buscarProyeccion(
-                leerTexto(scanner, "Codigo de la proyección en la que registrar al cliente: "));
+    /**
+     * Encuentra el cliente usando el DNI y lo registra en una proyección
+     * 
+     * @param scanner
+     * @param cine
+     */
+    public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
+        // Busca cliente
+        Cliente clienteRegistrar = cine
+                .buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
 
-        // Se encontro una proyección?
-        if (proyeccionRegistrar != null) {
-            Sala salaAniadir = proyeccionRegistrar.getSala();
+        // Se encontro un cliente?
+        if (clienteRegistrar != null) {
+            // Busca proyeccion
+            Proyeccion proyeccionRegistrar = cine.buscarProyeccion(
+                    leerTexto(scanner, "Codigo de la proyección en la que registrar al cliente: "));
 
-            ArrayList<Boolean> arrayErrores = salaAniadir.registrarClientePro(clienteRegistrar,
-                    proyeccionRegistrar);
+            // Se encontro una proyección?
+            if (proyeccionRegistrar != null) {
+                Sala salaAniadir = proyeccionRegistrar.getSala();
 
-            // Control de errores
-            if (arrayErrores.get(0)) {
-                imprimirError("Proyeccion no registrada en ninguna sala.");
-            } else if (arrayErrores.get(1)) {
-                imprimirError("Cliente ya registrado en la proyeccion.");
-            } else if (arrayErrores.get(2)) {
-                imprimirError("No hay asientos libres en la sala.");
-            } else if (arrayErrores.get(3)) {
-                imprimirError("Ya ha terminado la proyeccion.");
+                ArrayList<Boolean> arrayErrores = salaAniadir.registrarClientePro(clienteRegistrar,
+                        proyeccionRegistrar);
+
+                // Control de errores
+                if (arrayErrores.get(0)) {
+                    imprimirError("Proyeccion no registrada en ninguna sala.");
+                } else if (arrayErrores.get(1)) {
+                    imprimirError("Cliente ya registrado en la proyeccion.");
+                } else if (arrayErrores.get(2)) {
+                    imprimirError("No hay asientos libres en la sala.");
+                } else if (arrayErrores.get(3)) {
+                    imprimirError("Ya ha terminado la proyeccion.");
+                } else {
+                    imprimirMensaje("Cliente registrado a la proyeccion con exito!");
+                }
+
             } else {
-                imprimirMensaje("Cliente registrado a la proyeccion con exito!");
+                imprimirError("No se ha encontrado esa proyeccion, vuelva a intentarlo.");
             }
-
         } else {
-            imprimirError("No se ha encontrado esa proyeccion, vuelva a intentarlo.");
+            imprimirError("No se a encontrado un cliente con ese DNI, vuelva a intentarlo.");
+
         }
     }
 
