@@ -10,11 +10,11 @@ public class Proyeccion {
     private LocalTime horaFin;
 
     // [ Constructores ]
-    public Proyeccion(Pelicula pelicula, String horaInicio, String horaFin) {
+    public Proyeccion(Pelicula pelicula, String horaInicio) {
         setCodigoProyeccion();
         this.pelicula = pelicula;
         setHoraInicio(horaInicio);
-        setHoraFin(horaFin);
+        setHoraFin(horaInicio);
 
         cantidadProyecciones++;
     }
@@ -54,16 +54,7 @@ public class Proyeccion {
     }
 
     public void setHoraFin(String horaFin) {
-        // Arregla el formato H:MM a HH:MM para que las funciones de LocalTime funcionen
-        if (horaFin.length() == 4) {
-            horaFin = "0" + horaFin;
-        }
-        this.horaFin = LocalTime.parse(horaFin);
-
-        // La pelicula no puede acabar antes de empezar
-        if (!this.horaFin.isAfter(this.horaInicio)) {
-            throw new IllegalArgumentException("La hora de fin debe ser posterior a la de inicio.");
-        }
+        this.horaFin = horaInicio.plusMinutes(pelicula.getDuracion());
     }
 
     // [ toString ]

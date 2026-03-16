@@ -12,9 +12,9 @@ public class Main {
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
         // System.out.println(pelicula1);
 
-        Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", "16:40");
-        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30", "18:40");
-        Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", "11:40");
+        Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30");
+        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30");
+        Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30");
         // System.out.println(proyeccion1);
 
         Sala sala1 = new Sala(100);
@@ -106,13 +106,10 @@ public class Main {
                                 if (peliculaAniadir != null) {
                                     String proHoraInicio = leerTexto(scanner,
                                             "Hora de inicio de la proyeccion (Formato: HH:MM): ");
-                                    String proHoraFin = leerTexto(scanner,
-                                            "Hora de fin de la proyeccion (Formato: HH:MM): ");
 
                                     // Formato valido para LocalTime?
                                     try {
-                                        Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio,
-                                                proHoraFin);
+                                        Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio);
 
                                         // Se solapa con alguna existente?
                                         if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
@@ -227,7 +224,6 @@ public class Main {
     // =================
     // = [ FUNCIONES ] =
     // =================
-
     static void imprimirPrompt(String mensaje) {
         System.out.print(mensaje);
     }
