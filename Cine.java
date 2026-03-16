@@ -46,8 +46,12 @@ public class Cine {
     public String mostarPeliculas() {
         String peliculasMostrar = "[ Peliculas Disponibles ]";
 
-        for (Pelicula pelicula : peliculas) {
-            peliculasMostrar += "\n" + pelicula.getCodigo() + " | " + pelicula.getTitulo();
+        if (peliculas.size() > 0) {
+            for (Pelicula pelicula : peliculas) {
+                peliculasMostrar += "\n" + pelicula.getCodigo() + " | " + pelicula.getTitulo();
+            }
+        } else {
+            peliculasMostrar += "\nTodavía no hay peliculas en este cine.";
         }
 
         return peliculasMostrar;

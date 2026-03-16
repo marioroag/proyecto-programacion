@@ -89,6 +89,7 @@ public class Main {
                         System.out.println(programarProyeccion(scanner, cineStem));
 
                     } else if (opcionMenuSalas == 4) { // Cancelar proyección
+                        cancelarProyeccion(scanner, cineStem);
 
                     } else if (opcionMenuSalas == 5) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
@@ -101,11 +102,7 @@ public class Main {
                     opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "GESTIÓN PELICULAS");
 
                     if (opcionMenuPeliculas == 1) { // Listar películas
-                        if (cineStem.getPeliculas().size() > 0) {
-                            System.out.println(cineStem.mostarPeliculas());
-                        } else {
-                            System.out.println("No hay peliculas que mostrar todavía.");
-                        }
+                        System.out.println(cineStem.mostarPeliculas());
 
                     } else if (opcionMenuPeliculas == 2) { // Ver detalles de una pelicula
                         Pelicula peliculaMostrar = cineStem.buscarPelicula(leerTexto(scanner, "ID de la pelicula: "));
@@ -145,6 +142,7 @@ public class Main {
     // =================
     // = [ FUNCIONES ] =
     // =================
+
     // [ Cine ]
     /**
      * Muestra si la sala recibida esta disponible en el momento de la ejecucion
@@ -154,18 +152,18 @@ public class Main {
      * @return String
      */
     public static String mostrarDispoSala(Scanner scanner, Cine cine) {
-        String resultado = "";
+        String feedback = "";
         String idSalaComprobar = leerTexto(scanner, "ID de la sala a consultar: ");
         Sala salaComprobar = cine.buscarSala(idSalaComprobar);
 
         if (salaComprobar != null) {
-            resultado = "La sala " + idSalaComprobar + " está "
+            feedback = "La sala " + idSalaComprobar + " está "
                     + salaComprobar.mostrarDisponibilidad("libre", "ocupada") + ".";
         } else {
-            resultado = "No se ha encontrado una sala con ese ID, vuelva a intentarlo.";
+            feedback = "No se ha encontrado una sala con ese ID, vuelva a intentarlo.";
         }
 
-        return resultado;
+        return feedback;
     }
 
     /**
@@ -178,7 +176,7 @@ public class Main {
      * @return String de feedback
      */
     public static String programarProyeccion(Scanner scanner, Cine cine) {
-        String resultado = "";
+        String feedback = "";
 
         // El cine tiene peliculas que programar?
         if (cine.getPeliculas().size() > 0) {
@@ -202,38 +200,45 @@ public class Main {
 
                         // Se solapa con alguna existente?
                         if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
-                            resultado = peliculaAniadir.getTitulo()
+                            feedback = peliculaAniadir.getTitulo()
                                     + " programada con exito programada para las "
                                     + proyeccionAniadir.getHoraInicio() + " a "
                                     + proyeccionAniadir.getHoraFin() + "!";
                         } else {
-                            resultado = "El horario se solapa con una proyeccion ya programada, vuelva a intentarlo.";
+                            feedback = "El horario se solapa con una proyeccion ya programada, vuelva a intentarlo.";
                         }
 
                     } catch (DateTimeParseException e) {
-                        resultado = "Hora introducida incorrecta. Usa formato HH:MM";
+                        feedback = "Hora introducida incorrecta. Usa formato HH:MM";
 
                     } catch (IllegalArgumentException e) {
 
-                        resultado = "La hora de fin debe ser posterior a la de inicio.";
+                        feedback = "La hora de fin debe ser posterior a la de inicio.";
 
                     }
 
                 } else {
-                    resultado = "No se ha encontrado una pelicula con ese ID, vuelva a intentarlo.";
+                    feedback = "No se ha encontrado una pelicula con ese ID, vuelva a intentarlo.";
                 }
             } else {
-                resultado = "No se ha encontrado una sala con ese ID, vuelva a intentarlo.";
+                feedback = "No se ha encontrado una sala con ese ID, vuelva a intentarlo.";
             }
         } else {
-            resultado = "El cine no tiene peliculas todavia, Añade peliculas para poder programarlas.";
+            feedback = "El cine no tiene peliculas todavia, Añade peliculas para poder programarlas.";
         }
 
-        return resultado;
+        return feedback;
     }
 
+    /**
+     * Solicita datos para encontrar la proyeccion a cancelar y la cancela
+     * 
+     * @param scanner
+     * @param cine
+     * @return String de feedback
+     */
     public static String cancelarProyeccion(Scanner scanner, Cine cine) {
-        String resultado = "";
+        String feedback = "";
 
         String idSalaAniadirPro = leerTexto(scanner,
                 "ID de la sala en la que cancelar una proyección: ");
@@ -247,19 +252,19 @@ public class Main {
             if (salaAniadirPro.buscarProyeccion(idProyeccion) != null) {
                 if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
                     salaAniadirPro.cancelarProyeccion(idProyeccion);
-                    resultado = "Proyección cancelada con exito!";
+                    feedback = "Proyección cancelada con exito!";
                 } else {
-                    resultado = "No es posible cancelar una proyeccion ya finalizada";
+                    feedback = "No es posible cancelar una proyeccion ya finalizada";
                 }
             } else {
-                resultado = "No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.";
+                feedback = "No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.";
             }
 
         } else {
-            System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
+            feedback = "No se ha encontrado una sala con ese ID, vuelva a intentarlo.";
         }
 
-        return resultado;
+        return feedback;
     }
 
     // [ Basicas ]
