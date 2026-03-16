@@ -72,8 +72,8 @@ public class Cliente {
     // [ toString ]
     @Override
     public String toString() {
-        return "Cliente [nombre=" + nombre + ", dni=" + dni + ", edad=" + edad + ", tipoEntrada=" + tipoEntrada
-                + ", numEntrada=" + numEntrada + "]";
+        return dni + " | " + nombre + " de " + edad + " años tiene la entrada " + tipoEntrada
+                + " Nº" + numEntrada;
     }
 
 }

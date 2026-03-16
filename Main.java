@@ -6,8 +6,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // region Testing
-        // [ Creacion de objetos para testing ]
+        // ==================
+        // ==== [ MAIN ] ====
+        // ==================
+
+        // region [ Creacion de objetos para testing ]
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
         Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
@@ -35,12 +38,14 @@ public class Main {
         cineStem.agregarPelicula(pelicula2);
         cineStem.agregarPelicula(pelicula3);
 
+        Cliente cliente1 = new Cliente("Mario", "1235567N", 21, "Premium", 1);
+        // System.out.println(cliente1);
+
         // endregion
 
-        // [ Declaraciones ]
+        // region [ Declaraciones ]
         Scanner scanner = new Scanner(System.in);
 
-        // region Opciones menus
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas;
 
         ArrayList<String> opcionesMenu = new ArrayList<>(
@@ -59,7 +64,7 @@ public class Main {
                         "Ver proyecciones de una película", "Volver al menú principal"));
         // endregion
 
-        // [ Menú ]
+        // region [ Menú ]
         do {
             opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, cineStem.getNombre());
 
@@ -117,21 +122,22 @@ public class Main {
                 } while (opcionMenuPeliculas != opcionesPeliculas.size());
 
             } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
+
             } else if (opcionMenuPrincipal == 5) { // Salir
                 System.out.println("Saliendo del programa..");
             }
         } while (opcionMenuPrincipal != opcionesMenu.size());
+        // endregion
 
         scanner.close();
 
     }
 
-    // =================
-    // = [ FUNCIONES ] =
-    // =================
+    // ===================
+    // == [ FUNCIONES ] ==
+    // ===================
 
-    // [ Cine ]
-
+    // region [ Cine ]
     /**
      * Busca una pelicula y muestra todas sus proyecciones programadas
      * 
@@ -176,7 +182,8 @@ public class Main {
     }
 
     /**
-     * Muestra si la sala recibida esta disponible en el momento de la ejecucion
+     * Pregunta por el codigo de una sala, la busca si y muestra si esta disponible
+     * en el momento de la ejecucion
      * 
      * @param scanner Scanner
      * @param cine    Cine
@@ -297,8 +304,9 @@ public class Main {
 
         return feedback;
     }
-
-    // [ Basicas ]
+    // endregion
+    
+    // region [ Basicas ]
     public static void imprimirPrompt(String mensaje) {
         System.out.print(mensaje);
     }
@@ -378,4 +386,5 @@ public class Main {
 
         return opcion;
     }
+    // endregion
 }
