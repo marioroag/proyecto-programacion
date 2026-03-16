@@ -105,23 +105,10 @@ public class Main {
                         System.out.println(cineStem.mostarPeliculas());
 
                     } else if (opcionMenuPeliculas == 2) { // Ver detalles de una pelicula
-                        Pelicula peliculaMostrar = cineStem.buscarPelicula(leerTexto(scanner, "ID de la pelicula: "));
-
-                        if (peliculaMostrar != null) {
-                            System.out.println(peliculaMostrar);
-                        } else {
-                            System.out.println("No se encontro una pelicula con ese ID, vuelva a intentarlo.");
-                        }
+                        verDetallesPelicula(scanner, cineStem);
 
                     } else if (opcionMenuPeliculas == 3) { // Ver proyecciones de una película
-                        String idPelicula = leerTexto(scanner, "ID de la pelicula a buscar: ");
-                        Pelicula peliculaBuscar = cineStem.buscarPelicula(idPelicula);
-
-                        if (peliculaBuscar != null) {
-                            System.out.println(cineStem.mostrarProyeccionesPelicula(peliculaBuscar));
-                        } else {
-                            System.out.println("No se encontro una película con ese ID.");
-                        }
+                        System.out.println(verProyeccionesPelicula(scanner, cineStem));
 
                     } else if (opcionMenuPeliculas == 4) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
@@ -144,6 +131,50 @@ public class Main {
     // =================
 
     // [ Cine ]
+
+    /**
+     * Busca una pelicula y muestra todas sus proyecciones programadas
+     * 
+     * @param scanner
+     * @param cine
+     * @return String
+     */
+    public static String verProyeccionesPelicula(Scanner scanner, Cine cine) {
+        String feedback = "";
+
+        String idPelicula = leerTexto(scanner, "ID de la pelicula a buscar: ");
+        Pelicula peliculaBuscar = cine.buscarPelicula(idPelicula);
+
+        if (peliculaBuscar != null) {
+            feedback = "[ Proyecciones de " + peliculaBuscar.getTitulo() + " ]\n"
+                    + cine.mostrarProyeccionesPelicula(peliculaBuscar);
+        } else {
+            feedback = "No se encontro una película con ese ID.";
+        }
+
+        return feedback;
+    }
+
+    /**
+     * Busca y muestra los detalles de una pelicula
+     * 
+     * @param scanner
+     * @param cine
+     * @return String
+     */
+    public static String verDetallesPelicula(Scanner scanner, Cine cine) {
+        String feedback = "";
+        Pelicula peliculaMostrar = cine.buscarPelicula(leerTexto(scanner, "ID de la pelicula: "));
+
+        if (peliculaMostrar != null) {
+            feedback += peliculaMostrar;
+        } else {
+            feedback = "No se encontro una pelicula con ese ID, vuelva a intentarlo.";
+        }
+
+        return feedback;
+    }
+
     /**
      * Muestra si la sala recibida esta disponible en el momento de la ejecucion
      * 
