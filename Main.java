@@ -83,97 +83,13 @@ public class Main {
                         System.out.println("[ SALAS ]\n" + cineStem.mostrarSalas());
 
                     } else if (opcionMenuSalas == 2) { // Consultar disponibilidad de una sala
-                        String idSalaComprobar = leerTexto(scanner, "ID de la sala a consultar: ");
-                        Sala salaComprobar = cineStem.buscarSala(idSalaComprobar);
-
-                        if (salaComprobar != null) {
-                            System.out.println("La sala " + idSalaComprobar + " está "
-                                    + salaComprobar.mostrarDisponibilidad("libre", "ocupada") + ".");
-                        } else {
-                            System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
-                        }
+                        System.out.println(mostrarDispoSala(scanner, cineStem));
 
                     } else if (opcionMenuSalas == 3) { // Programar proyeccion en una sala
-                        // con otra proyección ya programada en la misma sala.
-
-                        // El cine tiene peliculas que programar?
-                        if (cineStem.getPeliculas().size() > 0) {
-                            String idSalaAniadirPro = leerTexto(scanner,
-                                    "ID de la sala en la que añadir una proyección: ");
-                            Sala salaAniadirPro = cineStem.buscarSala(idSalaAniadirPro);
-
-                            // Se encontro una sala?
-                            if (salaAniadirPro != null) {
-                                String idPeliculaAniadir = leerTexto(scanner, "ID de la pelicula a proyectar: ");
-                                Pelicula peliculaAniadir = cineStem.buscarPelicula(idPeliculaAniadir);
-
-                                // Se encontro una pelicula?
-                                if (peliculaAniadir != null) {
-                                    String proHoraInicio = leerTexto(scanner,
-                                            "Hora de inicio de la proyeccion (Formato: HH:MM): ");
-
-                                    // Formato valido para LocalTime?
-                                    try {
-                                        Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio);
-
-                                        // Se solapa con alguna existente?
-                                        if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
-                                            System.out.println(
-                                                    peliculaAniadir.getTitulo()
-                                                            + " programada con exito programada para las "
-                                                            + proyeccionAniadir.getHoraInicio() + " a "
-                                                            + proyeccionAniadir.getHoraFin() + "!");
-                                        } else {
-                                            System.out.println(
-                                                    "El horario se solapa con una proyeccion ya programada, vuelva a intentarlo.");
-                                        }
-
-                                    } catch (DateTimeParseException e) {
-                                        System.out.println("Hora introducida incorrecta. Usa formato HH:MM");
-
-                                    } catch (IllegalArgumentException e) {
-
-                                        System.out.println("La hora de fin debe ser posterior a la de inicio.");
-
-                                    }
-
-                                } else {
-                                    System.out.println(
-                                            "No se ha encontrado una pelicula con ese ID, vuelva a intentarlo.");
-                                }
-                            } else {
-                                System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
-                            }
-                        } else {
-                            System.out.println(
-                                    "El cine no tiene peliculas todavia, Añade peliculas para poder programarlas.");
-                        }
+                        System.out.println(programarProyeccion(scanner, cineStem));
 
                     } else if (opcionMenuSalas == 4) { // Cancelar proyección
-                        String idSalaAniadirPro = leerTexto(scanner,
-                                "ID de la sala en la que cancelar una proyección: ");
-                        Sala salaAniadirPro = cineStem.buscarSala(idSalaAniadirPro);
 
-                        // Se encontro una sala?
-                        if (salaAniadirPro != null) {
-                            String idProyeccion = leerTexto(scanner, "ID de la proyeccion a cancelar: ");
-                            Proyeccion proyeccionCanelar = salaAniadirPro.buscarProyeccion(idProyeccion);
-
-                            if (salaAniadirPro.buscarProyeccion(idProyeccion) != null) {
-                                if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
-                                    salaAniadirPro.cancelarProyeccion(idProyeccion);
-                                    System.out.println("Proyección cancelada con exito!");
-                                } else {
-                                    System.out.println("No es posible cancelar una proyeccion ya finalizada");
-                                }
-                            } else {
-                                System.out.println(
-                                        "No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.");
-                            }
-
-                        } else {
-                            System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
-                        }
                     } else if (opcionMenuSalas == 5) { // Volver al menú principal
                         System.out.println("Volviendo al menú principal..");
                     }
@@ -229,7 +145,125 @@ public class Main {
     // =================
     // = [ FUNCIONES ] =
     // =================
-    static void imprimirPrompt(String mensaje) {
+    // [ Cine ]
+    /**
+     * Muestra si la sala recibida esta disponible en el momento de la ejecucion
+     * 
+     * @param scanner Scanner
+     * @param cine    Cine
+     * @return String
+     */
+    public static String mostrarDispoSala(Scanner scanner, Cine cine) {
+        String resultado = "";
+        String idSalaComprobar = leerTexto(scanner, "ID de la sala a consultar: ");
+        Sala salaComprobar = cine.buscarSala(idSalaComprobar);
+
+        if (salaComprobar != null) {
+            resultado = "La sala " + idSalaComprobar + " está "
+                    + salaComprobar.mostrarDisponibilidad("libre", "ocupada") + ".";
+        } else {
+            resultado = "No se ha encontrado una sala con ese ID, vuelva a intentarlo.";
+        }
+
+        return resultado;
+    }
+
+    /**
+     * Programa una nueva proyeccion, consulta sala, pelicula y hora
+     * Valida que la sala y la pelicula existan y que la hora sea correcta y no
+     * solape con una proyeccion ya programada
+     * 
+     * @param scanner
+     * @param cine
+     * @return String de feedback
+     */
+    public static String programarProyeccion(Scanner scanner, Cine cine) {
+        String resultado = "";
+
+        // El cine tiene peliculas que programar?
+        if (cine.getPeliculas().size() > 0) {
+            String idSalaAniadirPro = leerTexto(scanner,
+                    "ID de la sala en la que añadir una proyección: ");
+            Sala salaAniadirPro = cine.buscarSala(idSalaAniadirPro);
+
+            // Se encontro una sala?
+            if (salaAniadirPro != null) {
+                String idPeliculaAniadir = leerTexto(scanner, "ID de la pelicula a proyectar: ");
+                Pelicula peliculaAniadir = cine.buscarPelicula(idPeliculaAniadir);
+
+                // Se encontro una pelicula?
+                if (peliculaAniadir != null) {
+                    String proHoraInicio = leerTexto(scanner,
+                            "Hora de inicio de la proyeccion (Formato: HH:MM): ");
+
+                    // Formato valido para LocalTime?
+                    try {
+                        Proyeccion proyeccionAniadir = new Proyeccion(peliculaAniadir, proHoraInicio);
+
+                        // Se solapa con alguna existente?
+                        if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
+                            resultado = peliculaAniadir.getTitulo()
+                                    + " programada con exito programada para las "
+                                    + proyeccionAniadir.getHoraInicio() + " a "
+                                    + proyeccionAniadir.getHoraFin() + "!";
+                        } else {
+                            resultado = "El horario se solapa con una proyeccion ya programada, vuelva a intentarlo.";
+                        }
+
+                    } catch (DateTimeParseException e) {
+                        resultado = "Hora introducida incorrecta. Usa formato HH:MM";
+
+                    } catch (IllegalArgumentException e) {
+
+                        resultado = "La hora de fin debe ser posterior a la de inicio.";
+
+                    }
+
+                } else {
+                    resultado = "No se ha encontrado una pelicula con ese ID, vuelva a intentarlo.";
+                }
+            } else {
+                resultado = "No se ha encontrado una sala con ese ID, vuelva a intentarlo.";
+            }
+        } else {
+            resultado = "El cine no tiene peliculas todavia, Añade peliculas para poder programarlas.";
+        }
+
+        return resultado;
+    }
+
+    public static String cancelarProyeccion(Scanner scanner, Cine cine) {
+        String resultado = "";
+
+        String idSalaAniadirPro = leerTexto(scanner,
+                "ID de la sala en la que cancelar una proyección: ");
+        Sala salaAniadirPro = cine.buscarSala(idSalaAniadirPro);
+
+        // Se encontro una sala?
+        if (salaAniadirPro != null) {
+            String idProyeccion = leerTexto(scanner, "ID de la proyeccion a cancelar: ");
+            Proyeccion proyeccionCanelar = salaAniadirPro.buscarProyeccion(idProyeccion);
+
+            if (salaAniadirPro.buscarProyeccion(idProyeccion) != null) {
+                if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
+                    salaAniadirPro.cancelarProyeccion(idProyeccion);
+                    resultado = "Proyección cancelada con exito!";
+                } else {
+                    resultado = "No es posible cancelar una proyeccion ya finalizada";
+                }
+            } else {
+                resultado = "No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.";
+            }
+
+        } else {
+            System.out.println("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
+        }
+
+        return resultado;
+    }
+
+    // [ Basicas ]
+    public static void imprimirPrompt(String mensaje) {
         System.out.print(mensaje);
     }
 
