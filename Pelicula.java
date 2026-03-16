@@ -19,7 +19,7 @@ public class Pelicula {
         cantidadPeliculas++;
     }
 
-    // [ Getters y Setters ]
+    // region [ Getters y Setters ]
     public String getCodigo() {
         return codigo;
     }
@@ -75,6 +75,7 @@ public class Pelicula {
             this.genero = "invalid";
         }
     }
+    // endregion
 
     // [ toString ]
     @Override

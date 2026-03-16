@@ -19,7 +19,7 @@ public class Proyeccion {
         cantidadProyecciones++;
     }
 
-    // [ Getters y Setters ]
+    // region [ Getters y Setters ]
     public String getCodigoProyeccion() {
         return codigoProyeccion;
     }
@@ -56,6 +56,7 @@ public class Proyeccion {
     public void setHoraFin(String horaFin) {
         this.horaFin = horaInicio.plusMinutes(pelicula.getDuracion());
     }
+    // endregion
 
     // [ toString ]
     @Override

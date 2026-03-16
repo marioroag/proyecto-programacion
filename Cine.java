@@ -157,7 +157,7 @@ public class Cine {
         return mensajeSalas;
     }
 
-    // [ Getters y Setters ]
+    // region [ Getters y Setters ]
     public String getCodigo() {
         return codigo;
     }
@@ -217,6 +217,7 @@ public class Cine {
     public void setPeliculas(ArrayList<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
+    // endregion
 
     // [ toString ]
     @Override
@@ -226,4 +227,5 @@ public class Cine {
 
         return cineMostrar;
     }
+
 }

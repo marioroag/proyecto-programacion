@@ -16,7 +16,7 @@ public class Cliente {
         this.numEntrada = numEntrada;
     }
 
-    // [ Getters y Setters ]
+    // region [ Getters y Setters ]
     public String getNombre() {
         return nombre;
     }
@@ -68,6 +68,7 @@ public class Cliente {
     public void setNumEntrada(int numEntrada) {
         this.numEntrada = numEntrada;
     }
+    // endregion
 
     // [ toString ]
     @Override

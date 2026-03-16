@@ -116,7 +116,7 @@ public class Sala {
         return disponibilidad;
     }
 
-    // [ Getters y Setters ]
+    // region [ Getters y Setters ]
     public String getId() {
         return id;
     }
@@ -144,6 +144,7 @@ public class Sala {
     public void setProyecciones(ArrayList<Proyeccion> proyecciones) {
         this.proyecciones = proyecciones;
     }
+    // endregion
 
     // [ toString ]
     @Override
@@ -154,7 +155,6 @@ public class Sala {
                 + " personas:\n";
 
         for (Proyeccion proyeccion : proyecciones) {
-
             salaMostrar += " " + proyeccion + "\n";
         }
 
