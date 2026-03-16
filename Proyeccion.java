@@ -44,6 +44,29 @@ public class Proyeccion {
         this.clientes.remove(cliente);
     }
 
+    /**
+     * Devuelve un String de todos los clientes que asisten a la proyección
+     * 
+     * @return String
+     */
+    public String verListaClientes() {
+        String resultado = "[ CLIENTES DE " + codigoProyeccion + " ]";
+
+        // Hay algun cliente?
+        if (clientes.size() > 0) {
+            for (Cliente cliente : clientes) {
+                resultado += "\nDNI: " + cliente.getDni() + " | " + cliente.getNombre() + " de " + cliente.getEdad()
+                        + " años tiene la entrada " + cliente.getTipoEntrada()
+                        + " Nº" + cliente.getNumEntrada() + ".";
+            }
+
+        } else {
+            resultado += "\nEstá proyección todavía no tiene clientes registrados.";
+        }
+
+        return resultado;
+    }
+
     // region [ Getters y Setters ]
     public String getCodigoProyeccion() {
         return codigoProyeccion;

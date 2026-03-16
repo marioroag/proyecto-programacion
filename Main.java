@@ -38,7 +38,7 @@ public class Main {
         cineStem.agregarPelicula(pelicula2);
         cineStem.agregarPelicula(pelicula3);
 
-        Cliente cliente1 = new Cliente("Mario", "1235567N", 21, "Premium", 1);
+        Cliente cliente1 = new Cliente("Mario", "123", 21, "Premium", 1);
         Cliente cliente2 = new Cliente("Lola", "5463367N", 19, "Normal", 2);
         Cliente cliente3 = new Cliente("Mento", "4343655N", 15, "Normal", 3);
 
@@ -144,13 +144,10 @@ public class Main {
                         cancelarClienteDePro(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 3) { // Ver lista de clientes en una proyección
+                        verListaClientesPro(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 4) { // Ver número total de asistentes
-                        Proyeccion proyeccionVerAsistentes = cineStem.buscarProyeccion(
-                                leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
-
-                        imprimirMensaje("La proyeccion  " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene: "
-                                + proyeccionVerAsistentes.getClientes().size() + " asistentes.");
+                        verTotalAsistentes(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 5) { // Registrar un cliente nuevo
                         registrarNuevoCliente(scanner, cineStem);
@@ -165,6 +162,7 @@ public class Main {
             } else if (opcionMenuPrincipal == 5) { // Salir
                 System.out.println("Saliendo del programa..");
             }
+
         } while (opcionMenuPrincipal != opcionesMenu.size());
         // endregion
 
@@ -178,12 +176,50 @@ public class Main {
 
     // region [ Cine ]
     /**
-     * Busca y elimina a un cliente de una proyeccion
+     * Busca una proyeccion y si la encuentra imprime los clientes reistrados en
+     * ella
      * 
      * @param scanner
      * @param cine
      */
-    public void cancelarClienteDePro(Scanner scanner, Cine cine) {
+    public static void verListaClientesPro(Scanner scanner, Cine cine) {
+        Proyeccion proyeccionVerClientes = cine.buscarProyeccion(
+                leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
+
+        if (proyeccionVerClientes != null) {
+            imprimirMensaje(proyeccionVerClientes.verListaClientes());
+
+        } else {
+            imprimirError("No se ha encontrado una proyeccion con ese código, vuelva a intentarlo");
+        }
+    }
+
+    /**
+     * Busca una proyeccion y muestra su total de asistentes.
+     * 
+     * @param scanner
+     * @param cine
+     */
+    public static void verTotalAsistentes(Scanner scanner, Cine cine) {
+        Proyeccion proyeccionVerAsistentes = cine.buscarProyeccion(
+                leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
+
+        if (proyeccionVerAsistentes != null) {
+            imprimirMensaje("La proyeccion  " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
+                    + proyeccionVerAsistentes.getClientes().size() + " asistentes.");
+
+        } else {
+            imprimirError("No se ha encontrado una proyeccion con ese código, vuelva a intentarlo");
+        }
+    }
+
+    /**
+     * Busca y elimina a un cliente de una proyeccion.
+     * 
+     * @param scanner
+     * @param cine
+     */
+    public static void cancelarClienteDePro(Scanner scanner, Cine cine) {
         Cliente clienteCancelar = cine
                 .buscarClientePorDni(
                         leerTexto(scanner, "DNI del cliente a cancelar de la proyeccion: "));
@@ -196,6 +232,8 @@ public class Main {
             // Se encontró la proyección?
             if (deProyeccion != null) {
                 deProyeccion.cancelarAsistencia(clienteCancelar);
+                imprimirMensaje("Asistencia de " + clienteCancelar.getNombre() + " a "
+                        + deProyeccion.getPelicula().getTitulo() + " ha sido cancelada con exito!");
 
             } else {
                 imprimirError("No se encontró una proyección con el ese código.");
@@ -206,7 +244,7 @@ public class Main {
     }
 
     /**
-     * Registra un nuevo cliente y lo añade al cine
+     * Registra un nuevo cliente y lo añade al cine.
      * 
      * @param scanner
      * @param cine
@@ -221,10 +259,12 @@ public class Main {
                 leerIntPositivo(scanner, "Número de entrada: "));
 
         cine.registrarCliente(clienteRegistrar);
+
+        imprimirMensaje("Cliente registrado con éxito!");
     }
 
     /**
-     * Encuentra el cliente usando el DNI y lo registra en una proyección
+     * Encuentra el cliente usando el DNI y lo registra en una proyección.
      * 
      * @param scanner
      * @param cine
@@ -257,11 +297,11 @@ public class Main {
                 } else if (arrayErrores.get(3)) {
                     imprimirError("Ya ha terminado la proyeccion.");
                 } else {
-                    imprimirMensaje("Cliente registrado a la proyeccion con exito!");
+                    imprimirMensaje("Cliente registrado a la proyección con exito!");
                 }
 
             } else {
-                imprimirError("No se ha encontrado esa proyeccion, vuelva a intentarlo.");
+                imprimirError("No se ha encontrado esa proyección, vuelva a intentarlo.");
             }
         } else {
             imprimirError("No se a encontrado un cliente con ese DNI, vuelva a intentarlo.");
@@ -270,7 +310,7 @@ public class Main {
     }
 
     /**
-     * Busca una pelicula y muestra todas sus proyecciones programadas
+     * Busca una pelicula y muestra todas sus proyecciones programadas.
      * 
      * @param scanner
      * @param cine
@@ -290,7 +330,7 @@ public class Main {
     }
 
     /**
-     * Busca y muestra los detalles de una pelicula
+     * Busca y muestra los detalles de una pelicula.
      * 
      * @param scanner
      * @param cine
@@ -308,7 +348,7 @@ public class Main {
 
     /**
      * Pregunta por el codigo de una sala, la busca si y muestra si esta disponible
-     * en el momento de la ejecucion
+     * en el momento de la ejecucion.
      * 
      * @param scanner Scanner
      * @param cine    Cine
@@ -329,7 +369,7 @@ public class Main {
     /**
      * Programa una nueva proyeccion, consulta sala, pelicula y hora
      * Valida que la sala y la pelicula existan y que la hora sea correcta y no
-     * solape con una proyeccion ya programada
+     * solape con una proyeccion ya programada.
      * 
      * @param scanner
      * @param cine
@@ -384,7 +424,7 @@ public class Main {
     }
 
     /**
-     * Solicita datos para encontrar la proyeccion a cancelar y la cancela
+     * Solicita datos para encontrar la proyeccion a cancelar y la cancela.
      * 
      * @param scanner
      * @param cine
