@@ -8,8 +8,8 @@ public class Cliente {
 
     // [ Constructor ]
     public Cliente(String nombre, String dni, int edad, String tipoEntrada, int numEntrada) {
-        this.nombre = nombre;
-        this.dni = dni;
+        setNombre(nombre);
+        setDni(dni);
         this.edad = edad;
         this.tipoEntrada = tipoEntrada;
         this.numEntrada = numEntrada;
@@ -21,7 +21,11 @@ public class Cliente {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (!nombre.isBlank() && nombre != null) {
+            this.nombre = nombre;
+        } else {
+            this.nombre = "invalid";
+        }
     }
 
     public String getDni() {
@@ -29,7 +33,11 @@ public class Cliente {
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        if (!dni.isBlank() && dni != null) {
+            this.dni = dni;
+        } else {
+            this.dni = "invalid";
+        }
     }
 
     public int getEdad() {
@@ -37,7 +45,11 @@ public class Cliente {
     }
 
     public void setEdad(int edad) {
-        this.edad = edad;
+        if (edad >= 0) {
+            this.edad = edad;
+        } else {
+            this.edad = -1;
+        }
     }
 
     public String getTipoEntrada() {
