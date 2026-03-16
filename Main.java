@@ -6,8 +6,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // [ Creacion de objetos para testing ]
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
-        Pelicula pelicula2 = new Pelicula("El precio del dinero", 120, "+18", "Accion");
+        Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
         // System.out.println(pelicula1);
 
@@ -28,12 +29,12 @@ public class Main {
         Cine cineStem = new Cine("Cine STEM", "Granada", "España");
         cineStem.agregarSala(sala1);
         cineStem.agregarSala(sala2);
-        System.out.println(cineStem.mostrarCineCompleto());
 
         cineStem.agregarPelicula(pelicula1);
         cineStem.agregarPelicula(pelicula2);
         cineStem.agregarPelicula(pelicula3);
 
+        // [ Declaraciones ]
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas;
@@ -53,6 +54,7 @@ public class Main {
                 Arrays.asList("Listar películas", "Ver detalles de una pelicula",
                         "Ver proyecciones de una película", "Volver al menú principal"));
 
+        // [ Menú ]
         do {
             opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, cineStem.getNombre());
 
@@ -73,7 +75,7 @@ public class Main {
                     opcionMenuSalas = leerOpcionMenu(scanner, opcionesSalas, "GESTIÓN SALAS");
 
                     if (opcionMenuSalas == 1) { // Listar salas de un cine
-                        System.out.println(cineStem.mostrarSalas());
+                        System.out.println("[ SALAS ]\n" + cineStem.mostrarSalas());
 
                     } else if (opcionMenuSalas == 2) { // Consultar disponibilidad de una sala
                         String idSalaComprobar = leerTexto(scanner, "ID de la sala a consultar: ");
@@ -114,7 +116,11 @@ public class Main {
 
                                         // Se solapa con alguna existente?
                                         if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
-                                            System.out.println("Proyeccion programada con exito!");
+                                            System.out.println(
+                                                    peliculaAniadir.getTitulo()
+                                                            + " programada con exito programada para las "
+                                                            + proyeccionAniadir.getHoraInicio() + " a "
+                                                            + proyeccionAniadir.getHoraFin() + "!");
                                         } else {
                                             System.out.println(
                                                     "El horario se solapa con una proyeccion ya programada, vuelva a intentarlo.");
