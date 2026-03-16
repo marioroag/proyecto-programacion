@@ -6,15 +6,15 @@ public class Pelicula {
     private String titulo;
     private int duracion;
     private String clasificacionEdad;
-    private String genero; // todo: ArrayList de generos validos
+    private String genero;
 
     // [ Constructores ]
     public Pelicula(String titulo, int duracion, String clasificacionEdad, String genero) {
         setCodigo();
-        this.titulo = titulo;
-        this.duracion = duracion;
-        this.clasificacionEdad = clasificacionEdad;
-        this.genero = genero;
+        setTitulo(titulo);
+        setDuracion(duracion);
+        setClasificacionEdad(clasificacionEdad);
+        setGenero(genero);
 
         cantidadPeliculas++;
     }
@@ -33,7 +33,11 @@ public class Pelicula {
     }
 
     public void setTitulo(String titulo) {
-        this.titulo = titulo;
+        if (!titulo.isBlank() && titulo != null) {
+            this.titulo = titulo;
+        } else {
+            this.titulo = "invalid";
+        }
     }
 
     public int getDuracion() {
@@ -41,7 +45,11 @@ public class Pelicula {
     }
 
     public void setDuracion(int duracion) {
-        this.duracion = duracion;
+        if (duracion > 0) {
+            this.duracion = duracion;
+        } else {
+            this.duracion = -1;
+        }
     }
 
     public String getClasificacionEdad() {
@@ -49,7 +57,11 @@ public class Pelicula {
     }
 
     public void setClasificacionEdad(String clasificacionEdad) {
-        this.clasificacionEdad = clasificacionEdad;
+        if (!clasificacionEdad.isBlank() && clasificacionEdad != null) {
+            this.clasificacionEdad = clasificacionEdad;
+        } else {
+            this.clasificacionEdad = "invalid";
+        }
     }
 
     public String getGenero() {
@@ -57,7 +69,11 @@ public class Pelicula {
     }
 
     public void setGenero(String genero) {
-        this.genero = genero;
+        if (!genero.isBlank() && genero != null) {
+            this.genero = genero;
+        } else {
+            this.genero = "invalid";
+        }
     }
 
     // [ toString ]

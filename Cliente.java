@@ -10,8 +10,9 @@ public class Cliente {
     public Cliente(String nombre, String dni, int edad, String tipoEntrada, int numEntrada) {
         setNombre(nombre);
         setDni(dni);
-        this.edad = edad;
+        setEdad(edad);
         this.tipoEntrada = tipoEntrada;
+        // Todavia no se si generare esto aleatoriamente o viene dado
         this.numEntrada = numEntrada;
     }
 

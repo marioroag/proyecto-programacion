@@ -13,9 +13,9 @@ public class Cine {
     // [ Constructores ]
     public Cine(String nombre, String ciudad, String pais) {
         setCodigo();
-        this.nombre = nombre;
-        this.ciudad = ciudad;
-        this.pais = pais;
+        setNombre(nombre);
+        setCiudad(ciudad);
+        setPais(pais);
         this.salas = new ArrayList<>();
         this.peliculas = new ArrayList<>();
 
