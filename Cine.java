@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Cine {
     // [ Atributos ]
     private static int cantidadCines = 1;
+
     private String codigo;
     private String nombre;
     private String ciudad;
@@ -93,8 +94,15 @@ public class Cine {
      * 
      * @param nuevaSala Sala a añadir
      */
-    public void agregarPelicula(Pelicula nuevaPelicula) {
-        this.peliculas.add(nuevaPelicula);
+    public boolean agregarPelicula(Pelicula nuevaPelicula) {
+        boolean exito = false;
+
+        if (peliculas.contains(nuevaPelicula)) {
+            this.peliculas.add(nuevaPelicula);
+            exito = true;
+        }
+
+        return exito;
     }
 
     /**

@@ -1,5 +1,6 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Sala {
     // [ Atributos ]
@@ -25,6 +26,22 @@ public class Sala {
     }
 
     // [ Métodos ]
+    public ArrayList<Boolean> registrarClientePro(Cliente cliente, Proyeccion proyeccion) {
+        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
+
+        if (proyecciones.contains(proyeccion)) {
+            errores.set(0, true); // Proyeccion no registrada en la sala
+        } else if (proyeccion.getClientes().contains(cliente)) {
+            errores.set(1, true); // Cliente ya registrado
+        } else if (capacidad <= proyeccion.getClientes().size()) {
+            errores.set(2, true); // No hay asientos libres
+        } else if (!proyeccion.registrarCliente(cliente)) {
+            errores.set(3, true);
+        }
+
+        return errores;
+    }
+
     /**
      * Agrega una nueva proyeccion a la sala comprobando si no se solapa con alguna
      * ya existente

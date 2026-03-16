@@ -39,6 +39,13 @@ public class Main {
         cineStem.agregarPelicula(pelicula3);
 
         Cliente cliente1 = new Cliente("Mario", "1235567N", 21, "Premium", 1);
+        ArrayList<Boolean> resultado = sala1.registrarClientePro(cliente1, proyeccion3);
+        ArrayList<Boolean> resultado2 = sala1.registrarClientePro(cliente1, proyeccion3);
+        if (resultado2.get(1)) {
+            System.out.println("NO");
+        }
+
+        System.out.println(proyeccion3);
         // System.out.println(cliente1);
 
         // endregion
@@ -263,7 +270,7 @@ public class Main {
                         // Se solapa con alguna existente?
                         if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
                             feedback = peliculaAniadir.getTitulo()
-                                    + " programada con exito programada para las "
+                                    + " programada con exito programada de "
                                     + proyeccionAniadir.getHoraInicio() + " a "
                                     + proyeccionAniadir.getHoraFin() + "!";
                         } else {

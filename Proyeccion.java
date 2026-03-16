@@ -1,22 +1,43 @@
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Proyeccion {
     // [ Atributos ]
     private static int cantidadProyecciones = 1;
 
-    private String codigoProyeccion;
     private Pelicula pelicula;
+    private String codigoProyeccion;
     private LocalTime horaInicio;
     private LocalTime horaFin;
+    private ArrayList<Cliente> clientes;
 
     // [ Constructores ]
     public Proyeccion(Pelicula pelicula, String horaInicio) {
-        setCodigoProyeccion();
         this.pelicula = pelicula;
+        setCodigoProyeccion();
         setHoraInicio(horaInicio);
         setHoraFin(horaInicio);
+        this.clientes = new ArrayList<>();
 
         cantidadProyecciones++;
+    }
+
+    // [ Metodos ]
+    /**
+     * Registra un cliente en una proyeccion
+     * 
+     * @param cliente Cliente
+     */
+    public boolean registrarCliente(Cliente cliente) {
+        boolean exito = false;
+
+        // No ha terminado la proyeccion
+        if (horaFin.isBefore(LocalTime.now())) {
+            this.clientes.add(cliente);
+            exito = true;
+        }
+
+        return exito;
     }
 
     // region [ Getters y Setters ]
@@ -56,14 +77,21 @@ public class Proyeccion {
     public void setHoraFin(String horaFin) {
         this.horaFin = horaInicio.plusMinutes(pelicula.getDuracion());
     }
+
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
     // endregion
 
     // [ toString ]
     @Override
     public String toString() {
         return "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()
-                + " de "
-                + horaInicio + " a " + horaFin;
+                + " de " + horaInicio + " a " + horaFin + "\n" + clientes;
     }
 
 }
