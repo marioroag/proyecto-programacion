@@ -28,29 +28,31 @@ public class Sala {
 
     // [ Métodos ]
     /**
-     * Comprueba los posibles errores y si no falla nada intenta registrar al
-     * cliente en la proyeccion
+     * Registra al cliente en su proyeccion y su butaca si no hay errores
      * 
      * @param cliente
      * @param proyeccion
-     * @return
+     * @param idButaca
+     * @return ArrayList<Boolean> de errores
      */
-    // TODO: Actualizar a sistema butacas
-    public ArrayList<Boolean> registrarClientePro(Cliente cliente, Proyeccion proyeccion) {
+    public ArrayList<Boolean> registrarClientePro(Cliente cliente, Proyeccion proyeccion, String idButaca) {
         ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
 
         if (!proyecciones.contains(proyeccion)) {
-            errores.set(0, true); // Proyeccion no registrada en la sala
-            // } else if (proyeccion.getClientes().contains(cliente)) {
-            // errores.set(1, true); // Cliente ya registrado
-        } else if (!hayEspacioDisponible(proyeccion)) {
-            errores.set(2, true); // No hay asientos libres
-        } else if (proyeccion.getHoraFin().isBefore(LocalTime.now())) {
-            errores.set(3, true); // Ya ha terminado la proyeccion
-        } else {
+            errores.set(0, true); // Proyección no registrada en la sala
 
-            // TODO: Actualizar a sistema butacas
-            // proyeccion.registrarCliente(cliente);
+        } else {
+            ArrayList<Boolean> erroresButaca = proyeccion.asignarButaca(idButaca, cliente);
+
+            if (erroresButaca.get(0)) {
+                errores.set(1, true); // Butaca no existe
+            } else if (erroresButaca.get(1)) {
+                errores.set(2, true); // Butaca ocupada
+            } else if (erroresButaca.get(2)) {
+                errores.set(3, true); // Ya ha terminado la proyeccion
+            } else if (erroresButaca.get(3)) {
+                errores.set(1, true); // Cliente duplicado
+            }
         }
 
         return errores;
@@ -61,12 +63,14 @@ public class Sala {
      * recibida
      * 
      * @param proyeccion
-     * @return Boolean
+     * @return boolean
      */
-    // TODO: Actualizar a sistema butacas
     public boolean hayEspacioDisponible(Proyeccion proyeccion) {
-        // return proyeccion.getClientes().size() < capacidad;
-        return true;
+        boolean hayEspacio = false;
+        if (proyeccion.contarAsistentes() <= capacidad) {
+            hayEspacio = true;
+        }
+        return hayEspacio;
     }
 
     /**

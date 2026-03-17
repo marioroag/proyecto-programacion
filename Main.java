@@ -300,49 +300,47 @@ public class Main {
     }
 
     /**
-     * Encuentra el cliente usando el DNI y lo registra en una proyección.
+     * Pide un cliente, id y butaca y reserva su asistencia si es posible
      * 
      * @param scanner
      * @param cine
      */
-    // TODO: Actualizar a sistema butacas, URGENTE
     public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
-        // Busca cliente
         Cliente clienteRegistrar = cine
                 .buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
 
-        // Se encontro un cliente?
+        // Se encontro el cliente?
         if (clienteRegistrar != null) {
-            // Busca proyeccion
             Proyeccion proyeccionRegistrar = cine.buscarProyeccion(
-                    leerTexto(scanner, "Codigo de la proyección en la que registrar al cliente: "));
+                    leerTexto(scanner, "Codigo de la proyección: "));
 
-            // Se encontro una proyección?
+            // Se encontro la proyección?
             if (proyeccionRegistrar != null) {
-                Sala salaAniadir = proyeccionRegistrar.getSala();
+                imprimirMensaje(proyeccionRegistrar.mostrarButacas());
 
-                ArrayList<Boolean> arrayErrores = salaAniadir.registrarClientePro(clienteRegistrar,
-                        proyeccionRegistrar);
+                String idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
 
-                // Control de errores
-                if (arrayErrores.get(0)) {
-                    imprimirError("Proyeccion no registrada en ninguna sala.");
-                } else if (arrayErrores.get(1)) {
-                    imprimirError("Cliente ya registrado en la proyeccion.");
-                } else if (arrayErrores.get(2)) {
-                    imprimirError("No hay asientos libres en la sala.");
-                } else if (arrayErrores.get(3)) {
-                    imprimirError("Ya ha terminado la proyeccion.");
+                // Intenta asignarla
+                ArrayList<Boolean> errores = proyeccionRegistrar.asignarButaca(idButaca, clienteRegistrar);
+
+                if (errores.get(0)) {
+                    imprimirError("La butaca no existe.");
+                } else if (errores.get(1)) {
+                    imprimirError("La butaca esta ocupada.");
+                } else if (errores.get(2)) {
+                    imprimirError("La proyección ya ha terminado.");
+                } else if (errores.get(3)) {
+                    imprimirError("El cliente ya tiene una butaca en esta proyección.");
                 } else {
-                    imprimirMensaje("Cliente registrado a la proyección con exito!");
+                    imprimirMensaje("Cliente registrado correctamente en la butaca " + idButaca);
                 }
 
             } else {
                 imprimirError("No se ha encontrado esa proyección, vuelva a intentarlo.");
             }
+
         } else {
             imprimirError("No se a encontrado un cliente con ese DNI, vuelva a intentarlo.");
-
         }
     }
 
