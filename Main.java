@@ -20,7 +20,6 @@ public class Main {
         Pelicula pelicula7 = new Pelicula("Joker", 122, "+18", "Drama");
         Pelicula pelicula8 = new Pelicula("Shrek", 90, "+3", "Animacion");
 
-        // System.out.println(pelicula1);
         Sala sala1 = new Sala(100);
         Sala sala2 = new Sala(150);
         Sala sala3 = new Sala(200);
@@ -90,8 +89,22 @@ public class Main {
 
         // region [ Declaraciones ]
 
-        System.err.println(proyeccion1.mostrarButacas());
-        System.out.println(proyeccion1.buscarButaca("7A"));
+        System.out.println(proyeccion2);
+        System.out.println(proyeccion2.asignarButaca("1A", cliente1));
+        System.err.println(proyeccion2.mostrarButacas());
+
+        System.out.println(proyeccion2);
+        System.out.println(proyeccion2.asignarButaca("2A", cliente1));
+        System.err.println(proyeccion2.mostrarButacas());
+
+        System.out.println(proyeccion2);
+        System.out.println(proyeccion2.asignarButaca("1A", cliente1));
+        System.err.println(proyeccion2.mostrarButacas());
+
+        System.out.println(proyeccion3);
+        System.out.println(proyeccion3.asignarButaca("1A", cliente1));
+        System.err.println(proyeccion3.mostrarButacas());
+
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;

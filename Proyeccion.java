@@ -1,5 +1,6 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Proyeccion {
     // [ Atributos ]
@@ -52,6 +53,41 @@ public class Proyeccion {
         }
 
         return butaca;
+    }
+
+    public ArrayList<Boolean> asignarButaca(String idButaca, Cliente cliente) {
+        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
+
+        Butaca butaca = buscarButaca(idButaca);
+
+        // Control de errores
+        if (butaca == null) {
+            errores.set(0, true); // No se encontró
+        } else if (butaca.isOcupada()) {
+            errores.set(1, true); // Ocupada
+        } else if (horaFin.isBefore(LocalTime.now())) {
+            errores.set(2, true); // Proyeccion ha terminado
+        } else {
+            // Busca duplicados
+            for (int i = 0; i < FILAS; i++) {
+                for (int j = 0; j < COLUMNAS; j++) {
+                    Butaca butacaActual = butacas.get(i).get(j);
+
+                    if (butacaActual.getCliente() != null &&
+                            butacaActual.getCliente().getDni().equals(cliente.getDni())) {
+                        errores.set(3, true); // Duplicado
+                    }
+                }
+            }
+
+            // Se asigna si no hay errores
+            if (!errores.contains(true)) {
+                butaca.setOcupada(true);
+                butaca.setCliente(cliente);
+            }
+        }
+
+        return errores;
     }
 
     /**
