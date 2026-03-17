@@ -2,7 +2,7 @@ public class Butaca {
     // [ Atributos ]
     private String id;
     private boolean ocupada;
-    private Cliente cliente; // null si esta libre
+    private Cliente cliente;
 
     // [ Constructor ]
     public Butaca(String id) {

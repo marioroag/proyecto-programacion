@@ -10,7 +10,6 @@ public class Proyeccion {
     private String codigoProyeccion;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-    // private ArrayList<Cliente> clientes;
 
     private ArrayList<ArrayList<Butaca>> butacas;
     final private int FILAS = 10;
