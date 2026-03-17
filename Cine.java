@@ -218,10 +218,10 @@ public class Cine {
      * @return String con todas las salas del cine
      */
     public String mostrarSalas() {
-        String mensajeSalas = "";
+        String mensajeSalas = "[ SALAS ]";
 
         for (Sala sala : salas) {
-            mensajeSalas += sala + "\n";
+            mensajeSalas += "\n" + sala;
         }
 
         return mensajeSalas;

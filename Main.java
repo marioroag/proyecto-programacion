@@ -6,13 +6,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         // ==================
         // ==== [ MAIN ] ====
         // ==================
 
-        Cine cineStem = FakerCine.generarCineFake();
-
+        // TODO: Probar ver lista de clientes en una proyeccion imprime bien
         // region [ DECLARACIONES ]
+        Cine cineStem = FakerCine.generarCineFake(); // Generación de datos de un cine falso
+
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
@@ -38,7 +40,7 @@ public class Main {
                         "Registrar un cliente nuevo", "Volver al menú principal"));
         // endregion
 
-        // region [ MENÚ ]
+        // [ MENÚ ]
         do {
             opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, "-═ [ " + cineStem.getNombre() + " ] ═-");
 
@@ -59,7 +61,7 @@ public class Main {
                     opcionMenuSalas = leerOpcionMenu(scanner, opcionesSalas, "-═ [ GESTIÓN SALAS ] ═-");
 
                     if (opcionMenuSalas == 1) { // Listar salas de un cine
-                        System.out.println("[ SALAS ]\n" + cineStem.mostrarSalas());
+                        System.out.print(cineStem.mostrarSalas());
 
                     } else if (opcionMenuSalas == 2) { // Consultar disponibilidad de una sala
                         mostrarDispoSala(scanner, cineStem);
@@ -126,7 +128,6 @@ public class Main {
             }
 
         } while (opcionMenuPrincipal != opcionesMenu.size());
-        // endregion
 
         scanner.close();
 
@@ -135,6 +136,7 @@ public class Main {
     // ===================
     // == [ FUNCIONES ] ==
     // ===================
+
     // region [ CINE ]
     /**
      * Busca una proyeccion y si la encuentra imprime los clientes reistrados en
