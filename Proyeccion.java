@@ -191,7 +191,7 @@ public class Proyeccion {
      * @return String
      */
     public String verListaClientes() {
-        String resultado = "[ CLIENTES DE " + codigoProyeccion + " ]";
+        String resultado = "[ CLIENTES DE " + codigoProyeccion + " | " + contarAsistentes() + " asistentes ]";
 
         // Hay algun cliente?
         if (contarAsistentes() > 0) {
@@ -199,7 +199,8 @@ public class Proyeccion {
                 for (int j = 0; j < COLUMNAS; j++) {
                     Butaca butaca = butacas.get(i).get(j);
 
-                    if (butaca.getCliente() != null) {
+                    // Está ocupada?
+                    if (butaca.isOcupada()) {
                         Cliente cliente = butaca.getCliente();
 
                         resultado += "\nButaca: " + butaca.getId() + " | " + cliente;
@@ -214,6 +215,11 @@ public class Proyeccion {
         return resultado;
     }
 
+    /**
+     * Recorre el array buscando butacas ocupadas y las cuenta
+     * 
+     * @return
+     */
     public int contarAsistentes() {
         int asistentes = 0;
         for (int i = 0; i < FILAS; i++) {
@@ -277,8 +283,8 @@ public class Proyeccion {
     // [ toString ]
     @Override
     public String toString() {
-        String resultado = "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()
-                + " de " + horaInicio + " a " + horaFin + ", capacidad: " + contarAsistentes() + "/"
+        String resultado = "Proyección: " + codigoProyeccion + " | " + pelicula.getTitulo()
+                + " de " + horaInicio + " a " + horaFin + ", ocupación: " + contarAsistentes() + "/"
                 + sala.getCapacidad();
 
         return resultado;

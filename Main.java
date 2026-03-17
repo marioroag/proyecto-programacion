@@ -26,7 +26,7 @@ public class Main {
         Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", sala2);
         Proyeccion proyeccion4 = new Proyeccion(pelicula4, "18:00", sala2);
         Proyeccion proyeccion5 = new Proyeccion(pelicula1, "20:30", sala3);
-        Proyeccion proyeccion6 = new Proyeccion(pelicula2, "22:00", sala3);
+        Proyeccion proyeccion6 = new Proyeccion(pelicula2, "21:50", sala3);
         Proyeccion proyeccion7 = new Proyeccion(pelicula3, "21:00", sala4);
         Proyeccion proyeccion8 = new Proyeccion(pelicula4, "12:00", sala4);
 
@@ -200,14 +200,16 @@ public class Main {
      * @param cine
      */
     public static void verListaAsistentes(Scanner scanner, Cine cine) {
+        // Busca la proyeccion
         Proyeccion proyeccionVerClientes = cine.buscarProyeccion(
                 leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
 
+        // Muestra la lista de clientes ( si hay )
         if (proyeccionVerClientes != null) {
             imprimirMensaje(proyeccionVerClientes.verListaClientes());
 
         } else {
-            imprimirError("No se ha encontrado una proyeccion con ese código, vuelva a intentarlo");
+            imprimirError("No se ha encontrado una proyección con ese código");
         }
     }
 
@@ -218,15 +220,17 @@ public class Main {
      * @param cine
      */
     public static void verTotalAsistentes(Scanner scanner, Cine cine) {
+        // Busca la proyección
         Proyeccion proyeccionVerAsistentes = cine.buscarProyeccion(
                 leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
 
+        // Muestra la cantidad de asistentes ( si hay )
         if (proyeccionVerAsistentes != null) {
             imprimirMensaje("La proyeccion " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
                     + proyeccionVerAsistentes.contarAsistentes() + " asistentes.");
 
         } else {
-            imprimirError("No se ha encontrado una proyeccion con ese código, vuelva a intentarlo");
+            imprimirError("No se ha encontrado una proyeccion con ese código");
         }
     }
 
@@ -237,10 +241,8 @@ public class Main {
      * @param cine
      */
     public static void cancelarAsistencia(Scanner scanner, Cine cine) {
-
-        // 1. Buscar proyección
         Proyeccion proyeccion = cine.buscarProyeccion(
-                leerTexto(scanner, "Codigo de la proyección: "));
+                leerTexto(scanner, "Código de la proyección: "));
 
         if (proyeccion != null) {
             imprimirMensaje(proyeccion.mostrarButacas());
@@ -270,6 +272,7 @@ public class Main {
      * @param cine
      */
     public static void registrarNuevoCliente(Scanner scanner, Cine cine) {
+        // Pide datos
         imprimirMensaje("Introduzca los datos del cliente");
         Cliente clienteRegistrar = new Cliente(
                 leerTexto(scanner, "Nombre: "),
@@ -278,6 +281,7 @@ public class Main {
                 leerTexto(scanner, "Tipo de entrada: "),
                 leerIntPositivo(scanner, "Número de entrada: "));
 
+        // Lo registra
         cine.registrarCliente(clienteRegistrar);
 
         imprimirMensaje("Cliente registrado con éxito!");
@@ -290,13 +294,14 @@ public class Main {
      * @param cine
      */
     public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
+        // Busca cine
         Cliente clienteRegistrar = cine
                 .buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
 
         // Se encontro el cliente?
         if (clienteRegistrar != null) {
             Proyeccion proyeccionRegistrar = cine.buscarProyeccion(
-                    leerTexto(scanner, "Codigo de la proyección: "));
+                    leerTexto(scanner, "Código de la proyección: "));
 
             // Se encontro la proyección?
             if (proyeccionRegistrar != null) {
@@ -320,11 +325,11 @@ public class Main {
                 }
 
             } else {
-                imprimirError("No se ha encontrado esa proyección, vuelva a intentarlo.");
+                imprimirError("No se ha encontrado esa proyección.");
             }
 
         } else {
-            imprimirError("No se a encontrado un cliente con ese DNI, vuelva a intentarlo.");
+            imprimirError("No se a encontrado un cliente con ese DNI.");
         }
     }
 
@@ -336,9 +341,11 @@ public class Main {
      * @return String
      */
     public static void mostrarProyeccionesPelicula(Scanner scanner, Cine cine) {
+        // Busca la pelicula
         String idPelicula = leerTexto(scanner, "ID de la pelicula a buscar: ");
         Pelicula peliculaBuscar = cine.buscarPelicula(idPelicula);
 
+        // Muestra sus proyecciones
         if (peliculaBuscar != null) {
             imprimirMensaje("[ Proyecciones de " + peliculaBuscar.getTitulo() + " ]\n"
                     + cine.mostrarProyeccionesPelicula(peliculaBuscar));
@@ -356,12 +363,14 @@ public class Main {
      * @return String
      */
     public static void verDetallesPelicula(Scanner scanner, Cine cine) {
+        // Busca pelicula
         Pelicula peliculaMostrar = cine.buscarPelicula(leerTexto(scanner, "ID de la pelicula: "));
 
+        // Muestra sus detalles
         if (peliculaMostrar != null) {
             imprimirMensaje("" + peliculaMostrar);
         } else {
-            imprimirError("No se encontro una pelicula con ese ID, vuelva a intentarlo.");
+            imprimirError("No se ha encontrado una pelicula con ese ID.");
         }
     }
 
@@ -374,14 +383,16 @@ public class Main {
      * @return String
      */
     public static void mostrarDispoSala(Scanner scanner, Cine cine) {
+        // Busca la sala
         String idSalaComprobar = leerTexto(scanner, "ID de la sala a consultar: ");
         Sala salaComprobar = cine.buscarSala(idSalaComprobar);
 
+        // Muesra su disponibilidad si a encuentra
         if (salaComprobar != null) {
             imprimirMensaje("La sala " + idSalaComprobar + " está "
                     + salaComprobar.mostrarDisponibilidad("libre", "ocupada") + ".");
         } else {
-            imprimirError("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
+            imprimirError("No se ha encontrado una sala con ese ID.");
         }
     }
 
@@ -409,7 +420,7 @@ public class Main {
                 // Se encontro una pelicula?
                 if (peliculaAniadir != null) {
                     String proHoraInicio = leerTexto(scanner,
-                            "Hora de inicio de la proyeccion (Formato: HH:MM): ");
+                            "Hora de inicio de la proyección (Formato: HH:MM): ");
 
                     // Formato valido para LocalTime?
                     try {
@@ -423,22 +434,22 @@ public class Main {
                                     + proyeccionAniadir.getHoraFin() + "!");
                         } else {
                             imprimirError(
-                                    "El horario se solapa con una proyeccion ya programada, vuelva a intentarlo.");
+                                    "El horario se solapa con una proyeccion ya programada.");
                         }
 
                     } catch (DateTimeParseException e) {
-                        imprimirError("Hora introducida incorrecta. Usa formato HH:MM");
+                        imprimirError("Hora introducida incorrecta. Usa formato HH:MM.");
 
                     }
 
                 } else {
-                    imprimirError("No se ha encontrado una pelicula con ese ID, vuelva a intentarlo.");
+                    imprimirError("No se ha encontrado una pelicula con ese ID.");
                 }
             } else {
-                imprimirError("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
+                imprimirError("No se ha encontrado una sala con ese ID.");
             }
         } else {
-            imprimirError("El cine no tiene peliculas todavia, Añade peliculas para poder programarlas.");
+            imprimirError("El cine no tiene peliculas todavía, Añade peliculas para poder programarlas.");
         }
     }
 
@@ -450,20 +461,22 @@ public class Main {
      * @return String de feedback
      */
     public static void cancelarProyeccion(Scanner scanner, Cine cine) {
+        // Busca la proyeccion
         Proyeccion proyeccionCanelar = cine
-                .buscarProyeccion(leerTexto(scanner, "ID de la proyeccion a cancelar: "));
+                .buscarProyeccion(leerTexto(scanner, "ID de la proyección a cancelar: "));
 
         // Se encontro una proyeccion?
         if (proyeccionCanelar != null) {
+            // No ha terminado?
             if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
                 Sala salaProyecion = proyeccionCanelar.getSala();
                 salaProyecion.cancelarProyeccion(proyeccionCanelar);
                 imprimirMensaje("Proyección cancelada con exito!");
             } else {
-                imprimirError("No es posible cancelar una proyeccion ya finalizada");
+                imprimirError("No es posible cancelar una proyección ya finalizada.");
             }
         } else {
-            imprimirError("No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.");
+            imprimirError("No se ha encontrado una proyección con ese ID.");
         }
     }
     // endregion
