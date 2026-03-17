@@ -73,9 +73,25 @@ public class Sala {
      * 
      * @param codigoProyeccion Codigo de la proyeccion a buscar
      */
-    public void cancelarProyeccion(String codigoProyeccion) {
+    public boolean cancelarProyeccion(String codigoProyeccion) {
+        boolean exito = false;
+
         Proyeccion proyeccionEliminar = buscarProyeccion(codigoProyeccion);
         proyecciones.remove(proyeccionEliminar);
+
+        return exito;
+    }
+
+    /**
+     * Recibe una proyeccion y la elimina de la lista de proyecciones
+     * 
+     */
+    public boolean cancelarProyeccion(Proyeccion proyeccionEliminar) {
+        boolean exito = false;
+
+        proyecciones.remove(proyeccionEliminar);
+
+        return exito;
     }
 
     /**

@@ -14,7 +14,7 @@ public class Main {
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
         Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
-        Pelicula pelicula4 = new Pelicula("Interstellar", 169, "+12", "Ciencia Ficcion");
+        Pelicula pelicula4 = new Pelicula("Interstellar", 140, "+12", "Ciencia Ficcion");
 
         Sala sala1 = new Sala(100);
         Sala sala2 = new Sala(150);
@@ -27,7 +27,7 @@ public class Main {
         Proyeccion proyeccion4 = new Proyeccion(pelicula4, "18:00", sala2);
         Proyeccion proyeccion5 = new Proyeccion(pelicula1, "20:30", sala3);
         Proyeccion proyeccion6 = new Proyeccion(pelicula2, "22:00", sala3);
-        Proyeccion proyeccion7 = new Proyeccion(pelicula3, "23:30", sala4);
+        Proyeccion proyeccion7 = new Proyeccion(pelicula3, "21:00", sala4);
         Proyeccion proyeccion8 = new Proyeccion(pelicula4, "12:00", sala4);
 
         sala1.agregarProyeccion(proyeccion1);
@@ -450,28 +450,20 @@ public class Main {
      * @return String de feedback
      */
     public static void cancelarProyeccion(Scanner scanner, Cine cine) {
-        String idSalaAniadirPro = leerTexto(scanner,
-                "ID de la sala en la que cancelar una proyección: ");
-        Sala salaAniadirPro = cine.buscarSala(idSalaAniadirPro);
+        Proyeccion proyeccionCanelar = cine
+                .buscarProyeccion(leerTexto(scanner, "ID de la proyeccion a cancelar: "));
 
-        // Se encontro una sala?
-        if (salaAniadirPro != null) {
-            String idProyeccion = leerTexto(scanner, "ID de la proyeccion a cancelar: ");
-            Proyeccion proyeccionCanelar = salaAniadirPro.buscarProyeccion(idProyeccion);
-
-            if (salaAniadirPro.buscarProyeccion(idProyeccion) != null) {
-                if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
-                    salaAniadirPro.cancelarProyeccion(idProyeccion);
-                    imprimirMensaje("Proyección cancelada con exito!");
-                } else {
-                    imprimirError("No es posible cancelar una proyeccion ya finalizada");
-                }
+        // Se encontro una proyeccion?
+        if (proyeccionCanelar != null) {
+            if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
+                Sala salaProyecion = proyeccionCanelar.getSala();
+                salaProyecion.cancelarProyeccion(proyeccionCanelar);
+                imprimirMensaje("Proyección cancelada con exito!");
             } else {
-                imprimirError("No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.");
+                imprimirError("No es posible cancelar una proyeccion ya finalizada");
             }
-
         } else {
-            imprimirError("No se ha encontrado una sala con ese ID, vuelva a intentarlo.");
+            imprimirError("No se ha encontrado una proyeccion con ese ID en esta sala, vuelva a intentarlo.");
         }
     }
     // endregion
