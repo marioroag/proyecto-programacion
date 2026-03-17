@@ -10,7 +10,7 @@ public class Main {
         // ==== [ MAIN ] ====
         // ==================
 
-        // region [ Creacion de objetos para testing ]
+        // region [ Objetos para testing ]
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
         Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
@@ -518,16 +518,28 @@ public class Main {
         return num;
     }
 
-    public static void mostrarMenu(ArrayList<String> opciones, String cabecera) {
-        imprimirMensaje("\n--- " + cabecera + " ---");
+    public static String mostrarMenu(ArrayList<String> opciones, String cabecera) {
+
+        String menu = "\n-═══ " + cabecera + " ═══-";
+        final int LONGCABECERA = menu.length();
+
         for (int i = 0; i < opciones.size(); i++) {
-            imprimirMensaje((i + 1) + ". " + opciones.get(i));
+            menu += "\n" + (i + 1) + ". " + opciones.get(i);
         }
+
+        String linea = "";
+        for (int i = 0; i < LONGCABECERA - 1; i++) {
+            linea += "═";
+        }
+
+        menu += "\n" + linea;
+
+        return menu;
     }
 
     public static int leerOpcionMenu(Scanner scanner, ArrayList<String> menu, String cabecera) {
         int opcion;
-        mostrarMenu(menu, cabecera);
+        imprimirMensaje(mostrarMenu(menu, cabecera));
         do {
             opcion = leerInt(scanner, ">> Opción: ");
             if (!validarOpcion(opcion, menu.size())) {
