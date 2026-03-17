@@ -44,8 +44,12 @@ public class Sala {
             butacas.add(new ArrayList<Butaca>());
 
             for (int j = 0; j < COLUMNAS; j++) {
+                // Transorma la posición a letra
+                char letra = ((char) ('A' + j));
+
                 // Inicializa cada celda
-                butacas.get(i).add(new Butaca("" + i + ((char) j)));
+                butacas.get(i).add(new Butaca("" + i + letra));
+
             }
         }
     }
