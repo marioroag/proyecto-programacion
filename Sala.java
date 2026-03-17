@@ -34,6 +34,10 @@ public class Sala {
     }
 
     // [ Métodos ]
+    /**
+     * Inicializa la matriz de butacas, crea un ArrayList y lo añade a la matriz,
+     * despues lo rellena, asi hasta rellenarlo todo
+     */
     public void inicializarButacas() {
         for (int i = 0; i < FILAS; i++) {
             // Añade nueva fila
@@ -41,11 +45,22 @@ public class Sala {
 
             for (int j = 0; j < COLUMNAS; j++) {
                 // Inicializa cada celda
-                butacas.get(i).add(new Butaca("" + i + j));
+                butacas.get(i).add(new Butaca("" + i + ((char) j)));
             }
         }
+    }
 
-        System.out.println(butacas);
+    public void mostrarButacas() {
+        String visualButacas = "";
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                visualButacas += " " + butacas.get(i).get(j);
+
+            }
+            visualButacas += "\n";
+        }
+
+        System.out.println(visualButacas);
     }
 
     /**

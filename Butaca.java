@@ -35,7 +35,7 @@ public class Butaca {
 
     @Override
     public String toString() {
-        return "Butaca [id=" + id + ", ocupada=" + ocupada + ", cliente=" + cliente + "]";
+        return id;
     }
 
 }

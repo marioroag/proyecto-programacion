@@ -53,6 +53,7 @@ public class Main {
         // region [ Declaraciones ]
 
         sala1.inicializarButacas();
+        sala1.mostrarButacas();
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
