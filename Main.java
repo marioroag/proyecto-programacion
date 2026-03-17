@@ -10,7 +10,7 @@ public class Main {
         // ==== [ MAIN ] ====
         // ==================
 
-        // region [ Objetos para testing ]
+        // region [ OBJETOS TESTING ]
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
         Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
@@ -62,7 +62,7 @@ public class Main {
 
         // endregion
 
-        // region [ Declaraciones ]
+        // region [ DECLARACIONES ]
 
         System.out.println(proyeccion4);
         System.out.println(proyeccion4.asignarButaca("1A", cliente1));
@@ -93,7 +93,7 @@ public class Main {
                         "Registrar un cliente nuevo", "Volver al menú principal"));
         // endregion
 
-        // region [ Menú ]
+        // region [ MENÚ ]
         do {
             opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, "-═ [ " + cineStem.getNombre() + " ] ═-");
 
@@ -191,10 +191,10 @@ public class Main {
     // == [ FUNCIONES ] ==
     // ===================
 
-    // region [ Cine ]
+    // region [ CINE ]
     /**
      * Busca una proyeccion y si la encuentra imprime los clientes reistrados en
-     * ella
+     * ella.
      * 
      * @param scanner
      * @param cine
@@ -222,7 +222,7 @@ public class Main {
                 leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
 
         if (proyeccionVerAsistentes != null) {
-            imprimirMensaje("La proyeccion  " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
+            imprimirMensaje("La proyeccion " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
                     + proyeccionVerAsistentes.contarAsistentes() + " asistentes.");
 
         } else {
@@ -284,7 +284,7 @@ public class Main {
     }
 
     /**
-     * Pide un cliente, id y butaca y reserva su asistencia si es posible
+     * Pide un cliente, id y butaca y reserva su asistencia si es posible.
      * 
      * @param scanner
      * @param cine
@@ -443,7 +443,7 @@ public class Main {
     }
 
     /**
-     * Solicita datos para encontrar la proyeccion a cancelar y la cancela.
+     * Solicita el id de la proyeccion a cancelar y la cancela.
      * 
      * @param scanner
      * @param cine
@@ -468,7 +468,7 @@ public class Main {
     }
     // endregion
 
-    // region [ Basicas ]
+    // region [ BASICAS ]
     public static void imprimirPrompt(String mensaje) {
         System.out.print(mensaje);
     }
