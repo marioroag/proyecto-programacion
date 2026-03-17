@@ -76,34 +76,13 @@ public class Main {
         cineStem.registrarCliente(cliente7);
         cineStem.registrarCliente(cliente8);
 
-        proyeccion1.registrarCliente(cliente3);
-        proyeccion4.registrarCliente(cliente1);
-        proyeccion5.registrarCliente(cliente2);
-        proyeccion2.registrarCliente(cliente2);
-        proyeccion6.registrarCliente(cliente4);
-        proyeccion4.registrarCliente(cliente5);
-        proyeccion7.registrarCliente(cliente5);
-        proyeccion8.registrarCliente(cliente7);
-
         // endregion
 
         // region [ Declaraciones ]
 
-        System.out.println(proyeccion2);
-        System.out.println(proyeccion2.asignarButaca("1A", cliente1));
-        System.err.println(proyeccion2.mostrarButacas());
-
-        System.out.println(proyeccion2);
-        System.out.println(proyeccion2.asignarButaca("2A", cliente1));
-        System.err.println(proyeccion2.mostrarButacas());
-
-        System.out.println(proyeccion2);
-        System.out.println(proyeccion2.asignarButaca("1A", cliente1));
-        System.err.println(proyeccion2.mostrarButacas());
-
-        System.out.println(proyeccion3);
-        System.out.println(proyeccion3.asignarButaca("1A", cliente1));
-        System.err.println(proyeccion3.mostrarButacas());
+        System.out.println(proyeccion4);
+        System.out.println(proyeccion4.asignarButaca("1A", cliente1));
+        System.err.println(proyeccion4.mostrarButacas());
 
         Scanner scanner = new Scanner(System.in);
 

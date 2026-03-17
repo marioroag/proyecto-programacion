@@ -73,7 +73,7 @@ public class Cliente {
     // [ toString ]
     @Override
     public String toString() {
-        return "DNI" + dni + " | " + nombre + " de " + edad + " años tiene la entrada " + tipoEntrada
+        return "DNI: " + dni + " | " + nombre + " de " + edad + " años tiene la entrada " + tipoEntrada
                 + " Nº" + numEntrada + ".";
     }
 

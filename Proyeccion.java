@@ -191,14 +191,20 @@ public class Proyeccion {
 
         // Hay algun cliente?
         if (contarAsistentes() > 0) {
-            for (Cliente cliente : clientes) {
-                resultado += "\nDNI: " + cliente.getDni() + " | " + cliente.getNombre() + " de " + cliente.getEdad()
-                        + " años tiene la entrada " + cliente.getTipoEntrada()
-                        + " Nº" + cliente.getNumEntrada() + ".";
+            for (int i = 0; i < FILAS; i++) {
+                for (int j = 0; j < COLUMNAS; j++) {
+                    Butaca butaca = butacas.get(i).get(j);
+
+                    if (butaca.getCliente() != null) {
+                        Cliente cliente = butaca.getCliente();
+
+                        resultado += "\nButaca: " + butaca.getId() + " | " + cliente;
+                    }
+                }
             }
 
         } else {
-            resultado += "\nEstá proyección todavía no tiene clientes registrados.";
+            resultado += "\nEsta proyección no tiene clientes registrados.";
         }
 
         return resultado;
