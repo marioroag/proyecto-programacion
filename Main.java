@@ -92,7 +92,7 @@ public class Main {
 
         // TODO: Mover esto de aqui
         sala1.inicializarButacas();
-        sala1.mostrarButacas();
+        System.err.println(sala1.mostrarButacas());
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;

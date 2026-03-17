@@ -55,10 +55,11 @@ public class Sala {
     }
 
     /**
-     * Recorre la matriz de butacas y las muestra de forma ordenada
+     * Metodo sobrecomplicado por estetica que recorre la matriz de butacas y las
+     * muestra de forma ordenada
      */
     // todo: Corregir que se muestar id en vez de ocupado/libre
-    public void mostrarButacas() {
+    public String mostrarButacas() {
         String filaButacas = "";
         String resultado = "";
         String espaciador = "";
@@ -66,7 +67,15 @@ public class Sala {
 
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {
-                filaButacas += " [" + butacas.get(i).get(j) + "] ";
+                // Guarda una a una las butacas de cada fila
+                Butaca butacaActual = butacas.get(i).get(j);
+                String estado = "O";
+
+                // Cambia el estado si la butaca está ocupada
+                if (butacaActual.isOcupada()) {
+                    estado = "X";
+                }
+                filaButacas += " [" + estado + "] ";
 
                 // Guardo el ancho de la sala despues de la primera fila completa
                 if (i == 0 && j == COLUMNAS - 1) {
@@ -87,19 +96,8 @@ public class Sala {
 
         resultado += espaciador;
         resultado += "\n╚═" + "═".repeat(anchoContenido) + "═╝";
-    }
 
-    public void mostrarButacas1() {
-        String visualButacas = "";
-        for (int i = 0; i < FILAS; i++) {
-            for (int j = 0; j < COLUMNAS; j++) {
-                visualButacas += " " + butacas.get(i).get(j);
-
-            }
-            visualButacas += "\n";
-        }
-
-        System.out.println(visualButacas);
+        return resultado;
     }
 
     /**
