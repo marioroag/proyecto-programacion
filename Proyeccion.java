@@ -125,8 +125,14 @@ public class Proyeccion {
     // [ toString ]
     @Override
     public String toString() {
-        return "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()
-                + " de " + horaInicio + " a " + horaFin + "\n" + clientes;
+        String resultado = "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()
+                + " de " + horaInicio + " a " + horaFin;
+
+        for (Cliente cliente : clientes) {
+            resultado += "\n  Cliente: " + cliente;
+        }
+
+        return resultado;
     }
 
 }

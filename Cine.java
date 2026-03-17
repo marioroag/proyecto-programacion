@@ -221,7 +221,7 @@ public class Cine {
         String mensajeSalas = "";
 
         for (Sala sala : salas) {
-            mensajeSalas += sala;
+            mensajeSalas += sala + "\n";
         }
 
         return mensajeSalas;

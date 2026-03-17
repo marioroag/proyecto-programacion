@@ -14,44 +14,83 @@ public class Main {
         Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
         Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
         Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
+        Pelicula pelicula4 = new Pelicula("Interstellar", 169, "+12", "Ciencia Ficcion");
+        Pelicula pelicula5 = new Pelicula("Titanic", 195, "+12", "Romance");
+        Pelicula pelicula6 = new Pelicula("The Dark Knight", 152, "+13", "Accion");
+        Pelicula pelicula7 = new Pelicula("Joker", 122, "+18", "Drama");
+        Pelicula pelicula8 = new Pelicula("Shrek", 90, "+3", "Animacion");
 
         // System.out.println(pelicula1);
         Sala sala1 = new Sala(100);
         Sala sala2 = new Sala(150);
+        Sala sala3 = new Sala(200);
+        Sala sala4 = new Sala(80);
 
         Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", sala1);
         Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30", sala1);
         Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", sala2);
-        // System.out.println(proyeccion1);
+        Proyeccion proyeccion4 = new Proyeccion(pelicula4, "18:00", sala2);
+        Proyeccion proyeccion5 = new Proyeccion(pelicula5, "20:30", sala3);
+        Proyeccion proyeccion6 = new Proyeccion(pelicula6, "22:00", sala3);
+        Proyeccion proyeccion7 = new Proyeccion(pelicula7, "23:30", sala4);
+        Proyeccion proyeccion8 = new Proyeccion(pelicula8, "11:00", sala4);
 
         sala1.agregarProyeccion(proyeccion1);
         sala1.agregarProyeccion(proyeccion2);
-        // System.out.println(sala1);
-
         sala2.agregarProyeccion(proyeccion3);
+        sala2.agregarProyeccion(proyeccion4);
+        sala3.agregarProyeccion(proyeccion5);
+        sala3.agregarProyeccion(proyeccion6);
+        sala4.agregarProyeccion(proyeccion7);
+        sala4.agregarProyeccion(proyeccion8);
 
         Cine cineStem = new Cine("Cine STEM", "Granada", "España");
         cineStem.agregarSala(sala1);
         cineStem.agregarSala(sala2);
+        cineStem.agregarSala(sala3);
+        cineStem.agregarSala(sala4);
 
         cineStem.agregarPelicula(pelicula1);
         cineStem.agregarPelicula(pelicula2);
         cineStem.agregarPelicula(pelicula3);
+        cineStem.agregarPelicula(pelicula4);
+        cineStem.agregarPelicula(pelicula5);
+        cineStem.agregarPelicula(pelicula6);
+        cineStem.agregarPelicula(pelicula7);
+        cineStem.agregarPelicula(pelicula8);
 
         Cliente cliente1 = new Cliente("Mario", "123", 21, "Premium", 1);
         Cliente cliente2 = new Cliente("Lola", "5463367N", 19, "Normal", 2);
         Cliente cliente3 = new Cliente("Mento", "4343655N", 15, "Normal", 3);
+        Cliente cliente4 = new Cliente("Carlos", "99887766A", 25, "Premium", 4);
+        Cliente cliente5 = new Cliente("Ana", "11223344B", 30, "VIP", 5);
+        Cliente cliente6 = new Cliente("Pedro", "55667788C", 17, "Normal", 6);
+        Cliente cliente7 = new Cliente("Lucia", "66778899D", 14, "Normal", 7);
+        Cliente cliente8 = new Cliente("Jorge", "77889900E", 40, "Premium", 8);
 
         cineStem.registrarCliente(cliente1);
         cineStem.registrarCliente(cliente2);
         cineStem.registrarCliente(cliente3);
+        cineStem.registrarCliente(cliente4);
+        cineStem.registrarCliente(cliente5);
+        cineStem.registrarCliente(cliente6);
+        cineStem.registrarCliente(cliente7);
+        cineStem.registrarCliente(cliente8);
 
-        // System.out.println(cliente1);
+        proyeccion1.registrarCliente(cliente3);
+        proyeccion4.registrarCliente(cliente1);
+        proyeccion5.registrarCliente(cliente2);
+        proyeccion2.registrarCliente(cliente2);
+        proyeccion6.registrarCliente(cliente4);
+        proyeccion4.registrarCliente(cliente5);
+        proyeccion7.registrarCliente(cliente5);
+        proyeccion8.registrarCliente(cliente7);
 
         // endregion
 
         // region [ Declaraciones ]
 
+        // TODO: Mover esto de aqui
         sala1.inicializarButacas();
         sala1.mostrarButacas();
         Scanner scanner = new Scanner(System.in);

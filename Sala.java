@@ -57,6 +57,7 @@ public class Sala {
     /**
      * Recorre la matriz de butacas y las muestra de forma ordenada
      */
+    // todo: Corregir que se muestar id en vez de ocupado/libre
     public void mostrarButacas() {
         String filaButacas = "";
         String resultado = "";
@@ -86,8 +87,6 @@ public class Sala {
 
         resultado += espaciador;
         resultado += "\n╚═" + "═".repeat(anchoContenido) + "═╝";
-
-        System.out.println(resultado);
     }
 
     public void mostrarButacas1() {
