@@ -11,6 +11,10 @@ public class Proyeccion {
     private LocalTime horaFin;
     private ArrayList<Cliente> clientes;
 
+    private ArrayList<ArrayList<Butaca>> butacas;
+    final private int FILAS = 10;
+    final private int COLUMNAS = 20;
+
     private Sala sala;
 
     // [ Constructores ]
@@ -19,13 +23,83 @@ public class Proyeccion {
         setCodigoProyeccion();
         setHoraInicio(horaInicio);
         setHoraFin(horaInicio);
-        this.clientes = new ArrayList<>();
         this.sala = sala;
+        this.clientes = new ArrayList<>();
+        this.butacas = new ArrayList<>();
+
+        inicializarButacas();
 
         cantidadProyecciones++;
     }
 
     // [ Metodos ]
+
+    // [ Métodos ]
+    /**
+     * Inicializa la matriz de butacas, crea un ArrayList y lo añade a la matriz,
+     * despues lo rellena, asi hasta rellenarlo todo
+     */
+    public void inicializarButacas() {
+        for (int i = 0; i < FILAS; i++) {
+            // Añade nueva fila
+            butacas.add(new ArrayList<Butaca>());
+
+            for (int j = 0; j < COLUMNAS; j++) {
+                // Transorma la posición a letra
+                char letra = ((char) ('A' + j));
+
+                // Inicializa cada celda
+                butacas.get(i).add(new Butaca("" + i + letra));
+
+            }
+        }
+    }
+
+    /**
+     * Metodo sobrecomplicado por estetica que recorre la matriz de butacas y las
+     * muestra de forma ordenada
+     */
+    public String mostrarButacas() {
+        int anchoContenido = 0;
+        String filaButacas = "";
+        String espaciador = "";
+        String resultado = "";
+
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                // Guarda una a una las butacas de cada fila
+                Butaca butacaActual = butacas.get(i).get(j);
+                String estado = "O";
+
+                // Cambia el estado si la butaca está ocupada
+                if (butacaActual.isOcupada()) {
+                    estado = "X";
+                }
+                filaButacas += " [" + estado + "] ";
+
+                // Guardo el ancho de la sala despues de la primera fila completa
+                if (i == 0 && j == COLUMNAS - 1) {
+                    anchoContenido = filaButacas.length();
+
+                    espaciador = "\n║ " + " ".repeat(anchoContenido) + " ║"; // Espaciador
+
+                    resultado += "\n╔═" + "═".repeat(anchoContenido) + "═╗"; // Fila
+                    resultado += espaciador;
+                }
+
+            }
+
+            resultado += "\n║ " + filaButacas + " ║";
+            filaButacas = "";
+
+        }
+
+        resultado += espaciador;
+        resultado += "\n╚═" + "═".repeat(anchoContenido) + "═╝";
+
+        return resultado;
+    }
+
     /**
      * Registra un cliente en una proyeccion
      * 

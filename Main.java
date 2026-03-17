@@ -90,9 +90,7 @@ public class Main {
 
         // region [ Declaraciones ]
 
-        // TODO: Mover esto de aqui
-        sala1.inicializarButacas();
-        System.err.println(sala1.mostrarButacas());
+        System.err.println(proyeccion1.mostrarButacas());
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
