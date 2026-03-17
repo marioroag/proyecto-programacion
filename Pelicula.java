@@ -36,7 +36,7 @@ public class Pelicula {
         if (!titulo.isBlank() && titulo != null) {
             this.titulo = titulo;
         } else {
-            this.titulo = "invalid";
+            this.titulo = null;
         }
     }
 
@@ -60,7 +60,7 @@ public class Pelicula {
         if (!clasificacionEdad.isBlank() && clasificacionEdad != null) {
             this.clasificacionEdad = clasificacionEdad;
         } else {
-            this.clasificacionEdad = "invalid";
+            this.clasificacionEdad = null;
         }
     }
 
@@ -72,7 +72,7 @@ public class Pelicula {
         if (!genero.isBlank() && genero != null) {
             this.genero = genero;
         } else {
-            this.genero = "invalid";
+            this.genero = null;
         }
     }
     // endregion
@@ -81,7 +81,7 @@ public class Pelicula {
     @Override
     public String toString() {
         return "Pelicula: " + codigo + " | " + titulo + ", dura " + duracion + "m y está clasificada para personas "
-                + clasificacionEdad + " | Generos: " + genero;
+                + clasificacionEdad + " | Género: " + genero;
     }
 
 }

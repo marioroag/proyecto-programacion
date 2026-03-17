@@ -12,7 +12,6 @@ public class Cliente {
         setDni(dni);
         setEdad(edad);
         this.tipoEntrada = tipoEntrada;
-        // Todavia no se si generare esto aleatoriamente o viene dado
         this.numEntrada = numEntrada;
     }
 
@@ -25,7 +24,7 @@ public class Cliente {
         if (!nombre.isBlank() && nombre != null) {
             this.nombre = nombre;
         } else {
-            this.nombre = "invalid";
+            this.nombre = null;
         }
     }
 
@@ -37,7 +36,7 @@ public class Cliente {
         if (!dni.isBlank() && dni != null) {
             this.dni = dni;
         } else {
-            this.dni = "invalid";
+            this.dni = null;
         }
     }
 
@@ -58,7 +57,11 @@ public class Cliente {
     }
 
     public void setTipoEntrada(String tipoEntrada) {
-        this.tipoEntrada = tipoEntrada;
+        if (!tipoEntrada.isBlank() && tipoEntrada != null) {
+            this.tipoEntrada = tipoEntrada;
+        } else {
+            this.tipoEntrada = null;
+        }
     }
 
     public int getNumEntrada() {
@@ -66,7 +69,11 @@ public class Cliente {
     }
 
     public void setNumEntrada(int numEntrada) {
-        this.numEntrada = numEntrada;
+        if (numEntrada >= 0) {
+            this.numEntrada = numEntrada;
+        } else {
+            this.numEntrada = -1;
+        }
     }
     // endregion
 

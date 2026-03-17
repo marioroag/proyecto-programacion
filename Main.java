@@ -10,64 +10,9 @@ public class Main {
         // ==== [ MAIN ] ====
         // ==================
 
-        // region [ OBJETOS TESTING ]
-        Pelicula pelicula1 = new Pelicula("Avatar", 60, "+12", "Terror");
-        Pelicula pelicula2 = new Pelicula("El precio del poder", 120, "+18", "Accion");
-        Pelicula pelicula3 = new Pelicula("Goodfellas", 160, "+16", "Comedia");
-        Pelicula pelicula4 = new Pelicula("Interstellar", 140, "+12", "Ciencia Ficcion");
-
-        Sala sala1 = new Sala(100);
-        Sala sala2 = new Sala(150);
-        Sala sala3 = new Sala(200);
-        Sala sala4 = new Sala(80);
-
-        Proyeccion proyeccion1 = new Proyeccion(pelicula1, "14:30", sala1);
-        Proyeccion proyeccion2 = new Proyeccion(pelicula2, "16:30", sala1);
-        Proyeccion proyeccion3 = new Proyeccion(pelicula3, "9:30", sala2);
-        Proyeccion proyeccion4 = new Proyeccion(pelicula4, "18:00", sala2);
-        Proyeccion proyeccion5 = new Proyeccion(pelicula1, "20:30", sala3);
-        Proyeccion proyeccion6 = new Proyeccion(pelicula2, "21:50", sala3);
-        Proyeccion proyeccion7 = new Proyeccion(pelicula3, "21:00", sala4);
-        Proyeccion proyeccion8 = new Proyeccion(pelicula4, "12:00", sala4);
-
-        sala1.agregarProyeccion(proyeccion1);
-        sala1.agregarProyeccion(proyeccion2);
-        sala2.agregarProyeccion(proyeccion3);
-        sala2.agregarProyeccion(proyeccion4);
-        sala3.agregarProyeccion(proyeccion5);
-        sala3.agregarProyeccion(proyeccion6);
-        sala4.agregarProyeccion(proyeccion7);
-        sala4.agregarProyeccion(proyeccion8);
-
-        Cine cineStem = new Cine("Cine STEM", "Granada", "España");
-        cineStem.agregarSala(sala1);
-        cineStem.agregarSala(sala2);
-        cineStem.agregarSala(sala3);
-        cineStem.agregarSala(sala4);
-
-        cineStem.agregarPelicula(pelicula1);
-        cineStem.agregarPelicula(pelicula2);
-        cineStem.agregarPelicula(pelicula3);
-        cineStem.agregarPelicula(pelicula4);
-
-        Cliente cliente1 = new Cliente("Mario", "123", 21, "Premium", 1);
-        Cliente cliente2 = new Cliente("Lola", "5463367N", 19, "Normal", 2);
-        Cliente cliente3 = new Cliente("Mento", "4343655N", 15, "Normal", 3);
-        Cliente cliente4 = new Cliente("Carlos", "99887766A", 25, "Premium", 4);
-
-        cineStem.registrarCliente(cliente1);
-        cineStem.registrarCliente(cliente2);
-        cineStem.registrarCliente(cliente3);
-        cineStem.registrarCliente(cliente4);
-
-        // endregion
+        Cine cineStem = FakerCine.generarCineFake();
 
         // region [ DECLARACIONES ]
-
-        System.out.println(proyeccion4);
-        System.out.println(proyeccion4.asignarButaca("1A", cliente1));
-        System.err.println(proyeccion4.mostrarButacas());
-
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
@@ -190,7 +135,6 @@ public class Main {
     // ===================
     // == [ FUNCIONES ] ==
     // ===================
-
     // region [ CINE ]
     /**
      * Busca una proyeccion y si la encuentra imprime los clientes reistrados en
@@ -206,7 +150,7 @@ public class Main {
 
         // Muestra la lista de clientes ( si hay )
         if (proyeccionVerClientes != null) {
-            imprimirMensaje(proyeccionVerClientes.verListaClientes());
+            imprimirInfo(proyeccionVerClientes.verListaClientes());
 
         } else {
             imprimirError("No se ha encontrado una proyección con ese código");
@@ -226,7 +170,7 @@ public class Main {
 
         // Muestra la cantidad de asistentes ( si hay )
         if (proyeccionVerAsistentes != null) {
-            imprimirMensaje("La proyeccion " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
+            imprimirInfo("La proyeccion " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
                     + proyeccionVerAsistentes.contarAsistentes() + " asistentes.");
 
         } else {
@@ -245,7 +189,7 @@ public class Main {
                 leerTexto(scanner, "Código de la proyección: "));
 
         if (proyeccion != null) {
-            imprimirMensaje(proyeccion.mostrarButacas());
+            imprimirInfo(proyeccion.mostrarButacas());
 
             String idButaca = leerTexto(scanner, "ID de la butaca a cancelar (ej: 5A, 10B): ");
             Butaca butacaCliente = proyeccion.buscarButaca(idButaca);
@@ -257,7 +201,7 @@ public class Main {
             } else if (errores.get(1)) {
                 imprimirError("La butaca ya está libre o la proyección ha finalizado.");
             } else {
-                imprimirMensaje("Asistencia cancelada con éxito.");
+                imprimirExito("Asistencia cancelada con éxito.");
             }
 
         } else {
@@ -273,7 +217,7 @@ public class Main {
      */
     public static void registrarNuevoCliente(Scanner scanner, Cine cine) {
         // Pide datos
-        imprimirMensaje("Introduzca los datos del cliente");
+        imprimirInfo("Introduzca los datos del cliente");
         Cliente clienteRegistrar = new Cliente(
                 leerTexto(scanner, "Nombre: "),
                 leerTexto(scanner, "DNI: "),
@@ -284,7 +228,7 @@ public class Main {
         // Lo registra
         cine.registrarCliente(clienteRegistrar);
 
-        imprimirMensaje("Cliente registrado con éxito!");
+        imprimirExito("Cliente registrado con éxito!");
     }
 
     /**
@@ -305,7 +249,7 @@ public class Main {
 
             // Se encontro la proyección?
             if (proyeccionRegistrar != null) {
-                imprimirMensaje(proyeccionRegistrar.mostrarButacas());
+                imprimirInfo(proyeccionRegistrar.mostrarButacas());
 
                 String idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
 
@@ -321,7 +265,7 @@ public class Main {
                 } else if (errores.get(3)) {
                     imprimirError("El cliente ya tiene una butaca en esta proyección.");
                 } else {
-                    imprimirMensaje("Cliente registrado correctamente en la butaca " + idButaca);
+                    imprimirInfo("Cliente registrado correctamente en la butaca " + idButaca);
                 }
 
             } else {
@@ -347,7 +291,7 @@ public class Main {
 
         // Muestra sus proyecciones
         if (peliculaBuscar != null) {
-            imprimirMensaje("[ Proyecciones de " + peliculaBuscar.getTitulo() + " ]\n"
+            imprimirInfo("[ Proyecciones de " + peliculaBuscar.getTitulo() + " ]\n"
                     + cine.mostrarProyeccionesPelicula(peliculaBuscar));
 
         } else {
@@ -368,7 +312,7 @@ public class Main {
 
         // Muestra sus detalles
         if (peliculaMostrar != null) {
-            imprimirMensaje("" + peliculaMostrar);
+            imprimirInfo("" + peliculaMostrar);
         } else {
             imprimirError("No se ha encontrado una pelicula con ese ID.");
         }
@@ -389,7 +333,7 @@ public class Main {
 
         // Muesra su disponibilidad si a encuentra
         if (salaComprobar != null) {
-            imprimirMensaje("La sala " + idSalaComprobar + " está "
+            imprimirInfo("La sala " + idSalaComprobar + " está "
                     + salaComprobar.mostrarDisponibilidad("libre", "ocupada") + ".");
         } else {
             imprimirError("No se ha encontrado una sala con ese ID.");
@@ -428,8 +372,8 @@ public class Main {
 
                         // Se solapa con alguna existente?
                         if (salaAniadirPro.agregarProyeccion(proyeccionAniadir)) {
-                            imprimirMensaje(peliculaAniadir.getTitulo()
-                                    + " programada con exito programada de "
+                            imprimirExito(peliculaAniadir.getTitulo()
+                                    + " programada con éxito programada de "
                                     + proyeccionAniadir.getHoraInicio() + " a "
                                     + proyeccionAniadir.getHoraFin() + "!");
                         } else {
@@ -471,7 +415,7 @@ public class Main {
             if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
                 Sala salaProyecion = proyeccionCanelar.getSala();
                 salaProyecion.cancelarProyeccion(proyeccionCanelar);
-                imprimirMensaje("Proyección cancelada con exito!");
+                imprimirExito("Proyección cancelada con éxito!");
             } else {
                 imprimirError("No es posible cancelar una proyección ya finalizada.");
             }
@@ -486,12 +430,22 @@ public class Main {
         System.out.print(mensaje);
     }
 
-    public static void imprimirMensaje(String mensaje) {
+    public static void imprimirInfo(String mensaje) {
         System.out.println(mensaje);
     }
 
+    public static void imprimirExito(String mensaje) {
+        final String RESET = "\u001B[0m"; // Resetea estilo
+        final String BRIGHT_GREEN = "\u001B[92m"; // Color verde
+
+        System.out.println(BRIGHT_GREEN + mensaje + RESET);
+    }
+
     public static void imprimirError(String mensaje) {
-        System.err.println(mensaje);
+        final String RESET = "\u001B[0m"; // Resetea estilo
+        final String LIGHT_RED = "\u001B[38;2;255;120;120m"; // Color rojo
+
+        System.err.println(LIGHT_RED + mensaje + RESET);
     }
 
     public static boolean validarOpcion(int opcionValor, int max) {
@@ -599,7 +553,7 @@ public class Main {
 
     public static int leerOpcionMenu(Scanner scanner, ArrayList<String> menu, String cabecera) {
         int opcion;
-        imprimirMensaje(mostrarMenu(menu, cabecera));
+        imprimirInfo(mostrarMenu(menu, cabecera));
         do {
             opcion = leerInt(scanner, ">> Opción: ");
             if (!validarOpcion(opcion, menu.size())) {

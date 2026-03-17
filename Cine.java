@@ -244,7 +244,7 @@ public class Cine {
         if (!nombre.isBlank() && nombre != null) {
             this.nombre = nombre;
         } else {
-            this.nombre = "invalid";
+            this.nombre = null;
         }
     }
 
@@ -256,7 +256,7 @@ public class Cine {
         if (!ciudad.isBlank() && ciudad != null) {
             this.ciudad = ciudad;
         } else {
-            this.ciudad = "invalid";
+            this.ciudad = null;
         }
     }
 
@@ -268,7 +268,7 @@ public class Cine {
         if (!pais.isBlank() && pais != null) {
             this.pais = pais;
         } else {
-            this.pais = "invalid";
+            this.pais = null;
         }
     }
 
