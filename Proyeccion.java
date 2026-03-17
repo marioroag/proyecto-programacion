@@ -163,16 +163,26 @@ public class Proyeccion {
     }
 
     /**
-     * Elimina un cliente de una proyeccion
+     * Cancela la asistencia de un cliente de una proyección liberando la butaca
      * 
-     * @param cliente Cliente
+     * @param Butaca Butaca
      */
-    public void cancelarAsistencia(Butaca butaca) {
-        // TODO: Control de errores:
-        // Existe? Ya libre? Terminó la proyección?
-        // TODO: Posiblemente estas comprobaciones hacerlas metodo en el futuro?
-        butaca.setCliente(null);
-        butaca.setOcupada(false);
+    public ArrayList<Boolean> cancelarAsistencia(Butaca butaca) {
+        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false));
+
+        if (butaca == null) {
+            errores.set(0, true); // Butaca no existe
+        } else if (!butaca.isOcupada()) {
+            errores.set(1, true); // Ya esta libre
+        } else if (horaFin.isBefore(LocalTime.now())) {
+            errores.set(1, true); // Proyección terminada
+        } else {
+            // Liberar butaca
+            butaca.setOcupada(false);
+            butaca.setCliente(null);
+        }
+
+        return errores;
     }
 
     /**

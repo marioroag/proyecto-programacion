@@ -253,28 +253,29 @@ public class Main {
      * @param cine
      */
     public static void cancelarAsistencia(Scanner scanner, Cine cine) {
-        Cliente clienteCancelar = cine
-                .buscarClientePorDni(
-                        leerTexto(scanner, "DNI del cliente a cancelar de la proyeccion: "));
 
-        // Se encontró el cliente?
-        if (clienteCancelar != null) {
-            Proyeccion deProyeccion = cine.buscarProyeccion(
-                    leerTexto(scanner, "Codigo de la proyección de la cual cancelarlo: "));
+        // 1. Buscar proyección
+        Proyeccion proyeccion = cine.buscarProyeccion(
+                leerTexto(scanner, "Codigo de la proyección: "));
 
-            // Se encontró la proyección?
+        if (proyeccion != null) {
+            imprimirMensaje(proyeccion.mostrarButacas());
 
-            if (deProyeccion != null) {
-                // TODO: Actualizar a sistema butacas (Ahora recibe butaca no cliente)
-                // deProyeccion.cancelarAsistencia(clienteCancelar);
-                imprimirMensaje("Asistencia de " + clienteCancelar.getNombre() + " a "
-                        + deProyeccion.getPelicula().getTitulo() + " ha sido cancelada con exito!");
+            String idButaca = leerTexto(scanner, "ID de la butaca a cancelar (ej: 5A, 10B): ");
+            Butaca butacaCliente = proyeccion.buscarButaca(idButaca);
 
+            ArrayList<Boolean> errores = proyeccion.cancelarAsistencia(butacaCliente);
+
+            if (errores.get(0)) {
+                imprimirError("La butaca no existe.");
+            } else if (errores.get(1)) {
+                imprimirError("La butaca ya está libre o la proyección ha finalizado.");
             } else {
-                imprimirError("No se encontró una proyección con el ese código.");
+                imprimirMensaje("Asistencia cancelada con éxito.");
             }
+
         } else {
-            imprimirError("No se encontró un cliente con el ese DNI.");
+            imprimirError("No se encontró una proyección con ese código.");
         }
     }
 
@@ -304,7 +305,7 @@ public class Main {
      * @param scanner
      * @param cine
      */
-    // TODO: Actualizar a sistema butacas
+    // TODO: Actualizar a sistema butacas, URGENTE
     public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
         // Busca cliente
         Cliente clienteRegistrar = cine
