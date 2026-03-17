@@ -10,7 +10,7 @@ public class Proyeccion {
     private String codigoProyeccion;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-    private ArrayList<Cliente> clientes;
+    // private ArrayList<Cliente> clientes;
 
     private ArrayList<ArrayList<Butaca>> butacas;
     final private int FILAS = 10;
@@ -25,7 +25,6 @@ public class Proyeccion {
         setHoraInicio(horaInicio);
         setHoraFin(horaInicio);
         this.sala = sala;
-        this.clientes = new ArrayList<>();
         this.butacas = new ArrayList<>();
 
         inicializarButacas();
@@ -164,21 +163,13 @@ public class Proyeccion {
     }
 
     /**
-     * Registra un cliente en una proyeccion
-     * 
-     * @param cliente Cliente
-     */
-    public void registrarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
-    }
-
-    /**
      * Elimina un cliente de una proyeccion
      * 
      * @param cliente Cliente
      */
+    // TODO: Actualizar a sistema butacas
     public void cancelarAsistencia(Cliente cliente) {
-        this.clientes.remove(cliente);
+        // this.clientes.remove(cliente);
     }
 
     /**
@@ -261,14 +252,6 @@ public class Proyeccion {
         this.horaFin = horaInicio.plusMinutes(pelicula.getDuracion());
     }
 
-    public ArrayList<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(ArrayList<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-
     public Sala getSala() {
         return sala;
     }
@@ -283,10 +266,6 @@ public class Proyeccion {
     public String toString() {
         String resultado = "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()
                 + " de " + horaInicio + " a " + horaFin;
-
-        for (Cliente cliente : clientes) {
-            resultado += "\n  Cliente: " + cliente;
-        }
 
         return resultado;
     }

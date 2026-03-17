@@ -174,10 +174,10 @@ public class Main {
                         registrarClienteEnPro(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 2) { // Cancelar asistencia
-                        cancelarClienteDePro(scanner, cineStem);
+                        cancelarAsistencia(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 3) { // Ver lista de clientes en una proyección
-                        verListaClientesPro(scanner, cineStem);
+                        verListaAsistentes(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 4) { // Ver número total de asistentes
                         verTotalAsistentes(scanner, cineStem);
@@ -215,7 +215,7 @@ public class Main {
      * @param scanner
      * @param cine
      */
-    public static void verListaClientesPro(Scanner scanner, Cine cine) {
+    public static void verListaAsistentes(Scanner scanner, Cine cine) {
         Proyeccion proyeccionVerClientes = cine.buscarProyeccion(
                 leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
 
@@ -233,13 +233,14 @@ public class Main {
      * @param scanner
      * @param cine
      */
+    // TODO: Actualizar a sistema butacas
     public static void verTotalAsistentes(Scanner scanner, Cine cine) {
         Proyeccion proyeccionVerAsistentes = cine.buscarProyeccion(
                 leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
 
         if (proyeccionVerAsistentes != null) {
             imprimirMensaje("La proyeccion  " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
-                    + proyeccionVerAsistentes.getClientes().size() + " asistentes.");
+                    + /* proyeccionVerAsistentes.getClientes().size() + */ " asistentes.");
 
         } else {
             imprimirError("No se ha encontrado una proyeccion con ese código, vuelva a intentarlo");
@@ -252,7 +253,7 @@ public class Main {
      * @param scanner
      * @param cine
      */
-    public static void cancelarClienteDePro(Scanner scanner, Cine cine) {
+    public static void cancelarAsistencia(Scanner scanner, Cine cine) {
         Cliente clienteCancelar = cine
                 .buscarClientePorDni(
                         leerTexto(scanner, "DNI del cliente a cancelar de la proyeccion: "));
@@ -302,6 +303,7 @@ public class Main {
      * @param scanner
      * @param cine
      */
+    // TODO: Actualizar a sistema butacas
     public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
         // Busca cliente
         Cliente clienteRegistrar = cine

@@ -35,19 +35,22 @@ public class Sala {
      * @param proyeccion
      * @return
      */
+    // TODO: Actualizar a sistema butacas
     public ArrayList<Boolean> registrarClientePro(Cliente cliente, Proyeccion proyeccion) {
         ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
 
         if (!proyecciones.contains(proyeccion)) {
             errores.set(0, true); // Proyeccion no registrada en la sala
-        } else if (proyeccion.getClientes().contains(cliente)) {
-            errores.set(1, true); // Cliente ya registrado
+            // } else if (proyeccion.getClientes().contains(cliente)) {
+            // errores.set(1, true); // Cliente ya registrado
         } else if (!hayEspacioDisponible(proyeccion)) {
             errores.set(2, true); // No hay asientos libres
         } else if (proyeccion.getHoraFin().isBefore(LocalTime.now())) {
             errores.set(3, true); // Ya ha terminado la proyeccion
         } else {
-            proyeccion.registrarCliente(cliente);
+
+            // TODO: Actualizar a sistema butacas
+            // proyeccion.registrarCliente(cliente);
         }
 
         return errores;
@@ -60,8 +63,10 @@ public class Sala {
      * @param proyeccion
      * @return Boolean
      */
+    // TODO: Actualizar a sistema butacas
     public boolean hayEspacioDisponible(Proyeccion proyeccion) {
-        return proyeccion.getClientes().size() < capacidad;
+        // return proyeccion.getClientes().size() < capacidad;
+        return true;
     }
 
     /**
