@@ -33,8 +33,27 @@ public class Proyeccion {
     }
 
     // [ Metodos ]
+    /**
+     * Recorre el array de butacas y busca la butaca con el id proporcionado
+     * 
+     * @param idButaca
+     * @return Butaca encontrada
+     */
+    public Butaca buscarButaca(String idButaca) {
+        // Buscar la butaca
+        Butaca butaca = null;
 
-    // [ Métodos ]
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                if (butacas.get(i).get(j).getId().equalsIgnoreCase(idButaca)) {
+                    butaca = butacas.get(i).get(j);
+                }
+            }
+        }
+
+        return butaca;
+    }
+
     /**
      * Inicializa la matriz de butacas, crea un ArrayList y lo añade a la matriz,
      * despues lo rellena, asi hasta rellenarlo todo
@@ -49,7 +68,7 @@ public class Proyeccion {
                 char letra = ((char) ('A' + j));
 
                 // Inicializa cada celda
-                butacas.get(i).add(new Butaca("" + i + letra));
+                butacas.get(i).add(new Butaca("" + (i + 1) + letra));
 
             }
         }

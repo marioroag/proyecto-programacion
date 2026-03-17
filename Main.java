@@ -91,6 +91,7 @@ public class Main {
         // region [ Declaraciones ]
 
         System.err.println(proyeccion1.mostrarButacas());
+        System.out.println(proyeccion1.buscarButaca("7A"));
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
