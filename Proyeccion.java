@@ -167,9 +167,12 @@ public class Proyeccion {
      * 
      * @param cliente Cliente
      */
-    // TODO: Actualizar a sistema butacas
-    public void cancelarAsistencia(Cliente cliente) {
-        // this.clientes.remove(cliente);
+    public void cancelarAsistencia(Butaca butaca) {
+        // TODO: Control de errores:
+        // Existe? Ya libre? Terminó la proyección?
+        // TODO: Posiblemente estas comprobaciones hacerlas metodo en el futuro?
+        butaca.setCliente(null);
+        butaca.setOcupada(false);
     }
 
     /**

@@ -233,14 +233,13 @@ public class Main {
      * @param scanner
      * @param cine
      */
-    // TODO: Actualizar a sistema butacas
     public static void verTotalAsistentes(Scanner scanner, Cine cine) {
         Proyeccion proyeccionVerAsistentes = cine.buscarProyeccion(
                 leerTexto(scanner, "Codigo de la proyección de la cual ver los asistentes: "));
 
         if (proyeccionVerAsistentes != null) {
             imprimirMensaje("La proyeccion  " + proyeccionVerAsistentes.getCodigoProyeccion() + " tiene "
-                    + /* proyeccionVerAsistentes.getClientes().size() + */ " asistentes.");
+                    + proyeccionVerAsistentes.verListaClientes() + " asistentes.");
 
         } else {
             imprimirError("No se ha encontrado una proyeccion con ese código, vuelva a intentarlo");
@@ -264,8 +263,10 @@ public class Main {
                     leerTexto(scanner, "Codigo de la proyección de la cual cancelarlo: "));
 
             // Se encontró la proyección?
+
             if (deProyeccion != null) {
-                deProyeccion.cancelarAsistencia(clienteCancelar);
+                // TODO: Actualizar a sistema butacas (Ahora recibe butaca no cliente)
+                // deProyeccion.cancelarAsistencia(clienteCancelar);
                 imprimirMensaje("Asistencia de " + clienteCancelar.getNombre() + " a "
                         + deProyeccion.getPelicula().getTitulo() + " ha sido cancelada con exito!");
 
