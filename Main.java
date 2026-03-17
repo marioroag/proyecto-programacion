@@ -78,11 +78,11 @@ public class Main {
 
         // region [ Menú ]
         do {
-            opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, "[ " + cineStem.getNombre() + " ]");
+            opcionMenuPrincipal = leerOpcionMenu(scanner, opcionesMenu, "-═ [ " + cineStem.getNombre() + " ] ═-");
 
             if (opcionMenuPrincipal == 1) { // Gestionar Cine
                 do {
-                    opcionMenuCine = leerOpcionMenu(scanner, opcionesCines, "[ GESTIÓN CINE ]");
+                    opcionMenuCine = leerOpcionMenu(scanner, opcionesCines, "-═ [ GESTIÓN CINE ] ═-");
 
                     if (opcionMenuCine == 1) { // Ver detalles cine
                         System.out.println(cineStem);
@@ -94,7 +94,7 @@ public class Main {
 
             } else if (opcionMenuPrincipal == 2) { // Gestionar Salas
                 do {
-                    opcionMenuSalas = leerOpcionMenu(scanner, opcionesSalas, "[ GESTIÓN SALAS ]");
+                    opcionMenuSalas = leerOpcionMenu(scanner, opcionesSalas, "-═ [ GESTIÓN SALAS ] ═-");
 
                     if (opcionMenuSalas == 1) { // Listar salas de un cine
                         System.out.println("[ SALAS ]\n" + cineStem.mostrarSalas());
@@ -116,7 +116,7 @@ public class Main {
 
             } else if (opcionMenuPrincipal == 3) { // Gestionar Películas
                 do {
-                    opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "[ GESTIÓN PELICULAS ]");
+                    opcionMenuPeliculas = leerOpcionMenu(scanner, opcionesPeliculas, "-═ [ GESTIÓN PELICULAS ] ═-");
 
                     if (opcionMenuPeliculas == 1) { // Listar películas
                         System.out.println(cineStem.mostarPeliculas());
@@ -135,7 +135,7 @@ public class Main {
 
             } else if (opcionMenuPrincipal == 4) { // Gestionar Clientes
                 do {
-                    opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "[ GESTIÓN CLIENTES ]");
+                    opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "-═ [ GESTIÓN CLIENTES ] ═-");
 
                     if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
                         registrarClienteEnPro(scanner, cineStem);
@@ -519,22 +519,58 @@ public class Main {
     }
 
     public static String mostrarMenu(ArrayList<String> opciones, String cabecera) {
+        int mayorLongOpcion = 0;
 
-        String menu = "\n-═══ " + cabecera + " ═══-";
-        final int LONGCABECERA = menu.length();
+        // Estilos
+        final String BOLD = "\u001B[1m"; // Aplica negrita
+        final String RESET = "\u001B[0m"; // Resetea para que no se quede el resto del texto con ese estilo
 
+        // Encuentra la opcion mas larga
+        for (String opcion : opciones) {
+            if (opcion.length() > mayorLongOpcion) {
+                mayorLongOpcion = opcion.length();
+            }
+        }
+
+        // " 1. " = ajuste +4
+        mayorLongOpcion += 4;
+
+        // Se queda con el mas largo entre cabecera y mayor opcion
+        int anchoContenido = Math.max(mayorLongOpcion, cabecera.length());
+
+        // Ajuste por espacio inicial al alinear opciones
+        int anchoTotal = anchoContenido + 1;
+
+        // Cabecera centrada
+        String titulo = " " + BOLD + centrarTexto(cabecera, anchoContenido) + RESET; // +1 por ajuste
+
+        // Cabecera decorada
+        String menu = "\n╔" + "═".repeat(anchoTotal) + "╗";
+        menu += "\n║" + titulo + "║";
+        menu += "\n╠" + "═".repeat(anchoTotal) + "╣";
+
+        // Opciones alineadas
         for (int i = 0; i < opciones.size(); i++) {
-            menu += "\n" + (i + 1) + ". " + opciones.get(i);
+            String opcion = (i + 1) + ". " + opciones.get(i);
+            menu += "\n║ " + rellenarDerecha(opcion, anchoContenido) + "║";
         }
 
-        String linea = "";
-        for (int i = 0; i < LONGCABECERA - 1; i++) {
-            linea += "═";
-        }
-
-        menu += "\n" + linea;
+        // Linea final
+        menu += "\n╚" + "═".repeat(anchoTotal) + "╝";
 
         return menu;
+    }
+
+    public static String centrarTexto(String texto, int ancho) {
+        int espacios = ancho - texto.length();
+        int izquierda = espacios / 2;
+        int derecha = espacios - izquierda;
+
+        return " ".repeat(izquierda) + texto + " ".repeat(derecha);
+    }
+
+    public static String rellenarDerecha(String texto, int ancho) {
+        return texto + " ".repeat(ancho - texto.length());
     }
 
     public static int leerOpcionMenu(Scanner scanner, ArrayList<String> menu, String cabecera) {
