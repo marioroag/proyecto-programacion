@@ -54,7 +54,38 @@ public class Sala {
         }
     }
 
+    /**
+     * Recorre la matriz de butacas y las muestra de forma ordenada
+     */
     public void mostrarButacas() {
+        String filaButacas = "";
+        String resultado = "";
+        int anchoContenido;
+
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                if (j == COLUMNAS - 1) {
+                    filaButacas += butacas.get(i).get(j) + " " + "ASDASDASD";
+                }
+
+                filaButacas += butacas.get(i).get(j) + "  ";
+
+                // Guardo el ancho de la sala
+                if (i == 0 && j == COLUMNAS - 1) {
+                    anchoContenido = filaButacas.length();
+                    resultado += "\n╔" + "═".repeat(anchoContenido) + "╗";
+                }
+
+            }
+            resultado += "\n║ " + filaButacas + "║";
+            filaButacas = "";
+
+        }
+
+        System.out.println(resultado);
+    }
+
+    public void mostrarButacas1() {
         String visualButacas = "";
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {
