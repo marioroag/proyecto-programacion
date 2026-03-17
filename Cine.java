@@ -159,7 +159,7 @@ public class Cine {
     public boolean agregarPelicula(Pelicula nuevaPelicula) {
         boolean exito = false;
 
-        if (peliculas.contains(nuevaPelicula)) {
+        if (!peliculas.contains(nuevaPelicula)) {
             this.peliculas.add(nuevaPelicula);
             exito = true;
         }

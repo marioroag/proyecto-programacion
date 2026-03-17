@@ -28,37 +28,6 @@ public class Sala {
 
     // [ Métodos ]
     /**
-     * Registra al cliente en su proyeccion y su butaca si no hay errores
-     * 
-     * @param cliente
-     * @param proyeccion
-     * @param idButaca
-     * @return ArrayList<Boolean> de errores
-     */
-    public ArrayList<Boolean> registrarClientePro(Cliente cliente, Proyeccion proyeccion, String idButaca) {
-        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
-
-        if (!proyecciones.contains(proyeccion)) {
-            errores.set(0, true); // Proyección no registrada en la sala
-
-        } else {
-            ArrayList<Boolean> erroresButaca = proyeccion.asignarButaca(idButaca, cliente);
-
-            if (erroresButaca.get(0)) {
-                errores.set(1, true); // Butaca no existe
-            } else if (erroresButaca.get(1)) {
-                errores.set(2, true); // Butaca ocupada
-            } else if (erroresButaca.get(2)) {
-                errores.set(3, true); // Ya ha terminado la proyeccion
-            } else if (erroresButaca.get(3)) {
-                errores.set(1, true); // Cliente duplicado
-            }
-        }
-
-        return errores;
-    }
-
-    /**
      * Devuelve true o false dependiendo de si hay espacio para la proyeccion
      * recibida
      * 
@@ -67,7 +36,7 @@ public class Sala {
      */
     public boolean hayEspacioDisponible(Proyeccion proyeccion) {
         boolean hayEspacio = false;
-        if (proyeccion.contarAsistentes() <= capacidad) {
+        if (proyeccion.contarAsistentes() < capacidad) {
             hayEspacio = true;
         }
         return hayEspacio;

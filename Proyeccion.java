@@ -278,7 +278,8 @@ public class Proyeccion {
     @Override
     public String toString() {
         String resultado = "Proyeccion: " + codigoProyeccion + " | " + pelicula.getTitulo()
-                + " de " + horaInicio + " a " + horaFin;
+                + " de " + horaInicio + " a " + horaFin + ", capacidad: " + contarAsistentes() + "/"
+                + sala.getCapacidad();
 
         return resultado;
     }

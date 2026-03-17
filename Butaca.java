@@ -1,14 +1,17 @@
 public class Butaca {
+    // [ Atributos ]
     private String id;
     private boolean ocupada;
     private Cliente cliente; // null si esta libre
 
+    // [ Constructor ]
     public Butaca(String id) {
         this.id = id;
         this.ocupada = false;
         this.cliente = null;
     }
 
+    // [ Getters y Setters ]
     public String getId() {
         return id;
     }
@@ -33,9 +36,14 @@ public class Butaca {
         this.cliente = cliente;
     }
 
+    // [ toString ]
     @Override
     public String toString() {
-        return id;
+        String estado = "libre";
+        if (ocupada) {
+            estado = "ocupada";
+        }
+        return "Butaca: " + id + " está " + estado + " por " + cliente.getNombre() + ", dni: " + cliente.getDni();
     }
 
 }
