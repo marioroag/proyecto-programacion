@@ -60,27 +60,32 @@ public class Sala {
     public void mostrarButacas() {
         String filaButacas = "";
         String resultado = "";
-        int anchoContenido;
+        String espaciador = "";
+        int anchoContenido = 0;
 
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {
-                if (j == COLUMNAS - 1) {
-                    filaButacas += butacas.get(i).get(j) + " " + "ASDASDASD";
-                }
+                filaButacas += " [" + butacas.get(i).get(j) + "] ";
 
-                filaButacas += butacas.get(i).get(j) + "  ";
-
-                // Guardo el ancho de la sala
+                // Guardo el ancho de la sala despues de la primera fila completa
                 if (i == 0 && j == COLUMNAS - 1) {
                     anchoContenido = filaButacas.length();
-                    resultado += "\n╔" + "═".repeat(anchoContenido) + "╗";
+
+                    espaciador = "\n║ " + " ".repeat(anchoContenido) + " ║"; // Espaciador
+
+                    resultado += "\n╔═" + "═".repeat(anchoContenido) + "═╗"; // Fila
+                    resultado += espaciador;
                 }
 
             }
-            resultado += "\n║ " + filaButacas + "║";
+
+            resultado += "\n║ " + filaButacas + " ║";
             filaButacas = "";
 
         }
+
+        resultado += espaciador;
+        resultado += "\n╚═" + "═".repeat(anchoContenido) + "═╝";
 
         System.out.println(resultado);
     }
