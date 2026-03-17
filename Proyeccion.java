@@ -41,7 +41,6 @@ public class Proyeccion {
      * @return Butaca encontrada
      */
     public Butaca buscarButaca(String idButaca) {
-        // Buscar la butaca
         Butaca butaca = null;
 
         for (int i = 0; i < FILAS; i++) {
@@ -55,6 +54,15 @@ public class Proyeccion {
         return butaca;
     }
 
+    /**
+     * Busca una butaca a partir de su id, comprueba si existe, si esta ocupada, si
+     * la proyeccion termino o si ese cliente ya esta registrado en esa proyeccion,
+     * y si no hay errores asigna la butaca a ese cliente
+     * 
+     * @param idButaca
+     * @param cliente
+     * @return
+     */
     public ArrayList<Boolean> asignarButaca(String idButaca, Cliente cliente) {
         ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
 
@@ -182,7 +190,7 @@ public class Proyeccion {
         String resultado = "[ CLIENTES DE " + codigoProyeccion + " ]";
 
         // Hay algun cliente?
-        if (clientes.size() > 0) {
+        if (contarAsistentes() > 0) {
             for (Cliente cliente : clientes) {
                 resultado += "\nDNI: " + cliente.getDni() + " | " + cliente.getNombre() + " de " + cliente.getEdad()
                         + " años tiene la entrada " + cliente.getTipoEntrada()
@@ -194,6 +202,19 @@ public class Proyeccion {
         }
 
         return resultado;
+    }
+
+    public int contarAsistentes() {
+        int asistentes = 0;
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                if (butacas.get(i).get(j).isOcupada()) {
+                    asistentes++;
+                }
+            }
+        }
+
+        return asistentes;
     }
 
     // region [ Getters y Setters ]
