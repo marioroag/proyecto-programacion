@@ -10,11 +10,18 @@ public class Sala {
     private int capacidad;
     private ArrayList<Proyeccion> proyecciones;
 
+    private ArrayList<ArrayList<Butaca>> butacas;
+
+    final private int FILAS = 10;
+    final private int COLUMNAS = 20;
+
     // [ Constructores ]
     public Sala(int capacidad, ArrayList<Proyeccion> proyecciones) {
         setId();
         setCapacidad(capacidad);
         this.proyecciones = proyecciones;
+        this.butacas = new ArrayList<>();
+
         cantidadSalas++;
     }
 
@@ -22,10 +29,25 @@ public class Sala {
         setId();
         setCapacidad(capacidad);
         this.proyecciones = new ArrayList<>();
+        this.butacas = new ArrayList<>();
         cantidadSalas++;
     }
 
     // [ Métodos ]
+    public void inicializarButacas() {
+        for (int i = 0; i < FILAS; i++) {
+            // Añade nueva fila
+            butacas.add(new ArrayList<Butaca>());
+
+            for (int j = 0; j < COLUMNAS; j++) {
+                // Inicializa cada celda
+                butacas.get(i).add(new Butaca("" + i + j));
+            }
+        }
+
+        System.out.println(butacas);
+    }
+
     /**
      * Comprueba los posibles errores y si no falla nada intenta registrar al
      * cliente en la proyeccion

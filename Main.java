@@ -51,6 +51,8 @@ public class Main {
         // endregion
 
         // region [ Declaraciones ]
+
+        sala1.inicializarButacas();
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
