@@ -155,7 +155,7 @@ public class Main {
             imprimirInfo(proyeccionVerClientes.verListaClientes());
 
         } else {
-            imprimirError("No se ha encontrado una proyección con ese código");
+            imprimirError("No se ha encontrado una proyección con ese código.");
         }
     }
 
@@ -176,7 +176,7 @@ public class Main {
                     + proyeccionVerAsistentes.contarAsistentes() + " asistentes.");
 
         } else {
-            imprimirError("No se ha encontrado una proyeccion con ese código");
+            imprimirError("No se ha encontrado una proyeccion con ese código.");
         }
     }
 
@@ -201,7 +201,9 @@ public class Main {
             if (errores.get(0)) {
                 imprimirError("La butaca no existe.");
             } else if (errores.get(1)) {
-                imprimirError("La butaca ya está libre o la proyección ha finalizado.");
+                imprimirError("La butaca ya está libre.");
+            } else if (errores.get(2)) {
+                imprimirError("La proyección ha finalizado.");
             } else {
                 imprimirExito("Asistencia cancelada con éxito.");
             }
@@ -460,7 +462,7 @@ public class Main {
             imprimirPrompt(mensaje);
             texto = scanner.nextLine().trim();
             if (texto.isEmpty()) {
-                imprimirError("No puede estar vacío");
+                imprimirError("No puede estar vacío.");
             }
         } while (texto.isEmpty());
 
@@ -478,7 +480,7 @@ public class Main {
                 scanner.nextLine(); // limpiar buffer
                 intValido = true;
             } else {
-                imprimirError("Introduce un número entero válido");
+                imprimirError("Introduce un número entero válido.");
                 scanner.nextLine(); // limpiar buffer
             }
         } while (!intValido);
@@ -502,6 +504,7 @@ public class Main {
         int mayorLongOpcion = 0;
 
         // Estilos
+        final String BRIGHT_WHITE = "\u001B[97m"; // Blanco brillante
         final String BOLD = "\u001B[1m"; // Aplica negrita
         final String RESET = "\u001B[0m"; // Resetea para que no se quede el resto del texto con ese estilo
 
@@ -522,7 +525,7 @@ public class Main {
         int anchoTotal = anchoContenido + 1;
 
         // Cabecera centrada
-        String titulo = " " + BOLD + centrarTexto(cabecera, anchoContenido) + RESET; // +1 por ajuste
+        String titulo = " " + BRIGHT_WHITE + BOLD + centrarTexto(cabecera, anchoContenido) + RESET;
 
         // Cabecera decorada
         String menu = "\n╔" + "═".repeat(anchoTotal) + "╗";
@@ -559,7 +562,7 @@ public class Main {
         do {
             opcion = leerInt(scanner, ">> Opción: ");
             if (!validarOpcion(opcion, menu.size())) {
-                imprimirError("Opción fuera de rango");
+                imprimirError("Opción fuera de rango.");
             }
         } while (!validarOpcion(opcion, menu.size()));
 

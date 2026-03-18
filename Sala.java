@@ -31,7 +31,7 @@ public class Sala {
      * recibida
      * 
      * @param proyeccion
-     * @return boolean
+     * @return boolean {@code true} si hay menos asistentes que capacidad
      */
     public boolean hayEspacioDisponible(Proyeccion proyeccion) {
         boolean hayEspacio = false;
@@ -46,8 +46,7 @@ public class Sala {
      * ya existente
      * 
      * @param nuevaProyeccion Proyeccion a añadir
-     * @return Número de error para posteriormente imprimir un mensaje customizado
-     *         en el programa
+     * @return boolean {@code true} si la nueva proyeccion no solapa con ninguna
      */
     public boolean agregarProyeccion(Proyeccion nuevaProyeccion) {
         boolean exito = true;
@@ -71,12 +70,16 @@ public class Sala {
      * buscarProyeccion() y la elimina de la lista de proyecciones
      * 
      * @param codigoProyeccion Codigo de la proyeccion a buscar
+     * @return boolean {@code true} si se encuentra la proteccion y si elimina
      */
     public boolean cancelarProyeccion(String codigoProyeccion) {
         boolean exito = false;
-
         Proyeccion proyeccionEliminar = buscarProyeccion(codigoProyeccion);
-        proyecciones.remove(proyeccionEliminar);
+
+        if (proyeccionEliminar != null) {
+            proyecciones.remove(proyeccionEliminar);
+            exito = true;
+        }
 
         return exito;
     }
@@ -84,6 +87,7 @@ public class Sala {
     /**
      * Recibe una proyeccion y la elimina de la lista de proyecciones
      * 
+     * @return boolean {@code true} Para indicar que la proyeccion se eliminó
      */
     public boolean cancelarProyeccion(Proyeccion proyeccionEliminar) {
         boolean exito = false;
@@ -115,7 +119,7 @@ public class Sala {
      * Devuelve un booleano que indica si la sala esta ocupada (true) o no (false)
      * en el momento de ejecución del método usando LocalTime
      * 
-     * @return Booleano
+     * @return boolean {@code true} si se esta proyectando ahora mismo en la sala
      */
     public boolean estaOcupada() {
         boolean salaOcupada = false;
@@ -136,7 +140,7 @@ public class Sala {
      * 
      * @param libre   Como se mostrara si esta libre
      * @param ocupada Como se mostrara si esta ocupada
-     * @return String
+     * @return String customizado
      */
     public String mostrarDisponibilidad(String libre, String ocupada) {
         String disponibilidad = libre;

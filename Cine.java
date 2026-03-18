@@ -26,12 +26,13 @@ public class Cine {
     }
 
     // [ Metodos ]
-
+    
     /**
-     * Busca un cliente
+     * Recorre el array de clientes buscando el dni recibido y lo devuelve si lo encuentra,
+     * si no, {@code null}
      * 
      * @param dniCliente
-     * @return
+     * @return Cliente encontrado
      */
     public Cliente buscarClientePorDni(String dniCliente) {
         Cliente clienteEncontrado = null;
@@ -49,6 +50,7 @@ public class Cine {
      * Registra a un cliente si no esta duplicado
      * 
      * @param nuevoCliente
+     * @return boolean {@code true} si no esta duplicado
      */
     public boolean registrarCliente(Cliente nuevoCliente) {
         boolean duplicado = false;
@@ -82,9 +84,10 @@ public class Cine {
     }
 
     /**
-     * Muestra las peliculas del cine
+     * Devuelve las peliculas del cine en un String presentable
+     * Si no hay pelicula devuelve "Todavía no hay peliculas en este cine."
      * 
-     * @return String de peliculas
+     * @return String organizado de peliculas
      */
     public String mostarPeliculas() {
         String peliculasMostrar = "[ Peliculas Disponibles ]";
@@ -152,9 +155,10 @@ public class Cine {
     }
 
     /**
-     * Agrega una nueva sala al cine
+     * Agrega una nueva sala al cine si no está antes en el mismo
      * 
      * @param nuevaSala Sala a añadir
+     * @return boolean {@code true} si la pelicula no estaba ya en la pelicula
      */
     public boolean agregarPelicula(Pelicula nuevaPelicula) {
         boolean exito = false;

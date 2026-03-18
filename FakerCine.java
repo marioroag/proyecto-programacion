@@ -31,7 +31,7 @@ public class FakerCine {
     // =========================
     public static Cine generarCineFake() {
 
-        Cine cine = new Cine("Cine Faker PRO", "Granada", "España");
+        Cine cine = new Cine("Cine STEM", "Granada", "España");
 
         // 🎥 Películas
         ArrayList<Pelicula> pelis = new ArrayList<>();

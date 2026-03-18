@@ -59,7 +59,7 @@ public class Proyeccion {
      * 
      * @param idButaca
      * @param cliente
-     * @return
+     * @return ArrayList<Boolean>, index 0: No se encontró, 1: Ocupada, 2: Proyeccion ha terminado, 3: Duplicado
      */
     public ArrayList<Boolean> asignarButaca(String idButaca, Cliente cliente) {
         ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
@@ -119,7 +119,9 @@ public class Proyeccion {
     /**
      * Metodo sobrecomplicado por estetica que recorre la matriz de butacas y las
      * muestra de forma ordenada
-     */
+     * 
+     * @return Una representacion de butacas, [O] si libre, [X] si ocupada
+     */ 
     public String mostrarButacas() {
         int anchoContenido = 0;
         String filaButacas = "";
@@ -162,19 +164,20 @@ public class Proyeccion {
     }
 
     /**
-     * Cancela la asistencia de un cliente de una proyección liberando la butaca
+     * Cancela la asistencia de un cliente de una proyección liberando la butaca.
      * 
      * @param Butaca Butaca
+     * @return ArrayList<Boolean>, index 0: Butaca no existe, 1 Ya esta libre, 2 Proyección terminada
      */
     public ArrayList<Boolean> cancelarAsistencia(Butaca butaca) {
-        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false));
+        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false));
 
         if (butaca == null) {
             errores.set(0, true); // Butaca no existe
         } else if (!butaca.isOcupada()) {
             errores.set(1, true); // Ya esta libre
         } else if (horaFin.isBefore(LocalTime.now())) {
-            errores.set(1, true); // Proyección terminada
+            errores.set(2, true); // Proyección terminada
         } else {
             // Liberar butaca
             butaca.setOcupada(false);
@@ -185,7 +188,7 @@ public class Proyeccion {
     }
 
     /**
-     * Devuelve un String de todos los clientes que asisten a la proyección
+     * Devuelve un String organizado de todos los clientes que asisten a la proyección
      * 
      * @return String
      */
@@ -217,7 +220,7 @@ public class Proyeccion {
     /**
      * Recorre el array buscando butacas ocupadas y las cuenta
      * 
-     * @return
+     * @return int Numero de butacas ocupadas
      */
     public int contarAsistentes() {
         int asistentes = 0;
