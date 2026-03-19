@@ -11,7 +11,6 @@ public class Main {
         // ==== [ MAIN ] ====
         // ==================
 
-        // TODO: Probar ver lista de clientes en una proyeccion imprime bien
         // region [ DECLARACIONES ]
         Cine cineStem = FakerCine.generarCineFake(); // Generación de datos de un cine falso
 

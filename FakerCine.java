@@ -52,7 +52,7 @@ public class FakerCine {
         // 🏟️ Salas + Proyecciones
         for (int i = 0; i < 4; i++) {
 
-            Sala sala = new Sala(80 + random.nextInt(120));
+            Sala sala = new Sala(200);
 
             int horaActual = 10;
 

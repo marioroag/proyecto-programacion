@@ -149,13 +149,13 @@ public class Proyeccion {
 
                 // Guardo el ancho de la sala despues de la primera fila completa
                 if (i == 0 && j == COLUMNAS - 1) {
-                    anchoContenido = filaButacas.length() + 2; // +3 por ajuste contenido de el espacio de la
+                    anchoContenido = filaButacas.length() + 2; // +2 por ajuste contenido de el espacio de la
                                                                // enumeración
 
                     espaciador = "\n║ " + " ".repeat(anchoContenido) + " ║"; // Espaciador
 
                     resultado += "\n╔═" + "═".repeat(anchoContenido) + "═╗"; // Fila
-                    resultado += "\n║ " + GUIACOLUMNA + " ║"; // guia
+                    resultado += "\n║ " + GUIACOLUMNA + " ║"; // Guia
                     resultado += espaciador;
                 }
 
