@@ -59,7 +59,8 @@ public class Proyeccion {
      * 
      * @param idButaca
      * @param cliente
-     * @return ArrayList<Boolean>, index 0: No se encontró, 1: Ocupada, 2: Proyeccion ha terminado, 3: Duplicado
+     * @return ArrayList<Boolean>, index 0: No se encontró, 1: Ocupada, 2:
+     *         Proyeccion ha terminado, 3: Duplicado
      */
     public ArrayList<Boolean> asignarButaca(String idButaca, Cliente cliente) {
         ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
@@ -121,38 +122,51 @@ public class Proyeccion {
      * muestra de forma ordenada
      * 
      * @return Una representacion de butacas, [O] si libre, [X] si ocupada
-     */ 
+     */
     public String mostrarButacas() {
         int anchoContenido = 0;
         String filaButacas = "";
         String espaciador = "";
         String resultado = "";
+        String estado = "";
+        Butaca butacaActual;
+        final String GUIACOLUMNA = "     A    B    C    D    E    F    G    H    I    J    K    L    M    N    Ñ    O    P    Q    R    S ";
 
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {
                 // Guarda una a una las butacas de cada fila
-                Butaca butacaActual = butacas.get(i).get(j);
-                String estado = "O";
+                butacaActual = butacas.get(i).get(j);
 
                 // Cambia el estado si la butaca está ocupada
                 if (butacaActual.isOcupada()) {
                     estado = "X";
+                } else {
+                    estado = "0";
                 }
+
+                // Va construyendo la fila
                 filaButacas += " [" + estado + "] ";
 
                 // Guardo el ancho de la sala despues de la primera fila completa
                 if (i == 0 && j == COLUMNAS - 1) {
-                    anchoContenido = filaButacas.length();
+                    anchoContenido = filaButacas.length() + 2; // +3 por ajuste contenido de el espacio de la
+                                                               // enumeración
 
                     espaciador = "\n║ " + " ".repeat(anchoContenido) + " ║"; // Espaciador
 
                     resultado += "\n╔═" + "═".repeat(anchoContenido) + "═╗"; // Fila
+                    resultado += "\n║ " + GUIACOLUMNA + " ║"; // guia
                     resultado += espaciador;
                 }
 
             }
 
-            resultado += "\n║ " + filaButacas + " ║";
+            // Última fila tiene un espacio menos porque es 10 y tiene dos digitos
+            if (i < FILAS - 1) {
+                resultado += "\n║ " + (i + 1) + "  " + filaButacas + "║";
+            } else {
+                resultado += "\n║ " + (i + 1) + " " + filaButacas + "║";
+            }
             filaButacas = "";
 
         }
@@ -167,7 +181,8 @@ public class Proyeccion {
      * Cancela la asistencia de un cliente de una proyección liberando la butaca.
      * 
      * @param Butaca Butaca
-     * @return ArrayList<Boolean>, index 0: Butaca no existe, 1 Ya esta libre, 2 Proyección terminada
+     * @return ArrayList<Boolean>, index 0: Butaca no existe, 1 Ya esta libre, 2
+     *         Proyección terminada
      */
     public ArrayList<Boolean> cancelarAsistencia(Butaca butaca) {
         ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false));
@@ -188,7 +203,8 @@ public class Proyeccion {
     }
 
     /**
-     * Devuelve un String organizado de todos los clientes que asisten a la proyección
+     * Devuelve un String organizado de todos los clientes que asisten a la
+     * proyección
      * 
      * @return String
      */
