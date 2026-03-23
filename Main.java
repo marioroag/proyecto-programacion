@@ -240,6 +240,68 @@ public class Main {
 
     }
 
+    public static Cliente obtenerCliente(Scanner scanner, Cine cine) {
+        Cliente cliente = cine.buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
+
+        if (cliente == null) {
+            imprimirError("No se a encontrado un cliente con ese DNI.");
+        }
+
+        return cliente;
+    }
+
+    public static Proyeccion obtenerProyeccion(Scanner scanner, Cine cine) {
+        Proyeccion proyeccion = cine.buscarProyeccion(leerTexto(scanner, "Código de la proyección: "));
+
+        if (proyeccion == null) {
+            imprimirError("No se ha encontrado una proyección con ese ID.");
+        }
+
+        return proyeccion;
+    }
+
+    public static void gestionarReservaButaca(Scanner scanner, Proyeccion proyeccion, Cliente cliente) {
+        ArrayList<Boolean> errores;
+        String idButaca;
+
+        do {
+            imprimirInfo(proyeccion.mostrarButacas());
+            imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
+            idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
+
+            // Intenta asignarla
+            errores = proyeccion.asignarButaca(idButaca, cliente);
+
+            if (!idButaca.equalsIgnoreCase("SALIR")) {
+                imprimirInfo("Volviendo..");
+            }
+
+        } while (errores.get(0) != true && !idButaca.equalsIgnoreCase("SALIR"));
+    }
+
+    /**
+     * Pide un cliente, id y butaca y reserva su asistencia si es posible.
+     * 
+     * @param scanner
+     * @param cine
+     */
+    public static void registrarClienteEnProRefactorizado(Scanner scanner, Cine cine) {
+        // Busca cine
+        Cliente clienteRegistrar = obtenerCliente(scanner, cine);
+
+        // Se encontro el cliente?
+        if (clienteRegistrar != null) {
+            Proyeccion proyeccionRegistrar = obtenerProyeccion(scanner, cine);
+
+            // Se encontro la proyección?
+            if (proyeccionRegistrar != null) {
+
+                gestionarReservaButaca(scanner, proyeccionRegistrar, clienteRegistrar);
+
+            }
+        }
+    }
+
     /**
      * Pide un cliente, id y butaca y reserva su asistencia si es posible.
      * 
@@ -248,8 +310,7 @@ public class Main {
      */
     public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
         // Busca cine
-        Cliente clienteRegistrar = cine
-                .buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
+        Cliente clienteRegistrar = cine.buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
 
         // Se encontro el cliente?
         if (clienteRegistrar != null) {
