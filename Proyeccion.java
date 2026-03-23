@@ -119,6 +119,17 @@ public class Proyeccion {
     }
 
     /**
+     * Mide la longuitud de un string sin contar con los carácteres típicos de loos
+     * colores ASCII
+     * 
+     * @param string
+     * @return Longuitud sin ASCII del String
+     */
+    public static int longuitudStringSinASCII(String string) {
+        return string.replaceAll("(\\x9B|\\x1B\\[)[0-?]*[ -\\/]*[@-~]", "").length();
+    }
+
+    /**
      * Metodo sobrecomplicado por estetica que recorre la matriz de butacas y las
      * muestra de forma ordenada
      * 
@@ -131,8 +142,14 @@ public class Proyeccion {
         String resultado = "";
         String estado = "";
         Butaca butacaActual;
+
         final String GUIACOLUMNA = "     A    B    C    D    E    F    G    H    I    J    K    L    M    N    O    P    Q    R    S    T ";
 
+        final String RESET = "\u001B[0m"; // Resetea estilo
+        final String BRIGHT_GREEN = "\u001B[92m"; // Color verde
+        final String LIGHT_RED = "\u001B[38;2;255;120;120m"; // Color rojo
+
+        // Genera la tabla de butacas a mostrar
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {
                 // Guarda una a una las butacas de cada fila
@@ -140,9 +157,9 @@ public class Proyeccion {
 
                 // Cambia el estado si la butaca está ocupada
                 if (butacaActual.isOcupada()) {
-                    estado = "X";
+                    estado = LIGHT_RED + "X" + RESET;
                 } else {
-                    estado = "0";
+                    estado = BRIGHT_GREEN + "0" + RESET;
                 }
 
                 // Va construyendo la fila
@@ -150,8 +167,9 @@ public class Proyeccion {
 
                 // Guardo el ancho de la sala despues de la primera fila completa
                 if (i == 0 && j == COLUMNAS - 1) {
-                    anchoContenido = filaButacas.length() + 2; // +2 por ajuste contenido de el espacio de la
-                                                               // enumeración
+                    anchoContenido = longuitudStringSinASCII(filaButacas) + 2; // +2 por ajuste contenido de el
+                                                                               // espacio de la
+                    // enumeración
 
                     espaciador = "\n║ " + " ".repeat(anchoContenido) + " ║"; // Espaciador
 

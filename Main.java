@@ -10,9 +10,12 @@ public class Main {
         // ==== [ MAIN ] ====
         // ==================
 
-        // TODO: NO PERMITIR DUPLICADOS DE DNI EN REGISTRO CLIENTE
         // region [ DECLARACIONES ]
         Cine cineStem = FakerCine.generarCineFake(); // Generación de datos de un cine falso
+
+        // Cliente para teste (siempre tiene dni 123 asi que es más facil testear)
+        Cliente clientePrueba = new Cliente("Mario", "123", 21, "Premium", 0);
+        cineStem.registrarCliente(clientePrueba);
 
         Scanner scanner = new Scanner(System.in);
 
