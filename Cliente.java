@@ -34,7 +34,7 @@ public class Cliente {
 
     public void setDni(String dni) {
         if (!dni.isBlank() && dni != null) {
-            this.dni = dni;
+            this.dni = dni.toUpperCase();
         } else {
             this.dni = null;
         }

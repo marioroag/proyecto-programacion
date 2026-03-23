@@ -231,11 +231,17 @@ public class Main {
                 leerTexto(scanner, "Tipo de entrada: "),
                 leerIntPositivo(scanner, "Número de entrada: "));
 
-        // Lo registra si no está duplicado
-        if (cine.registrarCliente(clienteRegistrar)) {
-            imprimirExito("Cliente registrado con éxito!");
+        String ClienteDni = clienteRegistrar.getDni();
+        // Comprueba DNI válido
+        if (ClienteDni.length() == 9 && (Character.isLetter(ClienteDni.charAt(ClienteDni.length() - 1)))) {
+            // Lo registra si no está duplicado
+            if (cine.registrarCliente(clienteRegistrar)) {
+                imprimirExito("Cliente registrado con éxito!");
+            } else {
+                imprimirError("Cliente con DNI: " + clienteRegistrar.getDni() + " ya está registrado.");
+            }
         } else {
-            imprimirError("Cliente con DNI: " + clienteRegistrar.getDni() + " ya está registrado.");
+            imprimirError("El DNI introducido no es invalido.");
         }
 
     }
