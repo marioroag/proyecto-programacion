@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
         // ==================
         // ==== [ MAIN ] ====
         // ==================
 
+        // TODO: NO PERMITIR DUPLICADOS DE DNI EN REGISTRO CLIENTE
         // region [ DECLARACIONES ]
         Cine cineStem = FakerCine.generarCineFake(); // Generación de datos de un cine falso
 
@@ -252,24 +252,32 @@ public class Main {
 
             // Se encontro la proyección?
             if (proyeccionRegistrar != null) {
-                imprimirInfo(proyeccionRegistrar.mostrarButacas());
 
-                String idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
+                ArrayList<Boolean> errores;
+                String idButaca;
+                do {
+                    imprimirInfo(proyeccionRegistrar.mostrarButacas());
+                    imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
+                    idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
 
-                // Intenta asignarla
-                ArrayList<Boolean> errores = proyeccionRegistrar.asignarButaca(idButaca, clienteRegistrar);
+                    // Intenta asignarla
+                    errores = proyeccionRegistrar.asignarButaca(idButaca, clienteRegistrar);
 
-                if (errores.get(0)) {
-                    imprimirError("La butaca no existe.");
-                } else if (errores.get(1)) {
-                    imprimirError("La butaca esta ocupada.");
-                } else if (errores.get(2)) {
-                    imprimirError("La proyección ya ha terminado.");
-                } else if (errores.get(3)) {
-                    imprimirError("El cliente ya tiene una butaca en esta proyección.");
-                } else {
-                    imprimirInfo("Cliente registrado correctamente en la butaca " + idButaca.toUpperCase());
-                }
+                    if (!idButaca.equalsIgnoreCase("SALIR")) {
+                        if (errores.get(0)) {
+                            imprimirExito("Cliente registrado correctamente en la butaca " + idButaca.toUpperCase());
+                        } else if (errores.get(1)) {
+                            imprimirError("La butaca no existe.");
+                        } else if (errores.get(2)) {
+                            imprimirError("La butaca esta ocupada.");
+                        } else if (errores.get(3)) {
+                            imprimirError("La proyección ya ha terminado.");
+                        } else if (errores.get(4)) {
+                            imprimirError("El cliente ya tiene una butaca en esta proyección.");
+                        }
+                    }
+
+                } while (errores.get(0) != true && !idButaca.equalsIgnoreCase("SALIR"));
 
             } else {
                 imprimirError("No se ha encontrado esa proyección.");

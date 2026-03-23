@@ -33,6 +33,7 @@ public class Butaca {
     }
 
     public void setCliente(Cliente cliente) {
+        setOcupada(true);
         this.cliente = cliente;
     }
 

@@ -59,37 +59,38 @@ public class Proyeccion {
      * 
      * @param idButaca
      * @param cliente
-     * @return ArrayList<Boolean>, index 0: No se encontró, 1: Ocupada, 2:
-     *         Proyeccion ha terminado, 3: Duplicado
+     * @return ArrayList<Boolean>, index 0: Asignado con exito, 1: No se encontró,
+     *         2: Ocupada, 3: Proyeccion ha terminado, 4: Duplicado
      */
     public ArrayList<Boolean> asignarButaca(String idButaca, Cliente cliente) {
-        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false));
+        ArrayList<Boolean> errores = new ArrayList<>(Arrays.asList(false, false, false, false, false));
+        Butaca butacaActual;
 
         Butaca butaca = buscarButaca(idButaca);
 
         // Control de errores
         if (butaca == null) {
-            errores.set(0, true); // No se encontró
+            errores.set(1, true); // No se encontró
         } else if (butaca.isOcupada()) {
-            errores.set(1, true); // Ocupada
+            errores.set(2, true); // Ocupada
         } else if (horaFin.isBefore(LocalTime.now())) {
-            errores.set(2, true); // Proyeccion ha terminado
+            errores.set(3, true); // Proyeccion ha terminado
         } else {
             // Busca duplicados
             for (int i = 0; i < FILAS; i++) {
                 for (int j = 0; j < COLUMNAS; j++) {
-                    Butaca butacaActual = butacas.get(i).get(j);
+                    butacaActual = butacas.get(i).get(j);
 
                     if (butacaActual.getCliente() != null &&
                             butacaActual.getCliente().getDni().equals(cliente.getDni())) {
-                        errores.set(3, true); // Duplicado
+                        errores.set(4, true); // Duplicado
                     }
                 }
             }
 
             // Se asigna si no hay errores
             if (!errores.contains(true)) {
-                butaca.setOcupada(true);
+                errores.set(0, true);
                 butaca.setCliente(cliente);
             }
         }
@@ -130,7 +131,7 @@ public class Proyeccion {
         String resultado = "";
         String estado = "";
         Butaca butacaActual;
-        final String GUIACOLUMNA = "     A    B    C    D    E    F    G    H    I    J    K    L    M    N    Ñ    O    P    Q    R    S ";
+        final String GUIACOLUMNA = "     A    B    C    D    E    F    G    H    I    J    K    L    M    N    O    P    Q    R    S    T ";
 
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {

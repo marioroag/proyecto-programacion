@@ -26,9 +26,10 @@ public class Cine {
     }
 
     // [ Metodos ]
-    
+
     /**
-     * Recorre el array de clientes buscando el dni recibido y lo devuelve si lo encuentra,
+     * Recorre el array de clientes buscando el dni recibido y lo devuelve si lo
+     * encuentra,
      * si no, {@code null}
      * 
      * @param dniCliente
@@ -38,7 +39,7 @@ public class Cine {
         Cliente clienteEncontrado = null;
 
         for (Cliente cliente : clientes) {
-            if (cliente.getDni().equals(dniCliente)) {
+            if (cliente.getDni().equalsIgnoreCase(dniCliente)) {
                 clienteEncontrado = cliente;
             }
         }
