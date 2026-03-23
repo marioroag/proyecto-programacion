@@ -228,10 +228,13 @@ public class Main {
                 leerTexto(scanner, "Tipo de entrada: "),
                 leerIntPositivo(scanner, "Número de entrada: "));
 
-        // Lo registra
-        cine.registrarCliente(clienteRegistrar);
+        // Lo registra si no está duplicado
+        if (cine.registrarCliente(clienteRegistrar)) {
+            imprimirExito("Cliente registrado con éxito!");
+        } else {
+            imprimirError("Cliente con DNI: " + clienteRegistrar.getDni() + " ya está registrado.");
+        }
 
-        imprimirExito("Cliente registrado con éxito!");
     }
 
     /**

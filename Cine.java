@@ -54,19 +54,19 @@ public class Cine {
      * @return boolean {@code true} si no esta duplicado
      */
     public boolean registrarCliente(Cliente nuevoCliente) {
-        boolean duplicado = false;
+        boolean exito = true;
 
         for (Cliente cliente : clientes) {
-            if (cliente == nuevoCliente) {
-                duplicado = true;
+            if (cliente.getDni().equalsIgnoreCase(nuevoCliente.getDni())) {
+                exito = false;
             }
         }
 
-        if (!duplicado) {
+        if (exito) {
             this.clientes.add(nuevoCliente);
         }
 
-        return duplicado;
+        return exito;
     }
 
     /**
