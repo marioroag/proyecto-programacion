@@ -143,7 +143,7 @@ public class Proyeccion {
         String estado = "";
         Butaca butacaActual;
 
-        final String GUIACOLUMNA = "     A    B    C    D    E    F    G    H    I    J    K    L    M    N    O    P    Q    R    S    T ";
+        final String GUIACOLUMNA = "     A    B    C    D    E    F    G    H    I    J    K    L    M    N    O    P    Q    R    S    T  ";
 
         final String RESET = "\u001B[0m"; // Resetea estilo
         final String BRIGHT_GREEN = "\u001B[92m"; // Color verde
@@ -167,9 +167,8 @@ public class Proyeccion {
 
                 // Guardo el ancho de la sala despues de la primera fila completa
                 if (i == 0 && j == COLUMNAS - 1) {
-                    anchoContenido = longuitudStringSinASCII(filaButacas) + 2; // +2 por ajuste contenido de el
-                                                                               // espacio de la
-                    // enumeración
+                    // +2 por ajuste contenido de el espacio de la enumeración
+                    anchoContenido = longuitudStringSinASCII(filaButacas) + 3;
 
                     espaciador = "\n║ " + " ".repeat(anchoContenido) + " ║"; // Espaciador
 
@@ -182,9 +181,9 @@ public class Proyeccion {
 
             // Última fila tiene un espacio menos porque es 10 y tiene dos digitos
             if (i < FILAS - 1) {
-                resultado += "\n║ " + (i + 1) + "  " + filaButacas + "║";
+                resultado += "\n║ " + (i + 1) + "  " + filaButacas + " ║";
             } else {
-                resultado += "\n║ " + (i + 1) + " " + filaButacas + "║";
+                resultado += "\n║ " + (i + 1) + " " + filaButacas + " ║";
             }
             filaButacas = "";
 
