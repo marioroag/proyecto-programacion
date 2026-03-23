@@ -104,7 +104,7 @@ public class Main {
                     opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "-═ [ GESTIÓN CLIENTES ] ═-");
 
                     if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
-                        registrarClienteEnProRefactorizado(scanner, cineStem);
+                        reservarButacaParaCliente(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 2) { // Cancelar asistencia
                         cancelarAsistencia(scanner, cineStem);
@@ -240,6 +240,14 @@ public class Main {
 
     }
 
+    /**
+     * Pregunta al usuario por un DNI, busca un cliente por el mismo y lo devuelve
+     * si lo encuentra
+     * 
+     * @param scanner
+     * @param cine
+     * @return Cliente encontrado
+     */
     public static Cliente obtenerCliente(Scanner scanner, Cine cine) {
         Cliente cliente = cine.buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
 
@@ -250,6 +258,14 @@ public class Main {
         return cliente;
     }
 
+    /**
+     * Pregunta al usuario por un codigo de proyección, la busca en el cine y la
+     * devuelve si la encuentra
+     * 
+     * @param scanner
+     * @param cine
+     * @return Proyeccion encontrada
+     */
     public static Proyeccion obtenerProyeccion(Scanner scanner, Cine cine) {
         Proyeccion proyeccion = cine.buscarProyeccion(leerTexto(scanner, "Código de la proyección: "));
 
@@ -260,9 +276,20 @@ public class Main {
         return proyeccion;
     }
 
-    public static void procesarResultadoReserva(ArrayList<Boolean> errores) {
+    /**
+     * Muestra diferentes mensajes en consola dependiendo de los errores del método
+     * asignarButaca()
+     * 
+     * @param errores
+     * @return
+     */
+    public static boolean procesarResultadoReserva(ArrayList<Boolean> errores) {
+        boolean exito = false;
+
+        // Mensaje diferente depende del error
         if (errores.get(0)) {
             imprimirExito("Cliente ha reservado correctamente en la butaca!");
+            exito = true;
         } else if (errores.get(1)) {
             imprimirError("La butaca no existe.");
         } else if (errores.get(2)) {
@@ -272,11 +299,23 @@ public class Main {
         } else if (errores.get(4)) {
             imprimirError("El cliente ya tiene una butaca en esta proyección.");
         }
+
+        return exito;
     }
 
+    /**
+     * Muestra una UI que muestra las butacas en una sala y permite elegir una para
+     * reservar
+     * 
+     * @param scanner
+     * @param proyeccion
+     * @param cliente
+     */
     public static void gestionarReservaButaca(Scanner scanner, Proyeccion proyeccion, Cliente cliente) {
         String idButaca;
+        boolean exito = false;
 
+        // Bucle con UI de selección de butaca
         do {
             imprimirInfo(proyeccion.mostrarButacas());
             imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
@@ -287,10 +326,10 @@ public class Main {
                 imprimirInfo("Volviendo..");
             } else {
                 ArrayList<Boolean> errores = proyeccion.asignarButaca(idButaca, cliente);
-                procesarResultadoReserva(errores);
+                exito = procesarResultadoReserva(errores);
             }
 
-        } while (!idButaca.equalsIgnoreCase("SALIR"));
+        } while (!idButaca.equalsIgnoreCase("SALIR") && !exito);
     }
 
     /**
@@ -299,7 +338,7 @@ public class Main {
      * @param scanner
      * @param cine
      */
-    public static void registrarClienteEnProRefactorizado(Scanner scanner, Cine cine) {
+    public static void reservarButacaParaCliente(Scanner scanner, Cine cine) {
         // Busca cine
         Cliente clienteRegistrar = obtenerCliente(scanner, cine);
 
@@ -312,59 +351,6 @@ public class Main {
                 gestionarReservaButaca(scanner, proyeccionRegistrar, clienteRegistrar);
             }
 
-        }
-    }
-
-    /**
-     * Pide un cliente, id y butaca y reserva su asistencia si es posible.
-     * 
-     * @param scanner
-     * @param cine
-     */
-    public static void registrarClienteEnPro(Scanner scanner, Cine cine) {
-        // Busca cine
-        Cliente clienteRegistrar = cine.buscarClientePorDni(leerTexto(scanner, "DNI del cliente a registrar: "));
-
-        // Se encontro el cliente?
-        if (clienteRegistrar != null) {
-            Proyeccion proyeccionRegistrar = cine.buscarProyeccion(
-                    leerTexto(scanner, "Código de la proyección: "));
-
-            // Se encontro la proyección?
-            if (proyeccionRegistrar != null) {
-
-                ArrayList<Boolean> errores;
-                String idButaca;
-                do {
-                    imprimirInfo(proyeccionRegistrar.mostrarButacas());
-                    imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
-                    idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
-
-                    // Intenta asignarla
-                    errores = proyeccionRegistrar.asignarButaca(idButaca, clienteRegistrar);
-
-                    if (!idButaca.equalsIgnoreCase("SALIR")) {
-                        if (errores.get(0)) {
-                            imprimirExito("Cliente registrado correctamente en la butaca " + idButaca.toUpperCase());
-                        } else if (errores.get(1)) {
-                            imprimirError("La butaca no existe.");
-                        } else if (errores.get(2)) {
-                            imprimirError("La butaca esta ocupada.");
-                        } else if (errores.get(3)) {
-                            imprimirError("La proyección ya ha terminado.");
-                        } else if (errores.get(4)) {
-                            imprimirError("El cliente ya tiene una butaca en esta proyección.");
-                        }
-                    }
-
-                } while (errores.get(0) != true && !idButaca.equalsIgnoreCase("SALIR"));
-
-            } else {
-                imprimirError("No se ha encontrado esa proyección.");
-            }
-
-        } else {
-            imprimirError("No se a encontrado un cliente con ese DNI.");
         }
     }
 
