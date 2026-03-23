@@ -12,8 +12,8 @@ public class Proyeccion {
     private LocalTime horaFin;
 
     private ArrayList<ArrayList<Butaca>> butacas;
-    final private int FILAS = 10;
-    final private int COLUMNAS = 20;
+    public static final int FILAS = 10;
+    public static final int COLUMNAS = 20;
 
     private Sala sala;
 

@@ -10,22 +10,31 @@ public class Sala {
     private ArrayList<Proyeccion> proyecciones;
 
     // [ Constructores ]
-    public Sala(int capacidad, ArrayList<Proyeccion> proyecciones) {
+    public Sala(ArrayList<Proyeccion> proyecciones) {
         setId();
-        setCapacidad(capacidad);
+        this.capacidad = capacidadMaxSala();
         this.proyecciones = proyecciones;
 
         cantidadSalas++;
     }
 
-    public Sala(int capacidad) {
+    public Sala() {
         setId();
-        setCapacidad(capacidad);
+        this.capacidad = capacidadMaxSala();
         this.proyecciones = new ArrayList<>();
         cantidadSalas++;
     }
 
     // [ Métodos ]
+    /**
+     * Devuelve la capacidad de la sala multiplicando las filas por las columnas
+     * 
+     * @return int max capacidad sala
+     */
+    public int capacidadMaxSala() {
+        return Proyeccion.FILAS * Proyeccion.COLUMNAS;
+    }
+
     /**
      * Devuelve true o false dependiendo de si hay espacio para la proyeccion
      * recibida
@@ -163,14 +172,6 @@ public class Sala {
 
     public int getCapacidad() {
         return capacidad;
-    }
-
-    public void setCapacidad(int capacidad) {
-        if (capacidad > 0) {
-            this.capacidad = capacidad;
-        } else {
-            this.capacidad = -1;
-        }
     }
 
     public ArrayList<Proyeccion> getProyecciones() {

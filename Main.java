@@ -268,7 +268,7 @@ public class Main {
                 } else if (errores.get(3)) {
                     imprimirError("El cliente ya tiene una butaca en esta proyección.");
                 } else {
-                    imprimirInfo("Cliente registrado correctamente en la butaca " + idButaca);
+                    imprimirInfo("Cliente registrado correctamente en la butaca " + idButaca.toUpperCase());
                 }
 
             } else {
