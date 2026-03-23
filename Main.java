@@ -104,7 +104,7 @@ public class Main {
                     opcionMenuClientes = leerOpcionMenu(scanner, opcionesClientes, "-═ [ GESTIÓN CLIENTES ] ═-");
 
                     if (opcionMenuClientes == 1) { // Registrar cliente en una proyección
-                        registrarClienteEnPro(scanner, cineStem);
+                        registrarClienteEnProRefactorizado(scanner, cineStem);
 
                     } else if (opcionMenuClientes == 2) { // Cancelar asistencia
                         cancelarAsistencia(scanner, cineStem);
@@ -260,8 +260,21 @@ public class Main {
         return proyeccion;
     }
 
+    public static void procesarResultadoReserva(ArrayList<Boolean> errores) {
+        if (errores.get(0)) {
+            imprimirExito("Cliente ha reservado correctamente en la butaca!");
+        } else if (errores.get(1)) {
+            imprimirError("La butaca no existe.");
+        } else if (errores.get(2)) {
+            imprimirError("La butaca esta ocupada.");
+        } else if (errores.get(3)) {
+            imprimirError("La proyección ya ha terminado.");
+        } else if (errores.get(4)) {
+            imprimirError("El cliente ya tiene una butaca en esta proyección.");
+        }
+    }
+
     public static void gestionarReservaButaca(Scanner scanner, Proyeccion proyeccion, Cliente cliente) {
-        ArrayList<Boolean> errores;
         String idButaca;
 
         do {
@@ -269,14 +282,15 @@ public class Main {
             imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
             idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
 
-            // Intenta asignarla
-            errores = proyeccion.asignarButaca(idButaca, cliente);
-
-            if (!idButaca.equalsIgnoreCase("SALIR")) {
+            // Vuelve o intenta asignar la butaca al cliente.
+            if (idButaca.equalsIgnoreCase("SALIR")) {
                 imprimirInfo("Volviendo..");
+            } else {
+                ArrayList<Boolean> errores = proyeccion.asignarButaca(idButaca, cliente);
+                procesarResultadoReserva(errores);
             }
 
-        } while (errores.get(0) != true && !idButaca.equalsIgnoreCase("SALIR"));
+        } while (!idButaca.equalsIgnoreCase("SALIR"));
     }
 
     /**
@@ -295,10 +309,9 @@ public class Main {
 
             // Se encontro la proyección?
             if (proyeccionRegistrar != null) {
-
                 gestionarReservaButaca(scanner, proyeccionRegistrar, clienteRegistrar);
-
             }
+
         }
     }
 
