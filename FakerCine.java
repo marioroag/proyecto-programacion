@@ -54,7 +54,7 @@ public class FakerCine {
 
             Sala sala = new Sala();
 
-            int horaActual = 10;
+            int horaActual = 7;
 
             while (horaActual < 22) {
 
