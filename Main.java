@@ -13,18 +13,13 @@ public class Main {
         // region [ DECLARACIONES ]
         Cine cineStem = FakerCine.generarCineFake(); // Generación de datos de un cine falso
 
-        // Cliente para teste (siempre tiene dni 123 asi que es más facil testear)
-        Cliente clientePrueba = new Cliente("Mario", "123", 21, "Premium", 0);
+        // Cliente para testear (siempre tiene dni 123 asi que es más facil testear)
+        Cliente clientePrueba = new Cliente("Mario", "12345678N", 21, "Premium", 0);
         cineStem.registrarCliente(clientePrueba);
-
-        if (clientePrueba.verificarDNI("23232")) {
-            System.out.println("BIEN");
-        } else {
-            System.out.println("MAL");
-        }
 
         Scanner scanner = new Scanner(System.in);
 
+        // Opciones el menu:
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
 
         ArrayList<String> opcionesMenu = new ArrayList<>(
