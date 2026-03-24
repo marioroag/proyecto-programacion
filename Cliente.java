@@ -21,7 +21,7 @@ public class Cliente {
      * introducido correctamente
      * 
      * @param dniComprobar
-     * @return
+     * @return true si 9 digito, 8 numeros y 1 letra
      */
     public boolean verificarDNI(String dniComprobar) {
         boolean valido = true;
@@ -34,10 +34,11 @@ public class Cliente {
             // Comprueba primeras 8 letras
             for (int i = 0; i < LONGUITUDREQUERIDA - 1 && valido; i++) {
                 if (!Character.isDigit(dniComprobar.charAt(i))) {
-                    System.out.println(dniComprobar.charAt(i));
                     valido = false;
                 }
             }
+        } else {
+            valido = false;
         }
 
         return valido;
@@ -61,10 +62,10 @@ public class Cliente {
     }
 
     public void setDni(String dni) {
-        if (!dni.isBlank() && dni != null) {
+        if (verificarDNI(dni)) {
             this.dni = dni.toUpperCase();
         } else {
-            this.dni = null;
+            this.dni = "";
         }
     }
 

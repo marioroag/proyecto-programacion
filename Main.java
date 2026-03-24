@@ -17,7 +17,7 @@ public class Main {
         Cliente clientePrueba = new Cliente("Mario", "123", 21, "Premium", 0);
         cineStem.registrarCliente(clientePrueba);
 
-        if (clientePrueba.verificarDNI("12345678N")) {
+        if (clientePrueba.verificarDNI("23232")) {
             System.out.println("BIEN");
         } else {
             System.out.println("MAL");
@@ -237,14 +237,13 @@ public class Main {
                 leerTexto(scanner, "Tipo de entrada: "),
                 leerIntPositivo(scanner, "Número de entrada: "));
 
-        String ClienteDni = clienteRegistrar.getDni();
         // Comprueba DNI válido
-        if (ClienteDni.length() == 9 && (Character.isLetter(ClienteDni.charAt(ClienteDni.length() - 1)))) {
+        if (!clienteRegistrar.getDni().isBlank()) {
             // Lo registra si no está duplicado
             if (cine.registrarCliente(clienteRegistrar)) {
                 imprimirExito("Cliente registrado con éxito!");
             } else {
-                imprimirError("Cliente con DNI: " + clienteRegistrar.getDni() + " ya está registrado.");
+                imprimirError("Cliente con DNI: '" + clienteRegistrar.getDni() + "' ya está registrado.");
             }
         } else {
             imprimirError("El DNI introducido no es invalido.");
