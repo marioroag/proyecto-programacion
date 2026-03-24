@@ -95,15 +95,9 @@ public class Sala {
 
     /**
      * Recibe una proyeccion y la elimina de la lista de proyecciones
-     * 
-     * @return boolean {@code true} Para indicar que la proyeccion se eliminó
      */
-    public boolean cancelarProyeccion(Proyeccion proyeccionEliminar) {
-        boolean exito = false;
-
+    public void cancelarProyeccion(Proyeccion proyeccionEliminar) {
         proyecciones.remove(proyeccionEliminar);
-
-        return exito;
     }
 
     /**

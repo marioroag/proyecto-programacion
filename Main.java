@@ -190,9 +190,9 @@ public class Main {
      * @param cine
      */
     public static void cancelarAsistencia(Scanner scanner, Cine cine) {
-        Proyeccion proyeccion = cine.buscarProyeccion(
-                leerTexto(scanner, "Código de la proyección: "));
+        Proyeccion proyeccion = obtenerProyeccion(scanner, cine);
 
+        // Se ha encontrado l proyección?
         if (proyeccion != null) {
             imprimirInfo(proyeccion.mostrarButacas());
 
@@ -489,15 +489,15 @@ public class Main {
      */
     public static void cancelarProyeccion(Scanner scanner, Cine cine) {
         // Busca la proyeccion
-        Proyeccion proyeccionCanelar = cine
+        Proyeccion proyeccionCancelar = cine
                 .buscarProyeccion(leerTexto(scanner, "ID de la proyección a cancelar: "));
 
         // Se encontro una proyeccion?
-        if (proyeccionCanelar != null) {
+        if (proyeccionCancelar != null) {
             // No ha terminado?
-            if (LocalTime.now().isBefore(proyeccionCanelar.getHoraFin())) {
-                Sala salaProyecion = proyeccionCanelar.getSala();
-                salaProyecion.cancelarProyeccion(proyeccionCanelar);
+            if (LocalTime.now().isBefore(proyeccionCancelar.getHoraFin())) {
+                Sala salaProyeccion = proyeccionCancelar.getSala();
+                salaProyeccion.cancelarProyeccion(proyeccionCancelar);
                 imprimirExito("Proyección cancelada con éxito!");
             } else {
                 imprimirError("No es posible cancelar una proyección ya finalizada.");

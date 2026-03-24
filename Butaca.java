@@ -11,6 +11,15 @@ public class Butaca {
         this.cliente = null;
     }
 
+    // [ Metodos ]
+    /**
+     * Libera la butaca
+     */
+    public void liberarButaca() {
+        this.ocupada = false;
+        this.cliente = null;
+    }
+
     // [ Getters y Setters ]
     public String getId() {
         return id;

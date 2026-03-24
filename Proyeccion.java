@@ -213,8 +213,7 @@ public class Proyeccion {
             errores.set(2, true); // Proyección terminada
         } else {
             // Liberar butaca
-            butaca.setOcupada(false);
-            butaca.setCliente(null);
+            butaca.liberarButaca();
         }
 
         return errores;
