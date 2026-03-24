@@ -15,6 +15,34 @@ public class Cliente {
         this.numEntrada = numEntrada;
     }
 
+    // [ Metodos ]
+    /**
+     * Comprueba la longuitud, y contenido de un string DNI para verificar que se ha
+     * introducido correctamente
+     * 
+     * @param dniComprobar
+     * @return
+     */
+    public boolean verificarDNI(String dniComprobar) {
+        boolean valido = true;
+
+        int longDNI = dniComprobar.length();
+        final int LONGUITUDREQUERIDA = 9;
+
+        // Tiene 9 digitos y el último es una letra?
+        if (longDNI == LONGUITUDREQUERIDA && Character.isLetter(dniComprobar.charAt(LONGUITUDREQUERIDA - 1))) {
+            // Comprueba primeras 8 letras
+            for (int i = 0; i < LONGUITUDREQUERIDA - 1 && valido; i++) {
+                if (!Character.isDigit(dniComprobar.charAt(i))) {
+                    System.out.println(dniComprobar.charAt(i));
+                    valido = false;
+                }
+            }
+        }
+
+        return valido;
+    }
+
     // region [ Getters y Setters ]
     public String getNombre() {
         return nombre;

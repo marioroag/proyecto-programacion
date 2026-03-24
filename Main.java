@@ -17,6 +17,12 @@ public class Main {
         Cliente clientePrueba = new Cliente("Mario", "123", 21, "Premium", 0);
         cineStem.registrarCliente(clientePrueba);
 
+        if (clientePrueba.verificarDNI("12345678N")) {
+            System.out.println("BIEN");
+        } else {
+            System.out.println("MAL");
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         int opcionMenuPrincipal, opcionMenuCine, opcionMenuSalas, opcionMenuPeliculas, opcionMenuClientes;
@@ -345,7 +351,7 @@ public class Main {
      * @param cine
      */
     public static void reservarButacaParaCliente(Scanner scanner, Cine cine) {
-        // Busca cine
+        // Busca cliente
         Cliente clienteRegistrar = obtenerCliente(scanner, cine);
 
         // Se encontro el cliente?
