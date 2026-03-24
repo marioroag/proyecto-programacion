@@ -495,7 +495,7 @@ public class Main {
         // Se encontro una proyeccion?
         if (proyeccionCancelar != null) {
             // No ha terminado?
-            if (LocalTime.now().isBefore(proyeccionCancelar.getHoraFin())) {
+            if (!proyeccionCancelar.haTerminado()) {
                 Sala salaProyeccion = proyeccionCancelar.getSala();
                 salaProyeccion.cancelarProyeccion(proyeccionCancelar);
                 imprimirExito("Proyección cancelada con éxito!");

@@ -73,7 +73,7 @@ public class Proyeccion {
             errores.set(1, true); // No se encontró
         } else if (butaca.isOcupada()) {
             errores.set(2, true); // Ocupada
-        } else if (horaFin.isBefore(LocalTime.now())) {
+        } else if (haTerminado()) {
             errores.set(3, true); // Proyeccion ha terminado
         } else {
             // Busca duplicados
@@ -196,6 +196,21 @@ public class Proyeccion {
     }
 
     /**
+     * Devuelve true si la proyeccion ha terminado
+     * 
+     * @return Boolean
+     */
+    public boolean haTerminado() {
+        boolean terminada = false;
+
+        if (horaFin.isBefore(LocalTime.now())) {
+            terminada = true;
+        }
+
+        return terminada;
+    }
+
+    /**
      * Cancela la asistencia de un cliente de una proyección liberando la butaca.
      * 
      * @param Butaca Butaca
@@ -209,7 +224,7 @@ public class Proyeccion {
             errores.set(0, true); // Butaca no existe
         } else if (!butaca.isOcupada()) {
             errores.set(1, true); // Ya esta libre
-        } else if (horaFin.isBefore(LocalTime.now())) {
+        } else if (haTerminado()) {
             errores.set(2, true); // Proyección terminada
         } else {
             // Liberar butaca
