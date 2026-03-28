@@ -1,4 +1,3 @@
-import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +10,7 @@ public class Main {
         // ==================
 
         // region [ DECLARACIONES ]
-        Cine cineStem = FakerCine.generarCineFake(); // Generación de datos de un cine falso
+        Cine cineStem = FakerCine.generarCineFake(10, 50, 4); // Generación de datos de un cine falso
 
         // Cliente para testear (siempre tiene dni 123 asi que es más facil testear)
         Cliente clientePrueba = new Cliente("Mario", "12345678N", 21, "Premium", 0);
@@ -190,30 +189,44 @@ public class Main {
      * @param cine
      */
     public static void cancelarAsistencia(Scanner scanner, Cine cine) {
+        boolean exito = false;
+        String idButaca = "";
+        String mensajeError = "";
         Proyeccion proyeccion = obtenerProyeccion(scanner, cine);
 
-        // Se ha encontrado l proyección?
+        // Se ha encontrado la proyección?
         if (proyeccion != null) {
-            imprimirInfo(proyeccion.mostrarButacas());
+            do {
+                imprimirInfo(proyeccion.mostrarButacas());
+                if (!exito && !idButaca.isEmpty()) {
+                    imprimirError(mensajeError);
+                }
+                imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
+                idButaca = leerTexto(scanner, "ID de la butaca a cancelar (ej: 5A, 10B): ");
 
-            String idButaca = leerTexto(scanner, "ID de la butaca a cancelar (ej: 5A, 10B): ");
-            Butaca butacaCliente = proyeccion.buscarButaca(idButaca);
+                Butaca butacaCliente = proyeccion.buscarButaca(idButaca);
 
-            ArrayList<Boolean> errores = proyeccion.cancelarAsistencia(butacaCliente);
-
-            if (errores.get(0)) {
-                imprimirError("La butaca no existe.");
-            } else if (errores.get(1)) {
-                imprimirError("La butaca ya está libre.");
-            } else if (errores.get(2)) {
-                imprimirError("La proyección ha finalizado.");
-            } else {
-                imprimirExito("Asistencia cancelada con éxito.");
-            }
-
+                // Vuelve o intenta asignar la butaca al cliente.
+                if (idButaca.equalsIgnoreCase("SALIR")) {
+                    imprimirInfo("Volviendo..");
+                } else {
+                    ArrayList<Boolean> errores = proyeccion.cancelarAsistencia(butacaCliente);
+                    if (errores.get(0)) {
+                        mensajeError = "La butaca no existe.";
+                    } else if (errores.get(1)) {
+                        mensajeError = "La butaca ya está libre.";
+                    } else if (errores.get(2)) {
+                        mensajeError = "La proyección ha finalizado.";
+                    } else {
+                        imprimirExito("Asistencia cancelada con éxito.");
+                        exito = true;
+                    }
+                }
+            } while (!idButaca.equalsIgnoreCase("SALIR") && !exito);
         } else {
             imprimirError("No se encontró una proyección con ese código.");
         }
+
     }
 
     /**
@@ -317,20 +330,22 @@ public class Main {
      * @param proyeccion
      * @param cliente
      */
+    // TODO: TERMINAR RECARGA BUTACAS Y DEJAR ELEGIR MOSTRANDO EL ERROR CADA VEZ
+    // ABAJO, (COMO EN CANCELAR PROYECCION)
     public static void gestionarReservaButaca(Scanner scanner, Proyeccion proyeccion, Cliente cliente) {
-        String idButaca;
+        String idButaca = "";
         boolean exito = false;
 
         // Bucle con UI de selección de butaca
         do {
-            imprimirInfo(proyeccion.mostrarButacas());
-            imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
-            idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
 
             // Vuelve o intenta asignar la butaca al cliente.
             if (idButaca.equalsIgnoreCase("SALIR")) {
                 imprimirInfo("Volviendo..");
             } else {
+                imprimirInfo(proyeccion.mostrarButacas());
+                imprimirPrompt("Introduce (SALIR) para cancelar el registro.\n");
+                idButaca = leerTexto(scanner, "Elige una butaca (ej: 7A): ");
                 ArrayList<Boolean> errores = proyeccion.asignarButaca(idButaca, cliente);
                 exito = procesarResultadoReserva(errores);
             }
@@ -554,13 +569,12 @@ public class Main {
 
         do {
             imprimirPrompt(mensaje);
-            if (scanner.hasNextInt()) {
-                num = scanner.nextInt();
-                scanner.nextLine(); // limpiar buffer
+            String input = scanner.nextLine().trim(); // leer siempre como String
+            try {
+                num = Integer.parseInt(input); // intentar convertir
                 intValido = true;
-            } else {
+            } catch (NumberFormatException e) {
                 imprimirError("Introduce un número entero válido.");
-                scanner.nextLine(); // limpiar buffer
             }
         } while (!intValido);
 
