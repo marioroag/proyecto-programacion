@@ -139,11 +139,12 @@ public class Cine {
             for (Proyeccion proyeccion : sala.getProyecciones()) {
 
                 if (proyeccion.getPelicula().equals(pelicula)) {
-                    resultado += "Sala: " + sala.getId() + " | "
+                    resultado += "\nSala: " + sala.getId() + " | "
                             + proyeccion.getHoraInicio() + " - "
-                            + proyeccion.getHoraFin() + "\n";
+                            + proyeccion.getHoraFin();
 
                     encontrada = true;
+
                 }
             }
         }

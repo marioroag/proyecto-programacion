@@ -389,7 +389,7 @@ public class Main {
 
         // Muestra sus proyecciones
         if (peliculaBuscar != null) {
-            imprimirInfo("[ Proyecciones de " + peliculaBuscar.getTitulo() + " ]\n"
+            imprimirInfo("[ Proyecciones de " + peliculaBuscar.getTitulo() + " ]"
                     + cine.mostrarProyeccionesPelicula(peliculaBuscar));
 
         } else {
