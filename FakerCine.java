@@ -29,13 +29,13 @@ public class FakerCine {
     // =========================
     // 🎬 MÉTODO PRINCIPAL
     // =========================
-    public static Cine generarCineFake() {
+    public static Cine generarCineFake(int numPeliculas, int numClientes, int numSalas) {
 
         Cine cine = new Cine("Cine STEM", "Granada", "España");
 
         // 🎥 Películas
         ArrayList<Pelicula> pelis = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < numPeliculas; i++) {
             Pelicula p = generarPelicula();
             pelis.add(p);
             cine.agregarPelicula(p);
@@ -43,14 +43,14 @@ public class FakerCine {
 
         // 👤 Clientes
         ArrayList<Cliente> clientes = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < numClientes; i++) {
             Cliente c = generarCliente(i + 1);
             clientes.add(c);
             cine.registrarCliente(c);
         }
 
         // 🏟️ Salas + Proyecciones
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < numSalas; i++) {
 
             Sala sala = new Sala();
 
@@ -78,7 +78,7 @@ public class FakerCine {
                     llenarProyeccion(proy, clientes);
 
                     // siguiente con margen
-                    horaActual += duracionHoras + 1;
+                    horaActual += duracionHoras + 0.8;
 
                 } else {
                     horaActual++;
